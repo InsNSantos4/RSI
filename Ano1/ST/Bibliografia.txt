@@ -1,0 +1,67 @@
+Serviços Telemáticos
+Objetivos
+• Conceber, instalar e administrar serviços Web, através de aplicações nativas ou recorrendo a Content Management Systems
+• Planear, instalar e administrar serviços de correio eletrónico e aplicações de trabalho colaborativo
+• Conceber, instalar e manter serviços de voz em IP, e serviços de mensagens instantâneas
+• Planear, instalar e manter soluções de partilha de ficheiros e de impressão em redes com diferentes sistemas operativos
+• Planear e operacionalizar soluções de diferenciação de tráfego, oferecendo garantias de qualidade de serviço
+
+Resultados de Aprendizagem
+No final da leccionação o aluno deve:
+
+Conceber, instalar e administrar serviços Web, através de aplicações nativas ou recorrendo a Content Management Systems
+Planear, instalar e administrar serviços de correio eletrónico e aplicações de trabalho colaborativo
+Conceber, instalar e manter serviços de voz em IP, e serviços de mensagens instantâneas
+Planear, instalar e manter soluções de partilha de ficheiros e de impressão em redes com diferentes sistemas operativos
+Planear e operacionalizar soluções de diferenciação de tráfego, oferecendo garantias de qualidade de serviço
+Requisitos
+Não tem.
+
+Avaliação
+Avaliação discreta:
+
+50.00% TP (Exame escrito)
+10.00% TP (Trabalhos laboratoriais)
+40.00% TP (Miniprojeto)
+Avaliação Final:
+
+50.00% TP (Exame escrito)
+50.00% TP (trabalho laboratorial)
+Metodologia
+Aulas incluem breve apresentação acerca do tema da aula e o desenvolvimento de um trabalho 
+laboratorial descrito no guião da aula.
+
+Conteúdos
+1. Arquiteturas de comunicação
+- Pilhas protocolares proprietárias e abertas
+- Modelos OSI e TCP-IP
+2. Serviços de rede
+- Protocolo HTTP
+- Content Management Systems
+- Proxies HTTP e reverse Proxies
+- Sistemas de bases de dados
+- Configuração segura de serviços HTTP e DNS
+- Serviço de tradução de nomes (DNS)
+3. Camada de aplicação
+- Comunicação entre aplicações através de sockets
+- Trivial File Transfer Protocol (TFTP) vs. File Transfer Protocol (FTP)
+- Comunicações Web (HTTP)
+4. Correio eletrónico
+- Soluções de correio eletrónico
+- Soluções de colaboração
+- Serviços seguros de Email
+- Configuração segura de serviço de Email
+5. Serviço de tradução de nomes
+- Protocolo de DNS
+- Configuração segura do serviço de DNS
+6. Serviço de Atribuição endereços de rede
+- Protocolo DHCP
+- Rogue DHCP e segurança nos serviços de DHCP
+7. Serviços de partilha e de impressão
+- Windows e Linux (i.e. SMB e SAMBA4)
+
+Bibliografia recomendada
+• António Nogueira, Paulo Salvador, "A Practical Approach to Corporate Networks Engineering", River Publishers, 2013
+• Edmundo Monteiro, Fernando Boavida, "Engenharia de Redes Informáticas - 10ª Edição Atualizada e Aumentada", FCA, 2011
+• Evi Nemeth Garth Snyder Trent R. Hein Ben Whaley, "UNIX and Linux System Administration handbook", Prentice Hall, 2001
+• John Tiso, "Designing Cisco Network Service Architectures (ARCH) -  3rd Edition", Cisco Press, 2011

@@ -1,0 +1,50 @@
+Introdução à Programação
+
+Objetivos
+Desenvolver algoritmos para a solução de problemas específicos
+Implementar programas e scripts utilizando uma linguagem de programação
+Fazer depuração de programas informáticos
+
+
+ANO LETIVO 2021/2022
+Resultados de Aprendizagem
+No final da lecionação o estudante deve ser capaz de:
+
+Desenvolver algoritmos para a solução de problemas específicos
+Implementar programas e scripts utilizando uma linguagem de programação
+Fazer depuração de programas informáticos
+Requisitos
+Não tem.
+
+Avaliação
+Avaliação discreta:
+40.00% TP Prova escrita final
+30.00% TP Prova escrita intermédia 1
+30.00% TP Prova escrita intermédia 2
+Avaliação Final:
+100.00% TP Prova escrita
+Nesta unidade curricular não há obrigatoriedade de frequência das aulas.
+
+Metodologia
+Aulas teórico-práticas envolvendo resolução assistida e autónoma de problemas e exposição 
+de conceitos relacionados.
+
+Conteúdos
+Noções básicas sobre algoritmia e programação
+Introdução a uma linguagem de programação: tipos de dados e operadores, estruturas de 
+decisão, estruturas de repetição e vetores
+Funções
+Classes
+
+Bibliografia base
+Codeavengers: https://www.codeavengers.com/
+
+Bibliografia recomendada
+Allen Downey (2012), “Think Python 2e - How to Think Like a Computer Scientist”, Green Tea Press
+David Griffiths, Paul Barry (2009), “Head First Programming”, O'Reilly Media
+Codeavengers: https://www.codeavengers.com/
+Think Python 2e: http://greenteapress.com/wp/think-python-2e/
+How to Think Like a Computer Scientist: Learning with Python 3: http://openbookproject.net/thinkcs/python/english3e/
+Learn Python: http://www.learnpython.org/
+Python Docs: http://docs.python.org/
+Code Like a Pythonist: http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html
