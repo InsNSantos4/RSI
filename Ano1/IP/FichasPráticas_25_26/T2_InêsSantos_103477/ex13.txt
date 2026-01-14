@@ -1,0 +1,25 @@
+Identifique os erros que o interpretador Python apontaria ao tentar executar as
+seguintes instruções:
+
+a. print("4"+3)
+
+TypeError: can only concatenate str (not "int") to str
+É um tipo de Runtime Error.
+
+b. n=input(""), print(n)
+
+NameError: name 'n' is not defined
+É um tipo de Runtime Error.
+Mas penso que tmb é Syntax Error porque não se podem ter duas instruções numa só linha
+
+c. n=5
+print("Output\n"n)
+
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+d. a=input("a?")
+b=3
+print("Soma= ", a+b))
+
+SyntaxError: unmatched ')'
+

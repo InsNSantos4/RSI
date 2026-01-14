@@ -1,0 +1,9 @@
+5. Identifique os erros de compilação que seriam detetados no programa seguinte:
+
+if x = = 0;
+    print(“X é zero\n”)
+else
+    print(“X não é zero\n”)
+
+SyntaxError: invalid syntax, para o if x == 0 e para o else; faltam os dois pontos à frente das condições, nos dois casos.
+

@@ -1,0 +1,17 @@
+2. Existe alguma diferença no funcionamento dos seguintes extratos de código?
+
+
+if x == 0:
+print(“X”)
+else:
+print(“Y”)
+
+
+if x = 0:
+print(“X”)
+else:
+print(“Y”)
+
+
+Sim. A diferença é que, no 1º trecho de código, é avaliado no "if" se a variável x é igual a 0 (de acordo com o operador de comparação ==), se for verdade, mostra "X" na saída, caso contrário mostra "Y".
+Enquanto que no 2º trecho encontra-se um erro: não é possível realizar a operação de atribuição de um valor a uma variável dentro da condição "if".

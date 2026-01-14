@@ -1,0 +1,9 @@
+-- Media de idades –-
+Global: 35.7
+Mulheres: 29.0
+Homens: 44.7
+
+-- Media de pesos –-
+Global: 64.6
+Mulheres: 57.0
+Homens: 74.7
