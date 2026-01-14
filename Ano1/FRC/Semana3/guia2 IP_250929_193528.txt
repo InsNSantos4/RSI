@@ -1,0 +1,54 @@
+Parte 1:
+
+1.
+
+
+
+Tabela de encaminhamento do Router:
+
+
+
+
+
+
+
+
+Parte 2 (continuação):
+
+1. Tabela de encaminhamento do Router:
+
+
+
+
+
+
+
+
+
+2. O ping do PC1 para o PC2 tem como resultado "host unreacheable" porque o PC1 não sabe como chegar à rede 192.168.2.0. Ainda não foi configurada a default gateway  nos PCs (interface do router na LAN correspondente), em que o router vai ser responsável por encaminhar o tráfego entre redes diferentes.
+
+
+
+
+3. O ping deu "host unreacheable" de novo porque o ping testa "two-way conectivity", mas o PC2 não tem conhecimento de como chegar à rede onde se encontra o PC1 (apesar de o PC1 saber como chegar à rede do PC2 através da sua default gateway)
+
+
+4. Já existe conectividade entre os PCs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Não aparece nada nos campos dos pacotes ICMP Echo Request e ICMP Echo Reply que circulam na rede do lado do PC não configurado com a sua Default Gateway, porque como o tráfego é feito entre redes diferentes da LAN em que está o PC3 (o tráfego é entre as LANs do PC1 e PC2). Por isso, não aparece nenhum tráfego na captura do lado do PC não configurado.
+
+
+
