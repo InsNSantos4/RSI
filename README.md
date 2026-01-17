@@ -1,1 +1,1 @@
-Networks and Computer Systems course at ESTGA, University of Aveiro
+Professional Higher Technical Course in Computer Networks and Systems at ESTGA, University of Aveiro
