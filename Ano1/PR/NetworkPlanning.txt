@@ -1,0 +1,56 @@
+Planeamento de Redes
+
+Objetivos
+• Planear, desenhar, dimensionar, instalar e administrar infraestruturas de rede empresariais, efectuado a escolha de equipamentos para cumprimento de requisitos
+• Conceber, instalar e administrar mecanismos de comutação em redes locais, garantindo oferta redundante e mecanismos de segurança adequados aos requisitos da organização
+• Planear, desenhar, instalar e administrar mecanismos de encaminhamento de redes pertencentes a uma organização
+• Desenhar, dimensionar, instalar e administrar redes sem fios, garantindo requisitos de cobertura rádio
+
+Resultados de Aprendizagem
+• Planeiar, desenhar, dimensionar, instalar e administrar infraestruturas de rede empresariais, efetuado escolha de equipamentos para cumprimento de requisitos
+
+• Conceber, instalar e administrar mecanismos de comutação em redes locais, garantindo oferta redundante e mecanismos de segurança adequados aos requisitos da organização
+
+• Planeiar, desenhar, instalar e administrar mecanismos de encaminhamento de redes pertencentes a uma organização
+
+Requisitos
+Sem pre-requisitos.
+
+Avaliação
+Avaliação discreta:
+
+50.00% TP (Exame escrito)
+20.00% TP (Trabalho nas aulas)
+40.00% TP (Miniprojeto)
+Avaliação Final:
+
+50.00% TP (Exame escrito)
+50.00% TP (trabalho laboratorial)
+Metodologia
+
+Aulas teórico-práticas envolvendo desenvolvimento assistido e autónomo de trabalhos relacionados e a exposição de conceitos relacionados.
+
+Conteúdos
+1. Noções de arquitetura de redes empresariais:
+• organização hierárquica em camadas
+• necessidade de redundância nas diversas camadas.
+2. Projeto e dimensionamento de rede:
+• modelo de desenho de rede (acesso, distribuição, núcleo)
+• critérios de dimensionamento de redes
+• critérios de escolha de equipamentos.
+3. Redes Ethernet:
+• redes locais virtuais (VLAN)
+• soluções de trunking e comutação de VLANs
+• redundância em redes locais (spanning-tree)
+4. Encaminhamento na camada de rede:
+• protocolos de encaminhamento do tipo distance-vector (RIPv1, RIPv2, RIPng)
+• protocolos de encaminhamento do tipo link-state (OSPF, OSPFv2 e OSPFv3)
+5. Redes sem fios:
+• planeamento de redes IEEE 802.11 (dimensionamento da rede e levantamento de cobertura rádio)
+• redes de curto alcance: WPANs, Bluetooth, Zigbee.
+
+Bibliografia recomendada
+• António Nogueira, Paulo Salvador, "A Practical Approach to Corporate Networks Engineering", River Publishers, 2013
+• Edmundo Monteiro, Fernando Boavida,  "Engenharia de Redes Informáticas - 10ª Edição Atualizada e Aumentada", FCA, 2011
+• John Tiso, Cisco Press, "Designing Cisco Network Service Architectures (ARCH) -  3rd Edition", Cisco Press, 2011
+• Jeff Doyle, Jennifer Carroll, "Routing TCP/IP - Volume 1 (CCIE Professional Development) - 2nd edition", Cisco Press, 2005

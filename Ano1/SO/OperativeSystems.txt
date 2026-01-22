@@ -1,0 +1,48 @@
+Sistemas Operativos
+
+Objetivos
+Competências base em sistemas operativos;
+Capacidade de utilização e administração de sistemas Unix;
+Compreensão dos fundamentos de programação sistema em Unix.
+Resultados de Aprendizagem
+Compreender o funcionamento base de sistemas operativos geral;
+Compreender e planear, configurar e administrar em linha de comandos sistemas Unix;
+Compreender, planear e desenvolver bash Shell scripts;
+Compreender os princípios básicos do desenvolvimento de aplicações para ambiente Unix em C.
+Requisitos
+Para obter frequência os alunos têm de atingir um mínimo de 75% de presenças no conjunto das aulas teóricas, teórico-práticas e laboratoriais.
+São dispensados de obtenção de frequência os seguintes alunos: trabalhadores estudantes, dirigentes associativos, bombeiros, alunos enquadrados noutras situações previstas na lei, no regulamento de funcionamento dos CTeSPs, ou em situação de falta justificada por motivo de doença ou apoio à família, desde que devidamente comprovada.
+
+Avaliação
+Avaliação discreta
+Teste 1 (15%)
+Teste 2/Trabalho (25%)
+Teste 3/Trabalho (25%)
+Test4/Exame (35%)
+
+Avaliação final
+Exame (100.00%)
+
+Metodologia
+As metodologias de ensino estão orientadas segundo dois tipos de aulas: teóricas e laboratoriais;
+Nas aulas teóricas é utilizado essencialmente o método expositivo para apresentação dos conceitos, dos princípios e dos mecanismos, e das suas formas de aplicação.
+Nas aulas práticas é feita a aplicação dos conceitos através de exercícios guiados onde os alunos consolidam as competências e adquirem competências de autonomia e tomada de. É também feita uma exposição complementar às aulas teóricas.
+
+Conteúdos
+Fundamentos de sistemas operativos. Objectivos e componentes do sistema. Gestão da máquina, de Processos e de Utilizadores. Níveis de privilégios.
+Fundamentos sobre sistemas operativos Unix/Linux: Arquitectura. Componentes.
+Sistema de ficheiros Unix. Permissões e segurança. Gestão de utilizadores. Ficheiros de configuração.
+Instalação e configuração de sistemas Unix/Linux. Utilização Unix/Linux em linha de comandos. Comandos para: manipulação e gestão de ficheiros, manipulação e extração de informação em ficheiros de texto. Redireccionamento. Comandos para gestão da máquina e para gestão de utilizadores. Configuração do ambiente de trabalho em linha de comandos.
+Programação em Bash Script. Automação de tarefas em Unix através de Bash Script.
+Escalonamento. Gestão do processador. Algoritmos de escalonamento.
+Programação em C para ambiente Unix: Gestão de processos. Sinais. Ficheiros. Redireccionamento.
+
+Bibliografia recomendada
+Abraham Silberschatz, Peter B. Galvin, Greg Gagne, "Operating System Concepts", 10th Edition, Wiley, 2018
+José Alves Marques; Paulo Guedes, Fundamentos de Sistemas Operativos (3ª Ed.), Editorial Presença
+José Marques; Paulo Ferreira; Carlos Godinho; Luís Veiga; Rodrigo Rodrigues, Sistemas Operativos, FCA
+João Garrott; Jorge Amador; João Castro, UNIX Curso Completo, FCA
+Neil Mathew, Richard Stones, Beginning Linux Programming, Wrok Press
+Operating Sstems Concepts; Silberschatz & Galvin
+João Durães, elementos bibliográficos de Sistemas Operativos LEI-ISEC e CTeSP RSI – ISEC
+Filipe Cardoso e António Godinho, elementos bibliográficos de Sistemas Operativos CTeSP RSI – ISEC
