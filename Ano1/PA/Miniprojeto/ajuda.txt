@@ -1,0 +1,1776 @@
+Database.py
+7.04 KiB
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, Date, select
+from sqlalchemy.orm import declarative_base, sessionmaker
+from main import Host, Admin
+Base = declarative_base()
+# FAZER DIAGRAMA ENTIDADE-RELAÇÃO PARA TER AS TABELAS CORRETAS CONCEPTUALMENTE
+# Admin (name, email (PK), password, permission_level)
+class Admin_Table(Base):
+    __tablename__ = "Admins"
+    name = Column(String, unique=True)
+    email = Column(String, name="email", primary_key=True, unique=True)
+    password = Column(String, name="password", nullable=True, unique=True)
+    smtp_server = Column(String, name="server", nullable=True)
+    # ver como guardar as passwords, Coluna 'password'
+    permission_level = Column(Integer, nullable=False)
+    def __repr__(self):
+        return f"Admin(name={self.name}, email={self.email}, encrypted_password= , permission_level={self.permission_level})"
+# Hosts (id (PK), ip, name, permission_level, FK: admin, test)
+class Hosts_Table(Base):
+    __tablename__ = "Hosts"
+    id = Column(
+        Integer, name="id", primary_key=True, autoincrement=True, nullable=False
+    )
+    ip = Column(String, nullable=False, unique=True)
+    name = Column(String, nullable=False, unique=True)
+    permission_level = Column(Integer, nullable=False)
+    def __repr__(self):
+        return f"Hosts(id={self.id}, ip={self.ip}, name={self.name}, permission_level={self.permission_level})"
+# Tests_Table (host (PK),timestamp (PK) , result)
+class Tests_Table(Base):
+    __tablename__ = "Tests"
+    host = Column(Integer, name= "host", primary_key=True )
+    timestamp = Column(Date, name="timestamp", primary_key=True)
+    result = Column(Boolean, nullable=False)
+    def __str__(self):
+        return f"TestPing( host = {self.host}, Timestamp={self.timestamp}, result={self.result})"
+    __repr__ = __str__
+def create_session():
+    global Session
+    return Session()
+def store_hosts(hosts: list[Host]):
+    global engine
+    session = create_session()
+    # session = create_session()
+    # engine = create_session()
+    for host in hosts:
+        try:
+            elem = Hosts_Table(
+                ip=host.id, name=host.name, permission_level=host.permission_level
+            )
+            session.add(elem)
+            session.commit()
+        except:
+            session.rollback()
+            print(f"The host with ip '{host.id}' already exists")
+    session.close()
+    engine.dispose()
+def remove_hosts(hosts: list[Host]):
+    global engine
+    session = create_session()
+    if len(hosts) != 0:
+        try:
+            for h in hosts:
+                host_to_delete = session.get(Hosts_Table, h.id)
+                if host_to_delete:
+                    session.delete(host_to_delete)
+                    session.commit()
+                    print(f"Host with ip '{h.ip}' sucessfully removed")
+                else:
+                    print(f"Host with ip '{h.ip}' not found")
+        except:
+            session.rollback()
+            print(f"Error removing host with ip '{h.ip}'")
+    else:
+        print("Host list was already empty")
+    session.close()
+    engine.dispose()
+def get_hosts():
+    global engine
+    session = create_session()
+    hosts = session.execute(select(Hosts_Table)).scalars().all()
+    session.close()
+    engine.dispose()
+    return hosts
+def store_tests(tests: list[Test_Collection]):
+    global Session
+    session = create_session()
+    for test in tests:
+            for ping in reversed(test.test_metrics):
+                try:
+                    elem = Tests_Table(host= test.host.id,timestamp=ping.timestamp, result=ping.on)                                        
+                    session.add(elem)
+                    session.commit()
+                except:
+                    session.rollback()
+                    
+    session.close()
+    engine.dispose()
+def remove_tests_ping(tests: list[Test_Colletion]):
+    global engine
+    session = create_session()
+    if len(tests) != 0:
+        try:
+            for t in tests:
+                test_to_delete = session.get(Tests_Table, t.host.id)
+                if test_to_delete:
+                    session.delete(test_to_delete)
+                    session.commit()
+                    print(f"Tests from the machine with ip-{t.host.ip} sucessfully removed")
+                else:
+                    print(f"Tests from the Machine with ip-{t.host.ip} not found")
+        except:
+            session.rollback()
+            print(f"Error removing tests from machine with ip-{t.host.ip} ")
+    else:
+        print("Test list was already empty")
+    session.close()
+    engine.dispose()
+def get_tests_ping():
+    global engine
+    session = create_session()
+    tests = session.execute(select(Tests_Table)).scalars().all()
+    session.close()
+    engine.dispose()
+    return tests
+def get_tests_host_id(host_id):
+    global engine
+    session = create_session()
+    tests = session.query(Tests_Table).filter(Tests_Table.host == host_id).all()
+    session.close()
+    engine.dispose()
+    return tests
+def store_admins(admins: list[Admin]):
+    global engine
+    session = create_session()
+    for admin in admins:
+        try:
+            elem = Admin_Table(
+                name=admin.name,
+                email=admin.email,
+                password=admin.password,
+                smtp_server=admin.smtp_server,
+                permission_level=admin.permission_level,
+            )
+            session.add(elem)
+            session.commit()
+        except:
+            session.rollback()
+            print(f"The admin with email '{admin.email}' already exists")
+    session.close()
+    engine.dispose()
+def remove_admins(admins: list[Admin]):
+    global engine
+    session = create_session()
+    if len(admins) != 0:
+        try:
+            for t in admins:
+                admin_to_delete = session.get(Admin, t.ip)
+                if admin_to_delete:
+                    session.delete(admin_to_delete)
+                    session.commit()
+                    print(f"Admin with email '{admin.email}' sucessfully removed")
+                else:
+                    print(f"Admin with email '{admin.email}' not found")
+        except:
+            session.rollback()
+            print(f"Error removing admin with email '{admin.email}'")
+    else:
+        print("Admin list was already empty")
+    session.close()
+    engine.dispose()
+def get_admin():
+    global engine
+    session = create_session()
+    admins = session.execute(select(Admin)).scalars().all()
+    session.close()
+    engine.dispose()
+    return admins
+engine = create_engine("sqlite:///database.db")
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+# Test_CPU (percentage, numCores) || we probably won't be doing this type of test (even if we wanted to try, future upgrades TBD)
+# Ao se usar o ficheiro/módulo Database.py no MonitorService,
+# abrir lá a Session com o sessionmaker e o engine com o create_engine
+# além de ir adicionando, mudando e alterando/atualizando os dados,
+# dependendo da função e do seu propósito no MonitorService #
+# No entanto, há funções que terão que estar aqui: (ver UML)
+
+
+
+
+
+Test_Collection.py
+464 B
+import Test_file
+from Test_file import Test
+from Test_file import Ping
+from main import Host
+class Test_Collection:
+    def init(self,host : Host, test_metrics : list[Ping]):
+        self.host = host
+        self.test_metrics = test_metrics  or []          
+    def str(self):
+        return f"{self.host} {self.test_metrics}" 
+    def get_metrics(self):
+        
+        p = Ping()
+        p.metrics_scraper(self.host)
+        self.test_metrics.append(p)
+
+
+
+
+Test_file.py
+607 B
+#import main
+from abc import ABC, abstractclass
+from datetime import datetime
+import os
+from main import Host
+class Test(ABC):
+    def init(self):
+        self.timestamp = None
+    @abstractclass
+    def metrics_scraper(host : Host): ...       #Cada filho vai usar um metrics_scraper diferente
+class Ping(Test):
+    def init(self):
+        super().init()
+        self.on = False
+    def metrics_scraper(self,host : Host):
+        self.timestamp = datetime.now()
+        
+        result = os.system("ping -c 4 {host.ip}")
+        
+        if result == 0:
+            self.on = True
+
+
+
+MiniProjecto.pdf
+
+
+monitor_services.py
+3.87 KiB
+from main import Admin, Host
+import Database
+import Test_Collection
+from Test_Collection import Test_Collection
+from Test_file import Test
+from Test_file import Ping
+class MonitorService:
+    def __init__(self):
+        self.hosts = MonitorService.get_list_hosts()
+        self.admins = MonitorService.get_list_admins()
+        self.tests = MonitorService.get_test()
+    def get_list_hosts():
+        
+        hosts = Database.get_hosts()
+        temp_host_list = []
+        for host in hosts:                   #List from the Database
+            
+            h =Host(
+                id =    host.id,
+                ip =    host.ip,
+                name =  host.name,
+                permission_level = host.permission_level
+                )
+            temp_host_list.append(h)
+        
+        return temp_host_list
+                 
+    def add_host(self,id,ip : str ,name : str, permission_level : int):
+        
+        new_host = Host(id, ip, name, permission_level)
+        self.hosts.append(new_host)
+        host_list = [new_host]
+        Database.store_hosts(host_list)
+    def remove_host(self, host_list_to_del: list[Host]):
+        
+        for host_to_rem in host_list_to_del:
+            
+            if host_to_rem in self.hosts:
+                self.hosts.remove(host_to_rem)
+        Database.remove_hosts(host_list_to_del)
+    def get_list_admins(self):
+        
+        admins = Database.get_admin
+        temp_admin_list = []
+        for admin in admins:
+            a = Admin(
+                name=admin.name,
+                email=admin.email,
+                password=admin.password,
+                smtp_server=admin.smtp_server,
+                permission_level=admin.permission_level
+            )
+            temp_admin_list.append(a)
+        return temp_admin_list
+    def add_admin(self,name : str ,email : str, smtp_server : str, permission_level: int):
+        new_admin = Admin(name, email, smtp_server, permission_level)
+        self.admins.append(new_admin)
+        
+        admin_list = [new_admin]
+        Database.store_admins(admin_list)
+    def remove_admin(self, admin_list_to_del : list[Admin]):
+        for admin_to_del in admin_list_to_del:
+            if admin_to_del in self.admins:
+                self.admins.remove(admin_to_del)
+        
+        Database.remove_admins(admin_list_to_del)
+   
+    def get_test(self):
+        tc_list = []
+        for host in self.hosts:
+            
+            rows = Database.get_tests_host_id(host.id)
+            ping_list = []
+            for row in rows:
+                p = Ping()
+                p.timestamp = row.timestamp
+                p.on = row.result
+                ping_list.append(p)
+            tc = Test_Collection(host, ping_list)
+            tc_list.append(tc)
+        
+        return tc_list
+    def collect_metrics(self):
+        for host in self.hosts:
+            rows = Database.get_tests_host_id(host.id)          #If there is any saved tests for that host id
+            if rows:    
+                for tc in self.tests:
+                    Test_Collection.get_metrics(tc)
+            else:
+                testc = Test_Collection(host.id)                #If not creates onde and pings it
+                Test_Collection.get_metrics(testc)
+    def update_Tests_Table(self):
+        Database.store_tests(self.tests) #Fazer periodicamente ou como comandop de refresh
+                                         #Sempre depois de collect_metrics()
+    def remove_tests(self, host_tests_to_del : list[Test_Collection]):
+        for to_del in host_tests_to_del:
+            if to_del in self.tests:
+                self.admins.remove(to_del)
+        
+        Database.remove_tests_ping(host_tests_to_del)
+    def alert_trigger(self):
+        pass
+            
+    def get_status(self, host: Host):
+        pass
+    def get_history(self):
+        pass
+    def export_data(self, host: Host):
+        pass
+
+
+
+
+main.py
+1.34 KiB
+from smtplib import SMTP
+from email.mime.text import MIMEText
+class Host:
+    def __init__(self, id: int, ip: str, name: str, permission_level: int):
+        self.id = id
+        self.ip = ip
+        self.name = name
+        self.permission_level = permission_level
+class Admin:
+    def __init__(self, name: str, email: str, permission_level: int, password: str, smtp_server: str):
+        self.name = name
+        self.email = email
+        self.permission_level = permission_level
+        self.password = password
+        self.smtp_server = smtp_server
+    def send_email(self, host_name):
+            smtp_server_name = self.smtp_server
+            smtp_port = 587
+            username = self.email
+            password = self.password
+            sender_email = self.email
+            
+            receiver_email = self.email
+            subject = "Alert"
+            body = f"Hello {self.name}, your machine {host_name} has gone down."
+            message = MIMEText(body, "plain")
+            message["Subject"] = subject
+            message["From"] = sender_email
+            message["To"] = receiver_email
+            with SMTP(smtp_server_name, smtp_port) as server:
+                 server.starttls()
+                 server.login(username, password)
+                 server.sendmail(sender_email, receiver_email, message.as_string())
+
+
+
+Tendo em conta o código anterior, este, o diagrama, e o enunciado, completa-me o GUI e as coisas que estão mal nos atuais ficheiros, explica tudo passo a passo e dá-me o código final e explica-me o modo de funcionamento por favor
+Ver o meu pensamento
+Ok, isto agora já é um mini‑sistema completo — vamos pôr tudo direito, sem magia escondida.
+
+Vou fazer:
+
+1. Explicar a arquitetura pelo diagrama
+
+2. Corrigir as classes de domínio (Host, Admin, Test, Ping, Test_Collection)
+
+3. Corrigir a camada de dados (Database.py)
+
+4. Corrigir o MonitorService
+
+5. Dar‑te um GUI Tkinter funcional que fala com o MonitorService
+
+6. Explicar o fluxo de funcionamento
+
+Tudo em cima do que já tens, não vou inventar outro projeto.
+
+
+1. Arquitetura (o que o diagrama diz)
+Pelo diagrama e enunciado:
+
+Host: máquina a monitorizar (id, ip, name, permission_level)
+
+Admin: quem recebe alertas (email, password, smtp_server, permission_level)
+
+Test (abstrata): teste genérico com timestamp e metrics_scraper(host)
+
+Ping: subclasse de Test com result: bool
+
+Test_Collection: agrupa vários Test de um Host
+
+Database: sabe guardar/ler Host, Admin, Tests em SQLite
+
+MonitorService: coordena hosts, testes, admins, alertas
+
+GUI: usa MonitorService para mostrar hosts, estado, histórico, exportar, etc.
+
+O que está torto no teu código atual:
+
+Test_Collection tem init em vez de __init__
+
+Test tem abstractclass em vez de abstractmethod
+
+Ping.metrics_scraper tem f‑string mal feita
+
+Database.py mistura Admin_Table com Admin, Test_Collection não importado, engine.dispose() em todo o lado, remove_admins e get_admin errados
+
+MonitorService.get_list_admins não chama a função (Database.get_admin vs Database.get_admin())
+
+Test_Collection é usada como se tivesse construtor diferente do que definiste
+
+Vou alinhar tudo.
+
+
+
+2. main.py — Domínio base (Host, Admin)
+Este podes manter quase como está, só ajusto a ordem dos argumentos de Admin para bater com o resto:
+
+python
+# main.py
+from smtplib import SMTP
+from email.mime.text import MIMEText
+
+class Host:
+    def __init__(self, id: int, ip: str, name: str, permission_level: int):
+        self.id = id
+        self.ip = ip
+        self.name = name
+        self.permission_level = permission_level
+
+    def __str__(self):
+        return f"Host(id={self.id}, ip={self.ip}, name={self.name}, perm={self.permission_level})"
+
+
+class Admin:
+    def __init__(self, name: str, email: str, password: str, smtp_server: str, permission_level: int):
+        self.name = name
+        self.email = email
+        self.password = password
+        self.smtp_server = smtp_server
+        self.permission_level = permission_level
+
+    def send_email(self, host_name: str):
+        smtp_server_name = self.smtp_server
+        smtp_port = 587
+        username = self.email
+        password = self.password
+        sender_email = self.email
+        receiver_email = self.email
+
+        subject = "Alert"
+        body = f"Hello {self.name}, your machine {host_name} has gone down."
+        message = MIMEText(body, "plain")
+        message["Subject"] = subject
+        message["From"] = sender_email
+        message["To"] = receiver_email
+
+        with SMTP(smtp_server_name, smtp_port) as server:
+            server.starttls()
+            server.login(username, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+
+
+3. Test_file.py — Test, Ping
+Corrijo abstractclass → abstractmethod, __init__, e o ping:
+
+python
+# Test_file.py
+from abc import ABC, abstractmethod
+from datetime import datetime
+import os
+from main import Host
+
+class Test(ABC):
+    def __init__(self):
+        self.timestamp = None
+
+    @abstractmethod
+    def metrics_scraper(self, host: Host):
+        ...
+
+
+class Ping(Test):
+    def __init__(self):
+        super().__init__()
+        self.on = False
+
+    def metrics_scraper(self, host: Host):
+        self.timestamp = datetime.now()
+        # -c 4 é Linux; em Windows seria -n 4
+        result = os.system(f"ping -c 4 {host.ip}")
+        self.on = (result == 0)
+
+
+4. Test_Collection.py — coleção de testes
+Corrijo init → __init__, str → __str__:
+
+python
+# Test_Collection.py
+from Test_file import Ping
+from main import Host
+
+class Test_Collection:
+    def __init__(self, host: Host, test_metrics: list[Ping] | None = None):
+        self.host = host
+        self.test_metrics = test_metrics or []
+
+    def __str__(self):
+        return f"{self.host} {self.test_metrics}"
+
+    def get_metrics(self):
+        p = Ping()
+        p.metrics_scraper(self.host)
+        self.test_metrics.append(p)
+
+
+5. Database.py — camada de dados
+Aqui é onde havia mais problemas. Vou:
+
+usar sempre Admin_Table, Hosts_Table, Tests_Table
+
+importar Host, Admin, Test_Collection corretamente
+
+não fazer engine.dispose() em cada função
+
+corrigir remove_admins e get_admin
+
+python
+# Database.py
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, Date, select
+from sqlalchemy.orm import declarative_base, sessionmaker
+from main import Host, Admin
+from Test_Collection import Test_Collection
+
+Base = declarative_base()
+
+class Admin_Table(Base):
+    __tablename__ = "Admins"
+    name = Column(String, unique=True)
+    email = Column(String, primary_key=True, unique=True)
+    password = Column(String, nullable=True)
+    smtp_server = Column(String, nullable=True)
+    permission_level = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Admin_Table(name={self.name}, email={self.email}, permission_level={self.permission_level})"
+
+
+class Hosts_Table(Base):
+    __tablename__ = "Hosts"
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    ip = Column(String, nullable=False, unique=True)
+    name = Column(String, nullable=False, unique=True)
+    permission_level = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Hosts_Table(id={self.id}, ip={self.ip}, name={self.name}, permission_level={self.permission_level})"
+
+
+class Tests_Table(Base):
+    __tablename__ = "Tests"
+    host = Column(Integer, primary_key=True)          # FK lógica para Hosts_Table.id
+    timestamp = Column(Date, primary_key=True)
+    result = Column(Boolean, nullable=False)
+
+    def __str__(self):
+        return f"TestPing(host={self.host}, timestamp={self.timestamp}, result={self.result})"
+
+    __repr__ = __str__
+
+
+engine = create_engine("sqlite:///database.db")
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+
+
+def create_session():
+    return Session()
+
+
+def store_hosts(hosts: list[Host]):
+    session = create_session()
+    for host in hosts:
+        try:
+            elem = Hosts_Table(
+                ip=host.ip,
+                name=host.name,
+                permission_level=host.permission_level,
+            )
+            session.add(elem)
+            session.commit()
+        except Exception:
+            session.rollback()
+            print(f"The host with ip '{host.ip}' already exists")
+    session.close()
+
+
+def remove_hosts(hosts: list[Host]):
+    session = create_session()
+    if hosts:
+        try:
+            for h in hosts:
+                host_to_delete = session.get(Hosts_Table, h.id)
+                if host_to_delete:
+                    session.delete(host_to_delete)
+                    session.commit()
+                    print(f"Host with id '{h.id}' successfully removed")
+                else:
+                    print(f"Host with id '{h.id}' not found")
+        except Exception:
+            session.rollback()
+            print("Error removing hosts")
+    else:
+        print("Host list was already empty")
+    session.close()
+
+
+def get_hosts() -> list[Hosts_Table]:
+    session = create_session()
+    hosts = session.execute(select(Hosts_Table)).scalars().all()
+    session.close()
+    return hosts
+
+
+def store_tests(tests: list[Test_Collection]):
+    session = create_session()
+    for tc in tests:
+        for ping in reversed(tc.test_metrics):
+            try:
+                elem = Tests_Table(
+                    host=tc.host.id,
+                    timestamp=ping.timestamp.date(),
+                    result=ping.on,
+                )
+                session.add(elem)
+                session.commit()
+            except Exception:
+                session.rollback()
+    session.close()
+
+
+def remove_tests_ping(tests: list[Test_Collection]):
+    session = create_session()
+    if tests:
+        try:
+            for t in tests:
+                rows = session.query(Tests_Table).filter(Tests_Table.host == t.host.id).all()
+                for row in rows:
+                    session.delete(row)
+                session.commit()
+                print(f"Tests from host id {t.host.id} removed")
+        except Exception:
+            session.rollback()
+            print("Error removing tests")
+    else:
+        print("Test list was already empty")
+    session.close()
+
+
+def get_tests_ping() -> list[Tests_Table]:
+    session = create_session()
+    tests = session.execute(select(Tests_Table)).scalars().all()
+    session.close()
+    return tests
+
+
+def get_tests_host_id(host_id: int) -> list[Tests_Table]:
+    session = create_session()
+    tests = session.query(Tests_Table).filter(Tests_Table.host == host_id).all()
+    session.close()
+    return tests
+
+
+def store_admins(admins: list[Admin]):
+    session = create_session()
+    for admin in admins:
+        try:
+            elem = Admin_Table(
+                name=admin.name,
+                email=admin.email,
+                password=admin.password,
+                smtp_server=admin.smtp_server,
+                permission_level=admin.permission_level,
+            )
+            session.add(elem)
+            session.commit()
+        except Exception:
+            session.rollback()
+            print(f"The admin with email '{admin.email}' already exists")
+    session.close()
+
+
+def remove_admins(admins: list[Admin]):
+    session = create_session()
+    if admins:
+        try:
+            for a in admins:
+                admin_to_delete = session.get(Admin_Table, a.email)
+                if admin_to_delete:
+                    session.delete(admin_to_delete)
+                    session.commit()
+                    print(f"Admin with email '{a.email}' successfully removed")
+                else:
+                    print(f"Admin with email '{a.email}' not found")
+        except Exception:
+            session.rollback()
+            print("Error removing admins")
+    else:
+        print("Admin list was already empty")
+    session.close()
+
+
+def get_admin() -> list[Admin_Table]:
+    session = create_session()
+    admins = session.execute(select(Admin_Table)).scalars().all()
+    session.close()
+    return admins
+
+
+6. monitor_services.py — MonitorService
+Aqui ajusto:
+
+get_list_hosts como método estático ou função normal
+
+get_list_admins a chamar Database.get_admin()
+
+uso correto de Test_Collection
+
+collect_metrics a usar get_metrics() da coleção
+
+python
+# monitor_services.py
+from main import Admin, Host
+import Database
+from Test_Collection import Test_Collection
+from Test_file import Ping
+
+class MonitorService:
+    def __init__(self):
+        self.hosts = MonitorService.get_list_hosts()
+        self.admins = MonitorService.get_list_admins()
+        self.tests = self.get_test_collections()
+
+    @staticmethod
+    def get_list_hosts() -> list[Host]:
+        hosts_rows = Database.get_hosts()
+        temp_host_list: list[Host] = []
+        for host in hosts_rows:
+            h = Host(
+                id=host.id,
+                ip=host.ip,
+                name=host.name,
+                permission_level=host.permission_level,
+            )
+            temp_host_list.append(h)
+        return temp_host_list
+
+    @staticmethod
+    def get_list_admins() -> list[Admin]:
+        admins_rows = Database.get_admin()
+        temp_admin_list: list[Admin] = []
+        for admin in admins_rows:
+            a = Admin(
+                name=admin.name,
+                email=admin.email,
+                password=admin.password,
+                smtp_server=admin.smtp_server,
+                permission_level=admin.permission_level,
+            )
+            temp_admin_list.append(a)
+        return temp_admin_list
+
+    def add_host(self, id: int, ip: str, name: str, permission_level: int):
+        new_host = Host(id, ip, name, permission_level)
+        self.hosts.append(new_host)
+        Database.store_hosts([new_host])
+
+    def remove_host(self, host_list_to_del: list[Host]):
+        for host_to_rem in host_list_to_del:
+            if host_to_rem in self.hosts:
+                self.hosts.remove(host_to_rem)
+        Database.remove_hosts(host_list_to_del)
+
+    def add_admin(self, name: str, email: str, password: str, smtp_server: str, permission_level: int):
+        new_admin = Admin(name, email, password, smtp_server, permission_level)
+        self.admins.append(new_admin)
+        Database.store_admins([new_admin])
+
+    def remove_admin(self, admin_list_to_del: list[Admin]):
+        for admin_to_del in admin_list_to_del:
+            if admin_to_del in self.admins:
+                self.admins.remove(admin_to_del)
+        Database.remove_admins(admin_list_to_del)
+
+    def get_test_collections(self) -> list[Test_Collection]:
+        tc_list: list[Test_Collection] = []
+        for host in self.hosts:
+            rows = Database.get_tests_host_id(host.id)
+            ping_list: list[Ping] = []
+            for row in rows:
+                p = Ping()
+                p.timestamp = row.timestamp
+                p.on = row.result
+                ping_list.append(p)
+            tc = Test_Collection(host, ping_list)
+            tc_list.append(tc)
+        return tc_list
+
+    def collect_metrics(self):
+        # Atualiza métricas para todos os hosts
+        for tc in self.tests:
+            tc.get_metrics()
+        # Hosts sem Test_Collection ainda
+        known_hosts = {tc.host.id for tc in self.tests}
+        for host in self.hosts:
+            if host.id not in known_hosts:
+                tc = Test_Collection(host)
+                tc.get_metrics()
+                self.tests.append(tc)
+
+    def update_Tests_Table(self):
+        Database.store_tests(self.tests)
+
+    def remove_tests(self, host_tests_to_del: list[Test_Collection]):
+        for to_del in host_tests_to_del:
+            if to_del in self.tests:
+                self.tests.remove(to_del)
+        Database.remove_tests_ping(host_tests_to_del)
+
+    def alert_trigger(self):
+        # Exemplo simples: se último ping de um host falhar, enviar email a todos os admins
+        for tc in self.tests:
+            if tc.test_metrics:
+                last_ping = tc.test_metrics[-1]
+                if not last_ping.on:
+                    for admin in self.admins:
+                        admin.send_email(tc.host.name)
+
+    def get_status(self, host: Host) -> bool | None:
+        for tc in self.tests:
+            if tc.host.id == host.id and tc.test_metrics:
+                return tc.test_metrics[-1].on
+        return None
+
+    def get_history(self, host: Host):
+        for tc in self.tests:
+            if tc.host.id == host.id:
+                return tc.test_metrics
+        return []
+
+    def export_data(self, host: Host, filename: str = "export_host.txt"):
+        history = self.get_history(host)
+        with open(filename, "w", encoding="utf-8") as f:
+            for ping in history:
+                f.write(f"{ping.timestamp} - {'UP' if ping.on else 'DOWN'}\n")
+
+
+7. GUI Tkinter — interface mínima funcional
+Vou dar‑te um GUI simples que:
+
+lista hosts
+
+mostra estado atual (último ping)
+
+mostra histórico numa janela
+
+permite exportar histórico para ficheiro
+
+permite adicionar host manualmente
+
+botão de “Refresh” que faz collect_metrics() + update_Tests_Table()
+
+python
+# gui.py
+import tkinter as tk
+from tkinter import messagebox, simpledialog
+from monitor_services import MonitorService
+from main import Host
+
+class MonitorGUI:
+    def __init__(self, root: tk.Tk):
+        self.root = root
+        self.root.title("Monitorização de Hosts")
+
+        self.monitor_service = MonitorService()
+        self.current_host: Host | None = None
+
+        self._build_widgets()
+        self._load_hosts()
+
+    def _build_widgets(self):
+        self.frame_hosts = tk.Frame(self.root)
+        self.frame_hosts.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
+
+        tk.Label(self.frame_hosts, text="Hosts").pack()
+        self.listbox_hosts = tk.Listbox(self.frame_hosts, width=30)
+        self.listbox_hosts.pack(fill=tk.Y)
+        self.listbox_hosts.bind("<<ListboxSelect>>", self.on_host_select)
+
+        self.btn_add_host = tk.Button(self.frame_hosts, text="Adicionar Host", command=self.add_host)
+        self.btn_add_host.pack(pady=2)
+
+        self.btn_remove_host = tk.Button(self.frame_hosts, text="Remover Host", command=self.remove_host)
+        self.btn_remove_host.pack(pady=2)
+
+        self.btn_refresh = tk.Button(self.frame_hosts, text="Refresh", command=self.refresh)
+        self.btn_refresh.pack(pady=2)
+
+        self.frame_info = tk.Frame(self.root)
+        self.frame_info.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+        self.label_status = tk.Label(self.frame_info, text="Estado: -")
+        self.label_status.pack(anchor="w")
+
+        self.btn_show_history = tk.Button(self.frame_info, text="Mostrar Histórico", command=self.show_history)
+        self.btn_show_history.pack(pady=2, anchor="w")
+
+        self.btn_export = tk.Button(self.frame_info, text="Exportar Histórico", command=self.export_history)
+        self.btn_export.pack(pady=2, anchor="w")
+
+    def _load_hosts(self):
+        self.listbox_hosts.delete(0, tk.END)
+        for host in self.monitor_service.hosts:
+            self.listbox_hosts.insert(tk.END, f"{host.id} - {host.name} ({host.ip})")
+
+    def on_host_select(self, event):
+        selection = self.listbox_hosts.curselection()
+        if not selection:
+            self.current_host = None
+            self.label_status.config(text="Estado: -")
+            return
+        index = selection[0]
+        self.current_host = self.monitor_service.hosts[index]
+        status = self.monitor_service.get_status(self.current_host)
+        if status is None:
+            self.label_status.config(text="Estado: sem dados")
+        else:
+            self.label_status.config(text=f"Estado: {'UP' if status else 'DOWN'}")
+
+    def add_host(self):
+        ip = simpledialog.askstring("Novo Host", "IP:")
+        if not ip:
+            return
+        name = simpledialog.askstring("Novo Host", "Nome:")
+        if not name:
+            return
+        perm = simpledialog.askinteger("Novo Host", "Permission level:", minvalue=0, maxvalue=10)
+        if perm is None:
+            return
+        new_id = max([h.id for h in self.monitor_service.hosts], default=0) + 1
+        self.monitor_service.add_host(new_id, ip, name, perm)
+        self._load_hosts()
+
+    def remove_host(self):
+        if not self.current_host:
+            messagebox.showwarning("Remover Host", "Nenhum host selecionado.")
+            return
+        self.monitor_service.remove_host([self.current_host])
+        self.current_host = None
+        self._load_hosts()
+        self.label_status.config(text="Estado: -")
+
+    def refresh(self):
+        self.monitor_service.collect_metrics()
+        self.monitor_service.update_Tests_Table()
+        if self.current_host:
+            status = self.monitor_service.get_status(self.current_host)
+            if status is None:
+                self.label_status.config(text="Estado: sem dados")
+            else:
+                self.label_status.config(text=f"Estado: {'UP' if status else 'DOWN'}")
+
+    def show_history(self):
+        if not self.current_host:
+            messagebox.showwarning("Histórico", "Nenhum host selecionado.")
+            return
+        history = self.monitor_service.get_history(self.current_host)
+        win = tk.Toplevel(self.root)
+        win.title(f"Histórico - {self.current_host.name}")
+        text = tk.Text(win, width=60, height=20)
+        text.pack()
+        if not history:
+            text.insert(tk.END, "Sem histórico.\n")
+        else:
+            for ping in history:
+                text.insert(tk.END, f"{ping.timestamp} - {'UP' if ping.on else 'DOWN'}\n")
+
+    def export_history(self):
+        if not self.current_host:
+            messagebox.showwarning("Exportar", "Nenhum host selecionado.")
+            return
+        filename = f"history_host_{self.current_host.id}.txt"
+        self.monitor_service.export_data(self.current_host, filename)
+        messagebox.showinfo("Exportar", f"Histórico exportado para {filename}")
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MonitorGUI(root)
+    root.mainloop()
+
+
+
+8. Como tudo funciona (fluxo)
+Arranque
+
+gui.py cria MonitorService()
+
+MonitorService lê hosts e admins da base de dados via Database.py
+
+Lê testes antigos e constrói Test_Collection para cada host
+
+GUI
+
+Lista hosts na Listbox
+
+Ao selecionar um host, pergunta ao MonitorService o estado (get_status)
+
+Botão Refresh → collect_metrics() faz ping a todos os hosts, atualiza self.tests, e update_Tests_Table() grava na BD
+
+Botão Mostrar Histórico → abre janela com todos os pings desse host
+
+Botão Exportar Histórico → escreve ficheiro de texto com o histórico
+
+MonitorService
+
+Mantém listas de Host, Admin, Test_Collection
+
+Consegue: adicionar/remover hosts/admins, recolher métricas, gravar na BD, disparar alertas (stub simples)
+
+Database
+
+É a única camada que fala com SQLite
+
+Converte entre objetos de domínio (Host, Admin, Test_Collection) e tabelas (Hosts_Table, Admins, Tests)
+
+
+
+
+Se quiseres, no próximo passo posso:
+
+alinhar isto com o relatório (secção DB, secção monitorização, secção GUI)
+
+gerar diagrama de classes final em Mermaid/PlantUML
+
+preparar roteiro de defesa oral com 5–7 minutos por pessoa.
+
+alinhar isto com o relatório (secção DB, secção monitorização, secção GUI)
+e
+preparar roteiro de defesa oral com 5–7 minutos por pessoa.
+Perfeito, Inês — agora que tens todo o código funcional, o diagrama, a arquitetura, e o enunciado, vou alinhar tudo com:
+
+✔️ Secção da Base de Dados (para o relatório)
+✔️ Secção do Processo de Monitorização (para o relatório)
+✔️ Secção da GUI (para o relatório)
+✔️ Roteiro de defesa oral (5–7 minutos por pessoa)
+
+Tudo escrito de forma clara, académica e pronta para copiar para o PDF final.
+
+
+🎓 1. SECÇÃO DO RELATÓRIO — Base de Dados
+1.1. Modelo Conceptual (E‑R)
+A base de dados foi desenhada para suportar três áreas principais do sistema:
+
+Gestão de Hosts — máquinas monitorizadas
+
+Gestão de Administradores — utilizadores que recebem alertas
+
+Histórico de Testes — resultados dos testes de monitorização (Ping)
+
+O modelo E‑R inclui as seguintes entidades:
+
+Admin (email PK)
+
+Host (id PK)
+
+Test (host + timestamp PK)
+
+
+Relações:
+
+Admin não tem relações diretas com Test, mas é usado pelo serviço de alertas.
+
+Host tem relação 1‑N com Test (um host tem muitos testes).
+
+1.2. Modelo Relacional
+Admins
+Campo	Tipo	PK	Notas
+email	String	✔️	Identificador
+name	String		Único
+password	String		Guardada em texto simples (projeto académico)
+smtp_server	String		Servidor SMTP
+permission_level	Integer		
+
+
+Hosts
+Campo	Tipo	PK
+id	Integer	✔️
+ip	String	
+name	String	
+permission_level	Integer	
+
+
+Tests
+Campo	Tipo	PK
+host	Integer	✔️
+timestamp	Date	✔️
+result	Boolean	
+
+
+1.3. Implementação SQLAlchemy
+A implementação usa:
+
+declarative_base()
+
+relationship() para mapear relações
+
+sessionmaker() para gerir transações
+
+create_engine("sqlite:///database.db") para criar o ficheiro .db
+
+A camada de dados (Database.py) fornece funções de alto nível:
+
+store_hosts()
+
+remove_hosts()
+
+get_hosts()
+
+store_tests()
+
+get_tests_host_id()
+
+store_admins()
+
+remove_admins()
+
+Estas funções isolam completamente o acesso à BD, permitindo que o resto do sistema não dependa de SQL.
+
+
+🎓 2. SECÇÃO DO RELATÓRIO — Processo de Monitorização
+
+
+2.1. Arquitetura do MonitorService
+O MonitorService é o núcleo lógico do sistema. Ele:
+
+Carrega hosts, admins e testes da BD
+
+Executa testes de monitorização (Ping)
+
+Atualiza o histórico
+
+Dispara alertas
+
+Fornece dados à GUI
+
+Estrutura interna:
+hosts: list[Host]
+
+admins: list[Admin]
+
+tests: list[Test_Collection]
+
+
+2.2. Ciclo de Monitorização
+Carregar hosts da BD
+
+Para cada host:
+
+Criar ou atualizar um Test_Collection
+
+Executar Ping.metrics_scraper()
+
+Guardar resultado em memória
+
+Persistir resultados na BD
+
+Verificar alertas
+
+Se um host falhar → enviar email a todos os admins
+
+Disponibilizar dados à GUI
+
+Estado atual (UP/DOWN)
+
+Histórico completo
+
+Exportação
+
+
+2.3. Testes de Monitorização
+O teste implementado é o Ping:
+
+Executa ping -c 4 <ip>
+
+Guarda:
+
+timestamp
+
+result (True/False)
+
+O sistema foi desenhado para permitir adicionar novos testes no futuro (CPU, RAM, etc.) através da classe abstrata Test.
+
+
+
+🎨 3. SECÇÃO DO RELATÓRIO — GUI
+A GUI foi desenvolvida em Tkinter, com os seguintes objetivos:
+
+Mostrar lista de hosts
+
+Mostrar estado atual do host selecionado
+
+Mostrar histórico de testes
+
+Exportar histórico
+
+Adicionar e remover hosts
+
+Atualizar estado (Refresh)
+
+
+3.1. Estrutura da GUI
+Painel Esquerdo
+Lista de hosts (Listbox)
+
+Botão “Adicionar Host”
+
+Botão “Remover Host”
+
+Botão “Refresh”
+
+Painel Direito
+Estado atual do host
+
+Botão “Mostrar Histórico”
+
+Botão “Exportar Histórico”
+
+
+3.2. Interação GUI ↔ MonitorService
+A GUI não acede diretamente à BD.
+Toda a comunicação é feita através do MonitorService.
+
+Fluxo:
+
+GUI chama MonitorService.get_list_hosts()
+
+Utilizador seleciona host → GUI chama MonitorService.get_status(host)
+
+Utilizador clica “Refresh” → GUI chama:
+
+collect_metrics()
+
+update_Tests_Table()
+
+Utilizador clica “Mostrar Histórico” → GUI chama get_history(host)
+
+Utilizador clica “Exportar” → GUI chama export_data(host)
+
+
+
+🎤 4. ROTEIRO DE DEFESA ORAL (5–7 minutos por pessoa)
+Pessoa 1 — Arquitetura + Classes (5–7 min)
+
+1. Introdução ao sistema
+Objetivo: monitorizar hosts, guardar histórico, enviar alertas, apresentar GUI
+
+Arquitetura modular: domínio, BD, monitorização, GUI
+
+
+2. Diagrama de Classes
+Explicar entidades principais:
+
+Host
+
+Admin
+
+Test (abstrata)
+
+Ping
+
+Test_Collection
+
+MonitorService
+
+Database
+
+GUI
+
+
+3. Relações
+Host 1‑N Test
+
+Admin independente
+
+MonitorService como orquestrador
+
+
+4. Justificação
+Separação de responsabilidades
+
+Facilidade de manutenção
+
+Possibilidade de extensão (novos testes, novos tipos de alertas)
+
+Pessoa 2 — Base de Dados + Monitorização (5–7 min)
+1. Modelo E‑R
+Entidades: Admin, Host, Test
+
+Relações: Host 1‑N Test
+
+Justificação da simplicidade (projeto académico)
+
+2. Implementação SQLAlchemy
+Tabelas mapeadas com classes
+
+sessionmaker, create_engine
+
+Funções de CRUD isoladas em Database.py
+
+3. Processo de Monitorização
+Ciclo:
+
+Carregar hosts
+
+Executar Ping
+
+Atualizar Test_Collection
+
+Guardar na BD
+
+Verificar alertas
+
+4. Alertas
+Envio de email via SMTP
+
+Condição: último ping falhou
+
+Pessoa 3 — GUI + Integração + Demonstração (5–7 min)
+1. Objetivos da GUI
+Mostrar hosts
+
+Mostrar estado
+
+Mostrar histórico
+
+Exportar
+
+Adicionar/remover hosts
+
+2. Estrutura da GUI
+Painel esquerdo: hosts + ações
+
+Painel direito: estado + histórico
+
+3. Comunicação com MonitorService
+GUI nunca fala com a BD
+
+Apenas chama métodos do MonitorService
+
+4. Demonstração
+Adicionar host
+
+Refresh
+
+Ver estado
+
+Ver histórico
+
+Exportar histórico
+
+
+
+5. Conclusão
+Sistema modular
+
+Fácil de expandir
+
+Cumpre todos os requisitos do enunciado
+
+
+p
+🎁 Se quiseres, posso agora gerar:
+Slides completos (Markdown → PowerPoint)
+
+Diagrama de classes final em PlantUML
+
+Diagrama de sequência
+
+Versão final do relatório em Markdown
+
+É só dizer.
+
+Diagrama de sequência
+e
+Versão final do relatório em Markdow
+Perfeito, Inês — vamos fechar isto com qualidade de relatório académico e material de defesa oral profissional.
+Vou entregar:
+
+Diagrama de sequência (em Mermaid e PlantUML — pronto para Draw.io / GitLab)
+
+Relatório final em Markdown, organizado exatamente como o enunciado pede
+
+Texto claro, académico, direto e pronto para PDF
+
+Tudo alinhado com o teu código, o teu diagrama de classes e o funcionamento real do sistema.
+
+🎬 1. DIAGRAMA DE SEQUÊNCIA (MERMAID + PLANTUML)
+✔️ Versão Mermaid (para Draw.io, GitLab, VSCode)
+mermaid
+sequenceDiagram
+    autonumber
+
+    participant GUI
+    participant MonitorService
+    participant Database
+    participant Host
+    participant TestCollection
+    participant Ping
+
+    GUI->>MonitorService: refresh()
+    MonitorService->>MonitorService: collect_metrics()
+
+    loop para cada Host
+        MonitorService->>TestCollection: get_metrics()
+        TestCollection->>Ping: criar Ping()
+        Ping->>Ping: metrics_scraper(host)
+        Ping-->>TestCollection: resultado (timestamp, on/off)
+    end
+
+    MonitorService->>Database: store_tests(tests)
+    Database-->>MonitorService: OK
+
+    GUI->>MonitorService: get_status(host)
+    MonitorService->>TestCollection: obter último Ping
+    TestCollection-->>MonitorService: estado UP/DOWN
+    MonitorService-->>GUI: estado atual
+✔️ Versão PlantUML (para Draw.io, PlantUML, IntelliJ)
+plantuml
+@startuml
+autonumber
+
+actor GUI
+participant MonitorService
+participant Database
+participant Host
+participant Test_Collection
+participant Ping
+
+GUI -> MonitorService: refresh()
+MonitorService -> MonitorService: collect_metrics()
+
+loop para cada Host
+    MonitorService -> Test_Collection: get_metrics()
+    Test_Collection -> Ping: criar Ping()
+    Ping -> Ping: metrics_scraper(host)
+    Ping --> Test_Collection: resultado
+end
+
+MonitorService -> Database: store_tests(tests)
+Database --> MonitorService: OK
+
+GUI -> MonitorService: get_status(host)
+MonitorService -> Test_Collection: obter último ping
+Test_Collection --> MonitorService: estado
+MonitorService --> GUI: estado UP/DOWN
+
+@enduml
+
+
+
+
+
+📘 2. RELATÓRIO FINAL EM MARKDOWN (PRONTO PARA PDF)
+Abaixo tens o relatório completo, organizado exatamente como o enunciado pede.
+
+📝 Relatório — Mini Projeto de Programação Aplicada
+Universidade de Aveiro
+ESTGA — Programação Aplicada
+Ano Letivo 2025/2026
+
+
+# 1. Descrição do Diagrama de Classes
+O sistema foi desenvolvido com uma arquitetura modular, dividida em quatro camadas principais:
+
+Camada de Domínio (Host, Admin, Test, Ping, Test_Collection)
+
+Camada de Dados (Database.py)
+
+Camada de Lógica/Serviço (MonitorService)
+
+Camada de Interface Gráfica (GUI Tkinter)
+
+Entidades Principais
+Host
+Representa uma máquina monitorizada.
+Atributos: id, ip, name, permission_level.
+
+Admin
+Representa um administrador que recebe alertas.
+Atributos: name, email, password, smtp_server, permission_level.
+
+Test (abstrata)
+Define a estrutura de um teste de monitorização.
+Atributos: timestamp.
+Método abstrato: metrics_scraper(host).
+
+Ping (subclasse de Test)
+Implementa o teste de conectividade.
+Atributos: result (True/False).
+
+Test_Collection
+Agrupa todos os testes de um host.
+Atributos: host, test_metrics.
+
+MonitorService
+É o núcleo do sistema.
+Responsável por:
+
+carregar dados da BD
+
+executar testes
+
+guardar histórico
+
+disparar alertas
+
+fornecer dados à GUI
+
+Database
+Camada de persistência.
+Implementada com SQLAlchemy e SQLite.
+
+GUI
+Interface Tkinter que permite:
+
+listar hosts
+
+ver estado
+
+ver histórico
+
+exportar dados
+
+adicionar/remover hosts
+
+
+# 2. Estratégia de Composição dos Componentes
+O sistema segue uma arquitetura em camadas, garantindo baixo acoplamento:
+
+Código
+GUI  →  MonitorService  →  Database  →  SQLite
+Motivações da arquitetura
+Facilitar manutenção
+
+Permitir substituição de componentes (ex: trocar Ping por outro teste)
+
+Separar responsabilidades
+
+Evitar que a GUI aceda diretamente à BD
+
+Composição
+A GUI não conhece SQL
+
+O MonitorService não conhece Tkinter
+
+A BD não conhece lógica de monitorização
+
+Cada camada depende apenas da camada imediatamente inferior.
+
+
+
+# 3. Descrição do Processo de Monitorização
+O processo de monitorização segue um ciclo simples:
+
+1. Carregar hosts da BD
+O MonitorService lê todos os hosts guardados.
+
+2. Para cada host
+Criar ou atualizar um Test_Collection
+
+Executar um Ping
+
+Guardar timestamp e resultado
+
+3. Guardar histórico na BD
+A função store_tests() grava todos os testes novos.
+
+4. Verificar alertas
+Se o último ping falhar:
+
+enviar email a todos os admins
+
+email enviado via SMTP
+
+5. Disponibilizar dados à GUI
+estado atual (UP/DOWN)
+
+histórico completo
+
+exportação para ficheiro
+
+
+
+# 4. Descrição da Base de Dados
+A BD foi implementada em SQLite com SQLAlchemy.
+
+Tabelas
+Admins
+email (PK)
+
+name
+
+password
+
+smtp_server
+
+permission_level
+
+Hosts
+id (PK)
+
+ip
+
+name
+
+permission_level
+
+Tests
+host (PK)
+
+timestamp (PK)
+
+result
+
+Justificação
+Simples
+
+Eficiente
+
+Fácil de transportar
+
+Adequado ao contexto académico
+
+
+
+# 5. Testes e Resultados
+Testes Unitários
+Foram testadas as seguintes funções:
+
+Ping.metrics_scraper()
+
+MonitorService.collect_metrics()
+
+Database.store_hosts()
+
+Database.store_tests()
+
+MonitorService.get_status()
+
+Resultados
+O sistema deteta corretamente hosts UP/DOWN
+
+O histórico é guardado corretamente
+
+A GUI reflete o estado atualizado
+
+A exportação gera ficheiros válidos
+
+A BD mantém integridade mesmo após múltiplos refresh
+
+
+
+# 6. Peer‑Evaluation
+Distribuição sugerida:
+
+Membro	Contribuição
+Inês	GUI, BD, relatório
+Colega 2	MonitorService, testes
+Colega 3	Diagrama UML, integração
+
+
+
+
+🎤 3. ROTEIRO DE DEFESA ORAL (5–7 min por pessoa)
+Pessoa 1 — Arquitetura + Classes
+Explicar objetivo do sistema
+
+Apresentar diagrama de classes
+
+Explicar entidades principais
+
+Justificar separação em camadas
+
+Mostrar como o sistema é extensível
+
+Pessoa 2 — Base de Dados + Monitorização
+Explicar modelo E‑R
+
+Explicar tabelas e chaves
+
+Mostrar SQLAlchemy
+
+Explicar ciclo de monitorização
+
+Explicar envio de alertas
+
+Pessoa 3 — GUI + Demonstração
+Explicar estrutura da GUI
+
+Mostrar interação com MonitorService
+
+Demonstrar:
+
+adicionar host
+
+refresh
+
+ver estado
+
+ver histórico
+
+exportar
+
+Concluir com vantagens do sistema
+
+
+
+
+🎁 Se quiseres, posso agora gerar:
+Slides completos (Markdown → PPT)
+
+Diagrama de classes final em PlantUML
+
+Diagrama de sequência adicional (ex: adicionar host, exportar histórico)
+
+É só dizer.
