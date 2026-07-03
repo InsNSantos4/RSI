@@ -1,0 +1,506 @@
+#!/bin/sh
+
+PROG=$(basename "$0")
+
+STATE=${HOME:-.}/.handin_mgr
+TODOS=$STATE/todos.csv
+RUNS=$STATE/runs
+LOCKS=$STATE/locks
+
+err() {
+    printf '%s\n' "$*" >&2
+}
+
+die() {
+    err "$*"
+    exit 1
+}
+
+ensure_state() {
+   
+    echo "STATE=$STATE"
+    echo "RUNS=$RUNS"
+    echo "LOCKS=$LOCKS"
+    echo "TODOS=$TODOS"
+
+    [ -d "$STATE" ] || mkdir -p "$STATE" || { echo "Erro ao criar $STATE"; exit 1; }
+    [ -d "$RUNS" ] || mkdir -p "$RUNS" || { echo "Erro ao criar $RUNS"; exit 1; }
+    [ -d "$LOCKS" ] || mkdir -p "$LOCKS" || { echo "Erro ao criar $LOCKS"; exit 1; }
+    [ -f "$TODOS" ] || : > "$TODOS" || { echo "Erro ao criar $TODOS"; exit 1; }
+
+    echo "Ensure State worked"
+}
+
+
+print_general_help() {
+    cat <<EOF
+Uso dentro da shell:
+  handin_mgr todo-add "titulo" [-p P] [-d AAAA-MM-DD] [-t tag1,tag2]
+  handin_mgr todo-list [-a] [-s due|prio|created] [-t tag] [-p minPrio]
+  handin_mgr todo-done <id>
+  handin_mgr todo-search <texto>
+  handin_mgr handin-ingest <inbox_dir> <repo_dir> [-m]
+  handin_mgr handin-check <repo_dir> [-o relatorio.csv]
+  handin_mgr handin-summary <repo_dir> [-u UC] [-t TP#]
+
+Comandos especiais da shell:
+  help
+  exit
+EOF
+}
+
+print_todo_add_help() {
+    cat <<EOF
+Uso: handin_mgr todo-add "titulo" [-p P] [-d AAAA-MM-DD] [-t tag1,tag2]
+EOF
+}
+
+print_todo_list_help() {
+    cat <<EOF
+Uso: handin_mgr todo-list [-a] [-s due|prio|created] [-t tag] [-p minPrio]
+EOF
+}
+
+print_todo_done_help() {
+    cat <<EOF
+Uso: handin_mgr todo-done <id>
+EOF
+}
+
+print_todo_search_help() {
+    cat <<EOF
+Uso: handin_mgr todo-search <texto>
+EOF
+}
+
+print_handin_ingest_help() {
+    cat <<EOF
+Uso: handin_mgr handin-ingest <inbox_dir> <repo_dir> [-m]
+EOF
+}
+
+print_handin_check_help() {
+    cat <<EOF
+Uso: handin_mgr handin-check <repo_dir> [-o relatorio.csv]
+EOF
+}
+
+print_handin_summary_help() {
+    cat <<EOF
+Uso: handin_mgr handin-summary <repo_dir> [-u UC] [-t TP#]
+EOF
+}
+
+next_id() {
+  date +%s                  #  ID a usar Timestamp
+}
+
+now_iso() {
+  date -Iseconds            # Data Actual em ISO
+}
+
+
+
+is_iso_date() {
+    case $1 in
+        ????-??-??) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+is_prio() {
+    case $1 in
+        1|2|3|4|5) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+acquire_lock() {
+    # TODO: implementar lock com mkdir atomico
+    :
+     lockdir="$LOCKS/todos.lock"
+    while ! mkdir "$lockdir" 2>/dev/null; do
+        sleep 0.1
+    done
+}
+
+release_lock() {
+    # TODO: libertar lock
+    :
+    lockdir="$LOCKS/todos.lock"
+    rmdir "$lockdir" 2>/dev/null || true
+}
+
+cmd_todo_add() {
+    [ "${1-}" = "-h" ] && {
+        print_todo_add_help
+        return 0
+    }
+
+    ensure_state -f
+
+    title=
+    prio=3
+    due=
+    tags=
+
+    # Primeiro argumento é o título, 2 primeiros argumentos ja foram removidos
+    [ $# -gt 0 ] || print "Falta titulo"
+    title=$1
+    shift
+
+
+    while [ $# -gt 0 ]; do
+        case $1 in
+            -p)
+                shift
+                [ $# -gt 0 ] || print "Falta valor para -p"
+                is_prio "$1"   "Prioridade invalida: $1"
+                prio=$1
+                ;;
+            -d)
+                shift
+                [ $# -gt 0 ] || print "Falta valor para -d"
+                is_iso_date "$1"   "Data invalida (esperado AAAA-MM-DD): $1"
+                due=$1
+                ;;
+            -t)
+                shift
+                [ $# -gt 0 ] || print "Falta valor para -t"
+                tags=$1
+                ;;
+            *)
+                print "Opcao desconhecida em todo-add: $1"
+                ;;
+        esac
+        shift
+    done
+
+    ensure_state
+    acquire_lock
+
+    id=$(next_id)
+    created_at=$(now_iso)
+    status=TODO
+    done_at=
+
+
+
+    printf '%s;%s;%s;%s;%s;%s;%s;%s\n' \
+        "$id" "$status" "$prio" "$due" "$tags" "$created_at" "$done_at" "$title" >>"$TODOS"
+
+    release_lock
+
+    printf 'Criada tarefa %s\n' "$id"
+
+}
+
+cmd_todo_list() {
+    [ "${1-}" = "-h" ] && {
+        print_todo_list_help
+        return 0
+    }
+
+    # TODO:
+    # - suportar -a, -s, -t, -p
+    # - filtrar e ordenar
+    # - imprimir formatado
+    # echo "TODO: implementar todo-list"
+
+    show_all=0
+    sort_key=created
+    filter_tag=
+    min_prio=1
+    
+    while [ $# -gt 0 ]; do
+        case $1 in
+            -a) show_all=1 ;;
+            -s)
+                shift
+                case ${1-} in
+                    due|prio|created)
+                        sort_key=$1
+                        ;;
+                    *)
+                        printf "Chave de ordenacao invalida: %s\n" "$1"
+                        return 1
+                        ;;
+                esac
+                ;;    
+            -t)
+                shift
+                filter_tag=${1-}
+                ;;
+            -p)
+                shift
+                is_prio "${1-}"  printf "Prioridade invalida: $1"
+                min_prio=$1
+                ;;
+            *)
+                print "Opcao desconhecida em todo-list: $1"
+                ;;
+        esac
+        shift
+    done
+
+    ensure_state
+    [ -s "$TODOS" ] || { echo "Sem tarefas."; return 0; }
+
+    # escolher campo de ordenação
+    
+    
+    case $sort_key in
+        prio) sort_cmd=(-t ";" -k3,3n) ;;
+        due)  sort_cmd=(-t ";" -k4,4) ;;
+        created) sort_cmd=(-t ";" -k6,6) ;;
+    esac
+    
+
+    # filtrar e imprimir
+    awk -F';' -v show_all="$show_all" -v tag="$filter_tag" -v min_prio="$min_prio" '
+        BEGIN { OFS=";" }
+        {
+            id=$1; status=$2; prio=$3; due=$4; tags=$5; created=$6; done_at=$7; title=$8
+            if (!show_all && status != "TODO") next
+            if (prio+0 < min_prio) next
+            if (tag != "" && index(tags, tag) == 0) next
+            print $0
+        }
+    ' "$TODOS" | sort $sort_cmd | awk -F';' '
+        BEGIN { printf "%-4s %-6s %-5s %-12s %-20s %s\n", "ID","STAT","PRIO","DUE","TAGS","TITLE" }
+        {
+            printf "%-4s %-6s %-5s %-12s %-20s %s\n", $1,$2,$3,$4,$5,$8
+        }
+    '
+
+}
+
+
+cmd_todo_done() {
+    [ "${1-}" = "-h" ] && {
+        print_todo_done_help
+        return 0
+    }
+
+    # TODO:
+    # - validar id
+    # - marcar tarefa como DONE
+    # - guardar done_at
+
+    #echo "TODO: implementar todo-done"
+
+    [ $# -eq 1 ] || print "Uso: todo-done <id>"
+    id_target=$1
+
+    ensure_state
+    [ -s "$TODOS" ] || print "Sem tarefas."
+
+    acquire_lock
+
+    tmp=$(mktemp)
+    found=0
+    now=$(now_iso)
+
+    awk -F';' -v idt="$id_target" -v now="$now" '
+        BEGIN { OFS=";" }
+        {
+            if ($1 == idt) {
+                found=1
+                $2="DONE"
+                $7=now
+            }
+            print $0
+        }
+        END {
+            if (!found) {
+                exit 2
+            }
+        }
+    ' "$TODOS" >"$tmp"
+    rc=$?
+
+    if [ $rc -eq 2 ]; then
+        rm -f "$tmp"
+        release_lock
+        die "ID nao encontrado: $id_target"
+    fi
+
+    mv "$tmp" "$TODOS"
+    release_lock
+
+    echo "Tarefa $id_target marcada como DONE"
+
+
+}
+
+cmd_todo_search() {
+    [ "${1-}" = "-h" ] && {
+        print_todo_search_help
+        return 0
+    }
+
+    # TODO:
+    # - procurar texto no titulo
+    # - ignorar maiusculas/minusculas
+
+    [ $# -ge 1 ] || die "Uso: todo-search <texto>"
+    text=$*
+    ensure_state
+    [ -s "$TODOS" ] ||  { echo "Sem tarefas."; return 0; }
+
+    awk -F';' -v q="$text" '
+        BEGIN {
+            IGNORECASE=1
+            printf "%-4s %-6s %-5s %-12s %-20s %s\n", "ID","STAT","PRIO","DUE","TAGS","TITLE"
+        }
+        {
+            if (index($8, q) > 0) {
+                printf "%-4s %-6s %-5s %-12s %-20s %s\n", $1,$2,$3,$4,$5,$8
+            }
+        }
+    ' "$TODOS"
+
+
+}
+
+cmd_handin_ingest() {
+    [ "${1-}" = "-h" ] && {
+        print_handin_ingest_help
+        return 0
+    }
+
+    # TODO:
+    # - receber inbox_dir e repo_dir
+    # - suportar -m
+    # - validar nomes das entregas
+    # - copiar ou mover para repo_dir/UC/TP/aluno/timestamp
+    # - descompactar zip/tar/tar.gz se aplicavel
+    # - gerar relatorio em ~/.handin_mgr/runs/
+
+    echo "TODO: implementar handin-ingest"
+}
+
+cmd_handin_check() {
+    [ "${1-}" = "-h" ] && {
+        print_handin_check_help
+        return 0
+    }
+
+    # TODO:
+    # - percorrer repositorio
+    # - verificar README, src, ficheiros proibidos, binarios, tamanho, etc.
+    # - escrever CSV para stdout ou ficheiro com -o
+    # - criar tarefas automaticamente em caso de FAIL
+
+    echo "TODO: implementar handin-check"
+}
+
+cmd_handin_summary() {
+    [ "${1-}" = "-h" ] && {
+        print_handin_summary_help
+        return 0
+    }
+
+    # TODO:
+    # - agregar resultados do handin-check
+    # - suportar filtros -u e -t
+    # - mostrar totais e tops
+
+    echo "TODO: implementar handin-summary"
+}
+
+dispatch() {
+    [ $# -gt 0 ] || {
+        err "Falta comando"
+        return 1
+    }
+
+    case $1 in
+        todo-add)
+            shift
+            cmd_todo_add "$@"
+            ;;
+        todo-list)
+            shift
+            cmd_todo_list "$@"
+            ;;
+        todo-done)
+            shift
+            cmd_todo_done "$@"
+            ;;
+        todo-search)
+            shift
+            cmd_todo_search "$@"
+            ;;
+        handin-ingest)
+            shift
+            cmd_handin_ingest "$@"
+            ;;
+        handin-check)
+            shift
+            cmd_handin_check "$@"
+            ;;
+        handin-summary)
+            shift
+            cmd_handin_summary "$@"
+            ;;
+        -h|--help)
+            print_general_help
+            ;;
+        *)
+            err "Comando inválido: $1"
+            return 1
+            ;;
+    esac
+}
+
+run_shell() {
+    ensure_state -d
+
+    printf 'Shell interativa de %s\n' "$PROG"
+    printf 'Escreve help para ajuda e exit para sair\n'
+
+    while :; do
+        printf 'shell> '
+        IFS= read -r line || {
+            printf '\n'
+            break
+        }
+
+        case $line in
+            '')
+                continue
+                ;;
+            exit|exist)
+                break
+                ;;
+            help)
+                print_general_help
+                continue
+                ;;
+            "$PROG "*)
+                cmdline=${line#"$PROG "}
+                ;;
+            "$PROG")
+                err "Falta o comando"
+                continue
+                ;;
+            *)
+                err "Usa comandos no formato: $PROG <comando> ..."
+                continue
+                ;;
+        esac
+
+        # Nota:
+        # esta divisão por espacos é simples e não trata aspas
+        # complexas como uma shell real
+        set -- $cmdline
+        [ $# -gt 0 ] || continue
+
+        dispatch "$@"       #
+        rc=$?
+        [ "$rc" -eq 0 ] || err "Comando terminou com codigo $rc"
+    done
+}
+
+run_shell

@@ -1,0 +1,110 @@
+[15:51:09] ARRIVAL: client=1 class=economy prio=3 TTL=16s
+[15:51:09] ARRIVAL: client=2 class=business prio=2 TTL=9s
+[15:51:09] DISPATCH: client=2 prio=2 enviado para agentes
+[15:51:09] DISPATCH: client=1 prio=3 enviado para agentes
+[15:51:10] ARRIVAL: client=3 class=first prio=1 TTL=4s
+[15:51:10] DISPATCH: client=3 prio=1 enviado para agentes
+[15:51:10] ARRIVAL: client=4 class=economy prio=3 TTL=12s
+[15:51:10] DISPATCH: client=4 prio=3 enviado para agentes
+[15:51:10] ARRIVAL: client=5 class=economy prio=3 TTL=14s
+[15:51:10] DISPATCH: client=5 prio=3 enviado para agentes
+[15:51:10] ARRIVAL: client=6 class=economy prio=3 TTL=18s
+[15:51:11] DISPATCH: client=6 prio=3 enviado para agentes
+[15:51:11] ARRIVAL: client=7 class=economy prio=3 TTL=13s
+[15:51:11] DISPATCH: client=7 prio=3 enviado para agentes
+[15:51:11] ARRIVAL: client=8 class=economy prio=3 TTL=14s
+[15:51:11] DISPATCH: client=8 prio=3 enviado para agentes
+[15:51:11] ARRIVAL: client=9 class=business prio=2 TTL=8s
+[15:51:11] ARRIVAL: client=10 class=economy prio=3 TTL=14s
+[15:51:11] DISPATCH: client=9 prio=2 enviado para agentes
+[15:51:11] DISPATCH: client=10 prio=3 enviado para agentes
+[15:51:12] ARRIVAL: client=11 class=economy prio=3 TTL=17s
+[15:51:12] DISPATCH: client=11 prio=3 enviado para agentes
+[15:51:12] ARRIVAL: client=12 class=economy prio=3 TTL=14s
+[15:51:12] DISPATCH: client=12 prio=3 enviado para agentes
+[15:51:12] BOARDED: client=3 prio=1 agent=3 gate=1 wait=0.01s duration=1.99s
+[15:51:12] ARRIVAL: client=13 class=economy prio=3 TTL=13s
+[15:51:12] DISPATCH: client=13 prio=3 enviado para agentes
+[15:51:12] BOARDED: client=2 prio=2 agent=1 gate=1 wait=0.11s duration=2.79s
+[15:51:12] ARRIVAL: client=14 class=economy prio=3 TTL=15s
+[15:51:12] DISPATCH: client=14 prio=3 enviado para agentes
+[15:51:12] ARRIVAL: client=15 class=economy prio=3 TTL=18s
+[15:51:12] DISPATCH: client=15 prio=3 enviado para agentes
+[15:51:13] ARRIVAL: client=16 class=first prio=1 TTL=6s
+[15:51:13] DISPATCH: client=16 prio=1 enviado para agentes
+[15:51:13] BOARDED: client=1 prio=3 agent=2 gate=1 wait=0.22s duration=3.09s
+[15:51:13] ARRIVAL: client=17 class=first prio=1 TTL=4s
+[15:51:13] DISPATCH: client=17 prio=1 enviado para agentes
+[15:51:13] ARRIVAL: client=18 class=business prio=2 TTL=10s
+[15:51:13] DISPATCH: client=18 prio=2 enviado para agentes
+[15:51:13] ARRIVAL: client=19 class=economy prio=3 TTL=14s
+[15:51:13] DISPATCH: client=19 prio=3 enviado para agentes
+[15:51:13] ARRIVAL: client=20 class=economy prio=3 TTL=13s
+[15:51:14] DISPATCH: client=20 prio=3 enviado para agentes
+[15:51:14] ARRIVAL: client=21 class=business prio=2 TTL=8s
+[15:51:14] DISPATCH: client=21 prio=2 enviado para agentes
+[15:51:14] ARRIVAL: client=22 class=economy prio=3 TTL=17s
+[15:51:14] DISPATCH: client=22 prio=3 enviado para agentes
+[15:51:14] ARRIVAL: client=23 class=economy prio=3 TTL=16s
+[15:51:14] DISPATCH: client=23 prio=3 enviado para agentes
+[15:51:14] ARRIVAL: client=24 class=economy prio=3 TTL=17s
+[15:51:14] DISPATCH: client=24 prio=3 enviado para agentes
+[15:51:15] ARRIVAL: client=25 class=economy prio=3 TTL=17s
+[15:51:15] DISPATCH: client=25 prio=3 enviado para agentes
+[15:51:15] ARRIVAL: client=26 class=economy prio=3 TTL=15s
+[15:51:15] DISPATCH: client=26 prio=3 enviado para agentes
+[15:51:15] ARRIVAL: client=27 class=business prio=2 TTL=7s
+[15:51:15] DISPATCH: client=27 prio=2 enviado para agentes
+[15:51:15] ARRIVAL: client=28 class=economy prio=3 TTL=13s
+[15:51:15] DISPATCH: client=28 prio=3 enviado para agentes
+[15:51:15] BOARDED: client=4 prio=3 agent=3 gate=1 wait=1.60s duration=3.69s
+[15:51:15] ARRIVAL: client=29 class=economy prio=3 TTL=13s
+[15:51:16] DISPATCH: client=29 prio=3 enviado para agentes
+[15:51:16] ARRIVAL: client=30 class=first prio=1 TTL=4s
+[15:51:16] DISPATCH: client=30 prio=1 enviado para agentes
+[15:51:16] BOARDED: client=5 prio=3 agent=1 gate=1 wait=1.85s duration=3.59s
+[15:51:16] BOARDED: client=6 prio=3 agent=2 gate=1 wait=2.02s duration=3.34s
+[15:51:16] ARRIVAL: client=31 class=business prio=2 TTL=12s
+[15:51:16] DISPATCH: client=31 prio=2 enviado para agentes
+[15:51:16] ARRIVAL: client=32 class=business prio=2 TTL=8s
+[15:51:16] DISPATCH: client=32 prio=2 enviado para agentes
+[15:51:16] ARRIVAL: client=33 class=economy prio=3 TTL=13s
+[15:51:16] DISPATCH: client=33 prio=3 enviado para agentes
+[15:51:17] ARRIVAL: client=34 class=economy prio=3 TTL=14s
+[15:51:17] DISPATCH: client=34 prio=3 enviado para agentes
+[15:51:17] ARRIVAL: client=35 class=economy prio=3 TTL=16s
+[15:51:17] DISPATCH: client=35 prio=3 enviado para agentes
+[15:51:17] ARRIVAL: client=36 class=economy prio=3 TTL=14s
+[15:51:17] DISPATCH: client=36 prio=3 enviado para agentes
+[15:51:17] ARRIVAL: client=37 class=economy prio=3 TTL=16s
+[15:51:17] DISPATCH: client=37 prio=3 enviado para agentes
+[15:51:17] ARRIVAL: client=38 class=economy prio=3 TTL=15s
+[15:51:18] DISPATCH: client=38 prio=3 enviado para agentes
+[15:51:18] ARRIVAL: client=39 class=business prio=2 TTL=11s
+[15:51:18] DISPATCH: client=39 prio=2 enviado para agentes
+[15:51:18] ARRIVAL: client=40 class=economy prio=3 TTL=14s
+[15:51:18] DISPATCH: client=40 prio=3 enviado para agentes
+[15:51:18] ARRIVAL: client=41 class=business prio=2 TTL=8s
+[15:51:18] ARRIVAL: client=42 class=business prio=2 TTL=9s
+[15:51:18] DISPATCH: client=41 prio=2 enviado para agentes
+[15:51:18] DISPATCH: client=42 prio=2 enviado para agentes
+[15:51:18] BOARDED: client=9 prio=2 agent=2 gate=1 wait=4.60s duration=2.39s
+[15:51:19] ARRIVAL: client=43 class=economy prio=3 TTL=17s
+[15:51:19] DISPATCH: client=43 prio=3 enviado para agentes
+[15:51:19] ARRIVAL: client=44 class=economy prio=3 TTL=17s
+[15:51:19] DISPATCH: client=44 prio=3 enviado para agentes
+[15:51:19] ARRIVAL: client=45 class=economy prio=3 TTL=13s
+[15:51:19] DISPATCH: client=45 prio=3 enviado para agentes
+[15:51:19] BOARDED: client=8 prio=3 agent=1 gate=1 wait=4.81s duration=3.43s
+[15:51:19] ARRIVAL: client=46 class=economy prio=3 TTL=17s
+[15:51:19] DISPATCH: client=46 prio=3 enviado para agentes
+[15:51:19] BOARDED: client=7 prio=3 agent=3 gate=1 wait=4.67s duration=3.94s
+[15:51:22] BOARDED: client=10 prio=3 agent=2 gate=1 wait=6.92s duration=3.28s
+[15:51:23] BOARDED: client=11 prio=3 agent=1 gate=1 wait=7.62s duration=3.59s
+[15:51:23] BOARDED: client=12 prio=3 agent=3 gate=1 wait=7.75s duration=4.01s
+[15:51:25] BOARDED: client=13 prio=3 agent=2 gate=1 wait=9.55s duration=3.14s
+[15:51:26] BOARDED: client=16 prio=1 agent=2 gate=1 wait=12.09s duration=1.07s
+[15:51:26] BOARDED: client=14 prio=3 agent=1 gate=1 wait=10.43s duration=3.68s
+[15:51:27] BOARDED: client=17 prio=1 agent=2 gate=1 wait=13.04s duration=1.29s
+[15:51:27] BOARDED: client=15 prio=3 agent=3 gate=1 wait=10.95s duration=3.94s
+[15:51:29] BOARDED: client=18 prio=2 agent=1 gate=1 wait=13.57s duration=2.73s
