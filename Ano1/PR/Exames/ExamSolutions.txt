@@ -1,0 +1,133 @@
+Exame época normal – 23/06/2024 (ExameFinal25)
+1. VLANs, OSPF e interligação
+1.a) Descreva como interligar as VLANs.
+Na rede da Figura 1, as VLANs Engenharia, Datacenter e Comercial devem ser criadas nos Switch3 e Switch4. Para que estas VLANs possam existir de forma contínua entre os dois switches, é necessário configurar a ligação entre Switch3 e Switch4 como uma porta trunk 802.1Q. O trunk permite transportar simultaneamente várias VLANs sobre o mesmo enlace físico, marcando cada frame com uma tag que identifica a VLAN a que pertence. As portas que ligam os PCs a cada switch devem ser configuradas como portas de acesso (access ports), associadas à VLAN correta (Engenharia, Datacenter ou Comercial). Assim, a interligação das VLANs é feita através do trunk entre os switches, garantindo que a mesma VLAN é vista de forma transparente em ambos.
+
+1.b) Descreva como comutar as VLANs.
+A comutação das VLANs ocorre dentro de cada switch e baseia‑se no princípio de que cada VLAN é um domínio de broadcast independente. Quando um dispositivo envia um frame, o switch verifica a VLAN associada à porta de entrada e só encaminha esse frame para portas pertencentes à mesma VLAN. Isto garante isolamento entre Engenharia, Datacenter e Comercial: o tráfego de uma VLAN não é misturado com o de outra. A comutação é, portanto, local à VLAN. Quando é necessário comunicar entre VLANs (por exemplo, um PC da Engenharia a aceder a um servidor no Datacenter), o tráfego é enviado para um equipamento de camada 3 (router ou SVI em switch L3), que faz o encaminhamento entre as redes, não a comutação.
+
+1.c) Diferença entre usar portas L3 (routing) e L2 (switching) entre Switch1 e Switch2.
+Se Switch1 e Switch2 forem interligados por portas de camada 2, a ligação funciona como um enlace de comutação: pode ser um trunk que transporta várias VLANs, mas não há encaminhamento IP direto entre os switches. Todo o tráfego entre VLANs terá de passar por um router ou por interfaces L3 (SVIs) configuradas noutros equipamentos. O domínio de broadcast é maior e a rede depende mais de um ponto central de routing.
+
+Se forem usadas portas de camada 3, cada porta recebe um endereço IP e os switches passam a encaminhar tráfego entre si, funcionando como routers. OSPF pode correr diretamente entre Switch1 e Switch2, e o tráfego entre segmentos é encaminhado de forma distribuída. Isto reduz o domínio de broadcast, melhora o desempenho e aumenta a escalabilidade, porque o encaminhamento deixa de depender de um único router.
+
+1.d) Desenhe a rede lógica correspondente à rede física.
+A rede lógica deve representar:
+
+Três redes IP distintas para as VLANs Engenharia, Datacenter e Comercial, cada uma com o seu prefixo.
+
+Switch3 e Switch4 ligados por um trunk que transporta essas VLANs.
+
+Switch1 e Switch2 como switches L3 (ou routers) que participam em OSPF, interligando as várias partes da rede.
+
+R1 e R2 como routers de borda, também a correr OSPF, integrados na mesma área ou em áreas hierarquizadas.
+
+Os PCs ligados às respetivas VLANs através de portas de acesso.
+
+Em termos lógicos, terias algo como: VLAN Engenharia, VLAN Datacenter e VLAN Comercial a convergirem em Switch3/Switch4, estes ligados a Switch1/Switch2 (L3), e estes por sua vez ligados a R1 e R2, com OSPF a garantir o encaminhamento entre todas as redes.
+
+1.e) Proponha uma solução de interligação redundante à Internet.
+Uma solução típica é ligar tanto R1 como R2 ao ISP, criando uma arquitetura redundante. Cada router teria uma ligação independente à Internet, e o ISP poderia anunciar uma rota default a ambos. Dentro da rede, OSPF distribuiria essa rota, permitindo que, se R1 falhar, o tráfego saia por R2, e vice‑versa. Outra abordagem é usar um protocolo de redundância de gateway (como HSRP/VRRP) entre R1 e R2, criando um gateway virtual para a rede interna. Assim, mesmo que um router falhe, o outro assume o endereço virtual e mantém a conectividade à Internet.
+
+2. VLANs com o mesmo endereço de rede (Figura 2)
+No enunciado, PC4 e deb‑1 estão na VLAN 1, e PC3 e PC4 estão na VLAN 2, sendo que as VLANs têm o mesmo endereço de rede.
+
+2.a) Isso permite a comunicação entre PC4 e deb‑1?
+Sim. Como PC4 e deb‑1 pertencem à mesma VLAN (VLAN 1) e partilham a mesma rede IP, o switch comuta diretamente o tráfego entre eles. Estão no mesmo domínio de broadcast e na mesma sub‑rede, pelo que a comunicação é possível sem necessidade de routing.
+
+2.b) Isso permite a comunicação entre PC4 e PC3? Justifique.
+Não. Apesar de PC4 e PC3 terem endereços IP na mesma rede, pertencem a VLANs diferentes. Cada VLAN é um domínio de broadcast isolado, e o switch nunca encaminha frames de uma VLAN para outra. Para que comunicassem, seria necessário um router ou uma interface L3 a fazer inter‑VLAN routing. No entanto, como ambas as VLANs usam a mesma rede IP, o router não pode ter duas interfaces na mesma sub‑rede, o que inviabiliza o encaminhamento. Logo, a comunicação entre PC4 e PC3 não é possível.
+
+3. Spanning‑Tree e gestão pelos administradores
+Embora o Spanning‑Tree Protocol funcione de forma automática, os administradores devem poder gerir a árvore porque a escolha do root bridge e a forma como os caminhos são calculados têm impacto direto no desempenho e na estabilidade da rede. Se o root bridge for escolhido aleatoriamente (por exemplo, um switch de acesso com menos capacidade), o tráfego pode seguir caminhos subótimos, atravessando enlaces mais lentos ou congestionados. Além disso, a introdução de novos switches pode provocar recalculações inesperadas da árvore, causando interrupções temporárias. Ao configurar prioridades, custos de porta e root bridge de forma explícita, o administrador garante que a topologia lógica é previsível, otimizada e resiliente a falhas, evitando loops e minimizando o downtime.
+
+4. Encaminhamento hierárquico OSPF
+O encaminhamento hierárquico em OSPF baseia‑se na divisão da rede em áreas, com uma área backbone (Área 0) e áreas adicionais ligadas a esta. Dentro de cada área, os routers conhecem a topologia completa, mas entre áreas são trocados apenas resumos de rotas. Esta hierarquia reduz o número de LSAs, diminui o tamanho das tabelas de routing e limita o impacto de alterações topológicas a uma área específica. Em termos de desempenho, isto significa menos processamento por router, convergência mais rápida e maior escalabilidade, o que é essencial em redes de grande dimensão.
+
+5. Relatório de migração IPv4 → IPv6
+Numa rede semelhante à da Figura 1, a migração para IPv6 implica alterações ao nível do endereçamento, routing, serviços e segurança. É necessário definir um plano de endereçamento IPv6, atribuindo prefixos /64 a cada VLAN e a cada ligação ponto‑a‑ponto. As interfaces dos routers e switches L3 devem ser configuradas com endereços IPv6, e o encaminhamento IPv6 deve ser ativado. O protocolo de routing deve ser atualizado para uma versão compatível com IPv6, como OSPFv3.
+
+Ao nível dos serviços, o DNS deve suportar registos AAAA, e os servidores devem estar acessíveis via IPv6. Firewalls e ACLs têm de ser reconfiguradas para IPv6, com regras equivalentes às existentes em IPv4. Equipamentos que não suportem IPv6 podem exigir mecanismos de transição (dual‑stack, NAT64, proxies). A tradução de nomes implica garantir que todos os serviços têm registos IPv6 no DNS e que a documentação da rede é atualizada com o novo esquema de endereçamento. Por fim, é necessária monitorização adaptada a IPv6 e formação da equipa técnica, dado que o modelo de funcionamento (SLAAC, RA, DHCPv6, ausência de NAT tradicional) difere significativamente do IPv4.
+
+Exame de recurso – 02/07/2025 (ExameRecurso)
+1. VLANs com o mesmo endereço de rede (Figura 1)
+PC4 e deb‑1 estão na VLAN 1; PC3 e PC2 estão na VLAN 2; ambas as VLANs usam a mesma rede IP.
+
+1.a) Comunicação entre PC4 e deb‑1
+Sim, é possível. Estão na mesma VLAN (VLAN 1) e na mesma sub‑rede, pelo que o switch comuta diretamente o tráfego entre eles. Partilham o mesmo domínio de broadcast e não é necessário routing.
+
+1.b) Comunicação entre PC4 e PC3, com justificação
+Não. Apesar de poderem ter endereços IP na mesma rede, PC4 e PC3 pertencem a VLANs diferentes. As VLANs são domínios de broadcast separados, e o switch não encaminha frames entre VLANs. Para que comunicassem, seria necessário um router ou interface L3 a fazer inter‑VLAN routing. No entanto, como ambas as VLANs usam a mesma rede IP, o router não pode ter duas interfaces na mesma sub‑rede, o que impede o encaminhamento. Logo, a comunicação não é possível.
+
+2. Hierarquização do encaminhamento
+2.a) Em que consiste
+A hierarquização do encaminhamento consiste em organizar a rede em níveis ou camadas lógicas, normalmente com uma camada de núcleo (core), uma camada de distribuição e uma camada de acesso. Em termos de routing, isto traduz‑se na utilização de áreas, agregação de rotas e separação de domínios de falha. Em vez de todos os routers conhecerem toda a topologia detalhada, a rede é dividida em segmentos, e o encaminhamento é feito com base em rotas agregadas e resumos. Protocolos como OSPF implementam esta hierarquia através de áreas, com uma área backbone e áreas adicionais ligadas a esta.
+
+2.b) Vantagens da hierarquização
+As principais vantagens são a escalabilidade, o desempenho e a resiliência. A hierarquização reduz o tamanho das tabelas de routing, diminui o número de atualizações de routing (LSAs, por exemplo) e limita o impacto de falhas a uma parte da rede. Isto resulta em menor carga de processamento nos routers, convergência mais rápida e maior facilidade de gestão. Além disso, a hierarquia permite planear melhor a agregação de prefixos, simplificando a política de routing e a segurança.
+
+3. Encaminhamento hierárquico OSPF
+O encaminhamento hierárquico em OSPF é implementado através de áreas. A Área 0 funciona como backbone, e as restantes áreas ligam‑se a esta através de routers de fronteira de área (ABRs). Dentro de cada área, os routers conhecem a topologia completa, mas entre áreas são trocados apenas resumos de rotas. Isto reduz o número de LSAs, o tamanho das tabelas de routing e o impacto de alterações topológicas. Em termos de desempenho, a hierarquia permite que redes grandes sejam geríveis, com convergência mais rápida e menor utilização de recursos de CPU e memória nos routers.
+
+4. VLANs, OSPF e rede estruturada (Figura 2)
+4.a) Camadas de uma rede estruturada e equipamentos em cada uma
+Numa rede estruturada típica, podemos identificar três camadas:
+
+Camada de acesso: onde se ligam os dispositivos finais (PCs, impressoras, APs). Aqui estariam os Switch3 e Switch4, que ligam diretamente aos PCs e implementam as VLANs Engenharia, Datacenter e Comercial.
+
+Camada de distribuição: agrega o tráfego da camada de acesso, aplica políticas (ACLs, QoS) e faz inter‑VLAN routing. Switch1 e Switch2, como switches L3, pertenceriam a esta camada.
+
+Camada de núcleo (core): responsável pelo encaminhamento rápido entre diferentes partes da rede e pela ligação a routers de borda. R1 e R2, que fazem a ligação ao exterior e participam em OSPF, podem ser vistos como parte do core ou da borda da rede.
+
+4.b) Rede lógica correspondente à Figura 2
+A rede lógica deve mostrar as VLANs Engenharia, Datacenter e Comercial como três redes IP distintas, presentes em Switch3 e Switch4, interligadas por um trunk. Switch1 e Switch2 surgem como equipamentos de distribuição, com interfaces L3 a fazer o encaminhamento entre VLANs e a correr OSPF com R1 e R2. R1 e R2 aparecem como routers de borda, integrados na mesma área OSPF ou em áreas hierarquizadas. Os PCs são representados nas respetivas VLANs, com gateways configurados nas interfaces L3 dos switches ou routers.
+
+4.c) Propor um local para interligar o datacenter
+O datacenter deve ser ligado preferencialmente à camada de distribuição, em pontos de elevada disponibilidade e redundância. Uma solução típica é ligar o datacenter (por exemplo, através de um conjunto de servidores ou um switch dedicado de datacenter) a Switch1 e Switch2, garantindo redundância física e lógica. Assim, o datacenter beneficia de caminhos redundantes, de políticas de routing e de segurança aplicadas na camada de distribuição, e de uma boa integração com o core e a ligação à Internet.
+
+5. Migração IPv4 → IPv6 (semelhante à questão 5 do exame de 2024)
+A resposta é conceptualmente idêntica à do exame de 2024: plano de endereçamento IPv6, atualização de routing (OSPFv3), DNS com registos AAAA, adaptação de firewalls e ACLs, mecanismos de transição se necessário, atualização de documentação e formação da equipa.
+
+Exame especial – 28/02/2022 (ExameRecurso22)
+1. Spanning‑Tree e gestão da árvore
+Apesar de o STP ser automático, os administradores devem poder gerir a árvore porque a escolha do root bridge e dos caminhos ativos influencia diretamente o desempenho e a estabilidade. Sem gestão, um switch de acesso pode tornar‑se root, forçando o tráfego a seguir caminhos longos ou pouco eficientes. A introdução de novos switches pode causar recalculações inesperadas, com interrupções temporárias. Ao configurar prioridades, custos e portas root, o administrador garante uma topologia previsível, otimizada e resistente a falhas, evitando loops e minimizando o impacto de alterações.
+
+2. Duas técnicas para interligar tráfego de diferentes VLANs
+Duas técnicas genéricas são:
+
+Router‑on‑a‑stick: um router com uma interface física ligada a um switch, configurada como trunk, com subinterfaces para cada VLAN. Cada subinterface tem um endereço IP e funciona como gateway da VLAN, permitindo o encaminhamento entre VLANs.
+
+Switch L3 / SVIs: utilização de switches de camada 3 com interfaces virtuais (SVIs) para cada VLAN. Cada SVI tem um endereço IP e faz o routing entre VLANs diretamente no switch, sem necessidade de um router externo.
+
+3. Importância do VTP na administração de rede
+O VTP (VLAN Trunking Protocol) permite gerir de forma centralizada a base de dados de VLANs numa rede de switches Cisco. Ao configurar um switch como servidor VTP, as VLANs criadas, alteradas ou removidas nesse switch são propagadas automaticamente aos restantes switches no mesmo domínio VTP. Isto reduz o trabalho administrativo, evita erros de configuração manual e garante consistência na definição de VLANs em toda a rede. Em ambientes com muitos switches, o VTP simplifica significativamente a gestão.
+
+4. Encaminhamento hierárquico em OSPF e razões da hierarquização
+O encaminhamento hierárquico em OSPF é implementado através de áreas, com uma área backbone (Área 0) e áreas adicionais ligadas a esta. Dentro de cada área, os routers conhecem a topologia completa, mas entre áreas são trocados apenas resumos de rotas. As razões para usar hierarquização incluem: redução do tamanho das tabelas de routing, diminuição do número de LSAs, limitação do impacto de falhas a uma área específica, melhoria da escalabilidade e do desempenho global da rede.
+
+5. Tunelização IP
+5.a) Em que consiste tunelizar tráfego
+Tunelizar tráfego consiste em encapsular pacotes de um protocolo dentro de outro, de forma a transportá‑los através de uma rede que não suporta diretamente o protocolo original. Por exemplo, encapsular IPv6 dentro de IPv4, ou tráfego privado dentro de túneis VPN sobre a Internet. Na prática, o pacote original é colocado como payload de um novo pacote, com um novo cabeçalho, e é desencapsulado no destino.
+
+5.b) Importância da tunelização em IP
+A tunelização é importante porque permite:
+
+Interligar redes privadas através de redes públicas (VPNs).
+
+Transportar protocolos não suportados nativamente numa parte da infraestrutura (por exemplo, IPv6 sobre IPv4).
+
+Garantir confidencialidade e integridade do tráfego através de túneis cifrados.
+
+Implementar soluções de transição entre tecnologias (como migração gradual para IPv6).
+
+6. Bluetooth 4 – duas sub‑normas
+A versão 4 da norma Bluetooth inclui duas sub‑normas principais:
+
+Bluetooth Classic (BR/EDR): usado para aplicações de maior largura de banda, como áudio (headsets, colunas), transferência de ficheiros, etc.
+
+Bluetooth Low Energy (BLE): otimizado para baixo consumo de energia, usado em sensores, wearables, IoT, dispositivos médicos, beacons, etc.
+
+As diferenças principais são o consumo energético, a taxa de dados e o modelo de utilização. BLE é pensado para dispositivos que enviam pequenas quantidades de dados esporadicamente, com baterias de longa duração, enquanto o Classic é mais adequado a fluxos contínuos de dados.
+
+7. Relatório de migração IPv4 → IPv6 (semelhante às anteriores)
+Tal como nas outras provas, a migração implica: plano de endereçamento IPv6, atualização de routing (OSPFv3), DNS com registos AAAA, adaptação de firewalls e ACLs, mecanismos de transição se necessário, atualização de documentação e formação da equipa. A extensão das alterações abrange todos os equipamentos de rede, servidores, serviços de nomes, políticas de segurança e ferramentas de monitorização.
