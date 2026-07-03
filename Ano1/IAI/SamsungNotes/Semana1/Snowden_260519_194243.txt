@@ -1,0 +1,3 @@
+We chose to talk about the movie Snowden, which follows Edward Snowden, who was a top contractor at National Security Agency (NSA) that leaked millions of classified documents revealing the existence of global surveillance programs.
+
+This film relates to the Cybersecurity portion of our field of study, related to the Confidentiality of people's personal data that can be compromised. The movie is based on the 2013 leaks revealing the NSA's ability to track internet usage and location records of entire populations.

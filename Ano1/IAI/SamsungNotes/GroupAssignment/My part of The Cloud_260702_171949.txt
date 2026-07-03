@@ -1,0 +1,110 @@
+3rd Topic: Advantages and Disadvantages of Cloud Computing
+
+Next, i'm going to speak on the advantages and disadvantages of Cloud Computing.
+
+Some of the main key benefits of Cloud Computing consist of: 
+
+
+
+Cost Efficiency
+Reduced Hardware and Software Expenses
+Lower Energy Consumption
+Minimal Maintenance Costs
+Scalability and Flexibility
+Easy Resource Allocation and Management
+Pay-As-You-Go Pricing Model
+Rapid Deployment of Applications and Services
+Accessibility and Mobility
+Access to Data and Applications From Anywhere
+Improved Collaboration and Productivity
+Support for Remote Work and Distributed Teams
+Enhanced Security
+Centralized Data Storage and Protection
+Regular Security Updates and Patches
+Advanced Encryption and Authentication Methods
+Disaster Recovery and Business Continuity
+Automated Data Backup and Recovery
+Reduced Downtime and Data Loss
+Simplified Disaster Recovery Planning
+Sustainability of cloud environment - Companies using cloud computing utilise only the computing power they need, which, in turn, reduces their carbon footprint. 
+
+
+Cost efficiency
+Scalability and flexibility
+Accessibility and remote collaboration
+Security and compliance (when managed correctly)
+Disaster recovery and business continuity
+
+
+
+Even though the advantages may be significanta, there are still a few drawbacks to using Cloud Computing Services:
+
+
+Data Privacy and Security Concerns
+Potential for Data Breaches and Unauthorized Access
+Compliance With Data Protection Regulations
+Trusting Third-Party Providers With Sensitive Information
+Limited Control and Customization
+Dependence on Cloud Service Providers
+Restrictions on Software and Hardware Customization
+Network Dependency and Connectivity Issues
+Reliance on Stable Internet Connection
+Performance Issues Due to Network Latency
+Vulnerability to Distributed Denial-of-Service (DDoS) Attacks
+Downtime and Service Reliability
+Risk of Outages and Service Disruptions
+Shared Resources and Potential for Performance Degradation
+
+
+Ongoing operational costs
+Security risks and data privacy concerns
+Downtime and reliability issues
+Limited portability
+Limited control over infrastructure
+
+
+4th Topic: Cloud vs local servers: which is better for companies
+
+Key features of Cloud-Based Solutions:
+Accessibility (Users can access the software or data from anywhere with an internet connection.)
+Scalability (Cloud systems can easily scale up or down depending on the needs of your business.)
+Maintenance (The cloud provider is responsible for server maintenance, updates, and security, reducing the burden on in-house IT teams.)
+Cost Structure (Most cloud services operate on a subscription-based model, which can reduce upfront costs)
+
+
+Key features of Local Server Solutions:
+
+Control (Businesses have full control over their infrastructure and data, including customization and security protocols.)
+Performance ( For companies that prioritize speed and reliability in environments with limited or no internet access, on-premise servers can offer consistent performance.)
+Cost Structure ( Server solutions require a significant upfront investment in hardware, licenses, and IT personnel, but they may have lower ongoing subscription costs.)
+Security ( With dedicated control, businesses can implement stringent security measures to protect sensitive data.)
+
+Hybrid Solutions:
+
+
+
+
+Personal opinion:
+
+ In my personal opinion, there is no right answer for the choice of using or not using Cloud Services, and to choose Cloud Servers or on-premise servers, it will depend on the compromises (and of course the amount of funds available for IT services and staff) each company is willing to make to protect their data, or if they want more flexibility and scalability of the business in the future. The most important thing is to make an informed decision, considering the pros and cons of every approach, and a plan for if changes arise in the future of each specific company.
+
+
+
+
+Links used: 
+
+https://www.opit.com/magazine/advantages-of-cloud-computing/ 
+
+https://devot.team/blog/advantages-and-disadvantages-of-cloud-computing 
+
+https://www.future-processing.com/blog/the-advantages-and-disadvantages-of-cloud-computing/ 
+
+https://www.youtube.com/watch?v=sLN1KNOX68M 
+
+https://www.ainfosys.com/tutorials/cloud-vs-local-server/ 
+
+https://www.youtube.com/watch?v=uhcV9Uo_N0c 
+
+https://www.youtube.com/watch?v=qQGUttofN0w 
+
+https://www.youtube.com/watch?v=-zJ4yrD5jKw
