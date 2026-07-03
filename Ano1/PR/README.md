@@ -1,3 +1,4 @@
 ## Planeamento de Redes // Network Planning, 2nd Semester course
 
-### Final Grade:
+### Final Grade: 17/20
+
