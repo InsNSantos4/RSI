@@ -1,0 +1,80 @@
+Questionário Inicial
+
+Questão #1 O que é pseudo-paralelismo?
+
+ A) Execução real simultânea em vários CPUs
+ B) Execução sequencial de processos sem interrupções
+ C) Execução alternada de processos dando a ilusão de simultaneidade
+ D) Execução apenas de processos prioritários
+
+
+Questão #2 Num sistema preemptivo, um processo pode ser interrompido quando:
+
+ A) Termina naturalmente
+ B) Pede uma operação de I/O
+ C) Surge um processo mais prioritário
+ D) Nunca é interrompido
+
+
+Questão #3 Qual das seguintes situações é típica de sistemas não preemptivos?
+
+ A) Fim de quantum
+ B) Interrupção por timer
+ C) Processo só sai quando termina ou bloqueia
+ D) Preempção periódica
+
+
+Questão #4 Qual é o principal objetivo do escalonamento preemptivo?
+
+ A) Reduzir o número de processos
+ B) Garantir que apenas um processo corre
+ C) Permitir resposta rápida a eventos importantes
+ D) Eliminar a necessidade de prioridades
+
+
+Questão #5 Num sistema multiprogramado, quais são os estados principais de um processo?
+
+ A) Novo, antigo, terminado
+ B) Execução, bloqueado, executável
+ C) Ativo, inativo, suspenso
+ D) Inicial, intermédio, final
+
+
+Questão #6 O que caracteriza um processo I/O bound?
+
+ A) Usa intensivamente CPU
+ B) Executa apenas uma vez
+ C) Bloqueia frequentemente devido a operações de I/O
+ D) Nunca entra em espera
+
+
+Questão #7 Qual é a principal desvantagem do escalonamento preemptivo?
+
+ A) Falta de justiça
+ B) Menor complexidade
+ C) Mais comutações de processo e overhead
+ D) Não permite multitasking
+
+
+Questão #8 O algoritmo Round Robin baseia-se em:
+
+ A) Prioridade fixa
+ B) Ordem aleatória
+ C) Quantum (intervalo de tempo)
+ D) Tempo total de execução
+
+
+Questão #9 O que acontece se o quantum for demasiado pequeno no Round Robin?
+
+ A) Melhora o desempenho global
+ B) Reduz o número de comutações
+ C) Aumenta o overhead devido a muitas trocas
+ D) Torna-se não preemptivo
+
+
+Questão #10 O que mede o throughput?
+
+ A) Tempo de resposta ao utilizador
+ B) Número de processos concluídos por unidade de tempo
+ C) Tempo de espera médio
+ D) Utilização da memória

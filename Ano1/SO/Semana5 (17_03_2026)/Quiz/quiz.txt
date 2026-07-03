@@ -1,0 +1,71 @@
+Questionário Inicial
+
+Questão #1 O que é um processo num sistema operativo?
+
+ A) Um ficheiro executável armazenado em disco
+ B) Um programa em execução
+ C) Um conjunto de periféricos de entrada e saída
+ D) Um bloco de memória sem contexto de execução
+
+Questão #2 Qual das seguintes secções de memória de um processo armazena variáveis locais e endereços de retorno de funções?
+
+ A) Código
+ B) Dados
+ C) Heap
+ D) Stack
+
+Questão #3 Qual é a principal função do PCB, Process Control Block?
+
+ A) Guardar apenas o código-fonte do programa
+ B) Armazenar informação de gestão do processo, como estado, registos e PID
+ C) Fazer a compilação do programa
+ D) Controlar apenas os ficheiros abertos pelo utilizador
+
+Questão #4 Em Linux, qual é o valor devolvido pela função fork() no processo filho?
+
+ A) -1
+ B) O PID do pai
+ C) 0
+ D) 1
+
+Questão #5 Após um fork(), qual das afirmações é correta?
+
+ A) Pai e filho passam sempre a partilhar todo o espaço de endereçamento
+ B) O processo filho herda o contexto do pai no momento da criação
+ C) O processo pai deixa imediatamente de existir
+ D) O código do processo filho nunca é executado
+
+Questão #6 Qual é o efeito da função execl() num processo?
+
+ A) Duplica o processo atual
+ B) Suspende temporariamente o processo
+ C) Substitui a imagem do processo por um novo programa
+ D) Cria uma thread no mesmo processo
+
+Questão #7 Um processo zombie é um processo que:
+
+ A) Está em execução infinita no kernel
+ B) Terminou, mas o pai ainda não executou wait()
+ C) Perdeu o processo pai e foi adotado pelo init/systemd
+ D) Está bloqueado por uma operação de I/O
+
+Questão #8 Qual das seguintes afirmações sobre threads é verdadeira?
+
+ A) Cada thread tem o seu próprio espaço de endereçamento completo
+ B) Threads do mesmo processo partilham código, dados e heap
+ C) Threads não podem partilhar ficheiros abertos
+ D) Uma thread é sempre mais pesada do que um processo
+
+Questão #9 No modelo multithreading one-to-one:
+
+ A) Várias threads de utilizador correspondem a uma única thread do kernel
+ B) O sistema operativo não conhece as threads
+ C) Cada thread de utilizador corresponde a uma thread do kernel
+ D) Nenhuma thread pode executar em paralelo
+
+Questão #10 Qual dos seguintes sinais em Linux não pode ser ignorado nem tratado?
+
+ A) SIGUSR1
+ B) SIGALRM
+ C) SIGKILL
+ D) SIGCHLD

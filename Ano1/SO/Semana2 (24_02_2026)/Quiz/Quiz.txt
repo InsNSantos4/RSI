@@ -1,0 +1,111 @@
+Questionário Inicial
+Requisitos de conclusão
+
+Questão #1 Politica vs mecanismo. Qual opção esta correta?
+
+Politica vs mecanismo
+Qual opção esta correta?
+
+ Politica: usar temporizador; Mecanismo: escolher o valor do temporizador
+ Politica: escolher o valor do temporizador; Mecanismo: usar temporizador para devolver CPU ao SO periodicamente
+ Politica: compilar o kernel; Mecanismo: chamar a API POSIX
+ Politica: usar GUI; Mecanismo: usar CLI
+
+
+Questão #2 System calls e API. Porque e que os programas normalmente usam uma API (ex POSIX) em vez de chamar system calls diretamente?
+
+System calls e API
+Porque é que os programas normalmente usam uma API (ex POSIX) em vez de chamar system calls diretamente?
+
+ Porque system calls so existem em sistemas antigos
+ Porque a API encapsula detalhes e fornece interface mais conveniente
+ Porque a API corre no kernel e e sempre mais rápida
+ Porque system calls não suportam passagem de parâmetros
+
+
+Questão #3 Exemplos de system calls Unix. Qual conjunto contem apenas exemplos de system calls em Unix?
+
+Exemplos de system calls Unix
+Qual conjunto contem apenas exemplos de system calls em Unix?
+
+ fork, exec, open, read, write, close
+ ls, cd, man, chmod
+ gcc, make, git, vim
+ docker, kubectl, terraform
+
+
+Questão #4 Estruturas de SO: microkernel. Qual afirmação descreve melhor um microkernel?
+
+Estruturas de SO: microkernel
+Qual afirmação descreve melhor um microkernel?
+
+ Move o máximo de serviços (ex ficheiros e drivers) para user space e comunica via IPC
+ Mete tudo no kernel para reduzir overhead
+ Organiza o SO apenas em camadas fixas e imutáveis
+ Elimina a necessidade de system calls
+
+
+Questão #5 Estrutura modular (kernel com módulos carregáveis)Qual vantagem e tipicamente apontada para uma estrutura modular?
+
+Estrutura modular (kernel com módulos carregáveis)
+Qual vantagem e tipicamente apontada para uma estrutura modular?
+
+ Menos eficiente porque exige message passing entre módulos
+ Mais flexível e mais fácil de manter, com desempenho equilibrado
+ Impossível adicionar funcionalidades em runtime
+ Obriga a definir fronteiras rígidas entre camadas
+
+
+Questão #6 Caminhos em Linux. Qual é um caminho absoluto?
+
+Caminhos em Linux
+Qual é um caminho absoluto?
+
+ ../dir/file.txt
+ ./file.txt
+ /home/user/file.txt
+ dir/file.txt
+
+
+Questão #7 Ficheiros ocultos. Em Linux, um ficheiro e tipicamente oculto quando:
+
+Ficheiros ocultos
+Em Linux, um ficheiro e tipicamente oculto quando:
+
+ Tem extensão .hidden
+ Começa por ponto, ex .bashrc
+ Tem permissão 000
+ Esta em /tmp
+
+
+Questão #8 Permissões e chmod. Que comando define permissões rwxr-xr-x (755) num ficheiro?
+
+Permissões e chmod
+Que comando define permissões rwxr-xr-x (755) num ficheiro?
+
+ chmod 644 file
+ chmod 755 file
+ chmod 700 file
+ chmod u-x file
+
+
+Questão #9 Shell script: shebang e execução. Qual é a finalidade principal da primeira linha (shebang) num script, por exemplo #!/bin/bash?
+
+Shell script: shebang e execução
+Qual é a finalidade principal da primeira linha (shebang) num script, por exemplo #!/bin/bash?
+
+ Compilar o script para bytecode
+ Indicar ao sistema qual interpretador deve executar o ficheiro
+ Dar permissões de execução automaticamente
+ Ativar o modo debug por omissão
+
+
+Questão #10 Boas práticas e limitações do shell. Qual combinação esta mais alinhada com as boas práticas e limitações indicadas?
+
+Boas práticas e limitações do shell
+Qual combinação esta mais alinhada com as boas práticas e limitações indicadas?
+
+ Evitar aspas em variáveis; usar shell para logica complexa
+ Usar set -euo pipefail e aspas em "$VAR"; evitar shell para logica de negocio complexa e scripts grandes
+ Desativar tratamento de erros para ser mais portável; usar shell para APIs REST
+ Usar apenas sh e nunca validar argumentos

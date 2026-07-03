@@ -1,0 +1,80 @@
+Questionário Inicial
+
+Questão #1 O CPU acede diretamente a que componentes?
+
+ A) Disco e memória secundária
+ B) Memória e registos
+ C) Apenas registos
+ D) Cache e disco
+
+
+Questão #2 Num sistema monoprogramado:
+
+ A) Vários programas partilham a memória
+ B) Apenas um programa tem acesso total à memória
+ C) Existe sempre memória virtual
+ D) Não há necessidade de carregamento em memória
+
+
+Questão #3 Qual é uma desvantagem das partições de dimensão fixa?
+
+ A) Fragmentação externa
+ B) Fragmentação interna
+ C) Não permite multiprogramação
+ D) Não precisa de proteção
+
+
+Questão #4 A fragmentação externa ocorre quando:
+
+ A) A memória é dividida em blocos fixos
+ B) Há espaço livre suficiente mas não contíguo
+ C) Os processos são maiores que a memória
+ D) Existe cache
+
+
+Questão #5 A MMU tem como função:
+
+ A) Executar instruções
+ B) Gerir processos
+ C) Traduzir endereços lógicos em físicos
+ D) Controlar o disco
+
+
+Questão #6 Na paginação, a memória física é dividida em:
+
+ A) Segmentos
+ B) Páginas
+ C) Frames
+ D) Blocos variáveis
+
+
+Questão #7 O que acontece numa page fault?
+
+ A) O processo termina imediatamente
+ B) A página é removida da memória
+ C) A página é carregada do disco para memória
+ D) A cache é limpa
+
+
+Questão #8 Qual é a principal vantagem da memória virtual?
+
+ A) Elimina completamente page faults
+ B) Permite executar programas maiores que a memória física
+ C) Evita uso de disco
+ D) Elimina fragmentação interna
+
+
+Questão #9 O algoritmo FIFO de substituição de páginas:
+
+ A) Escolhe a página mais recente
+ B) Escolhe a página menos usada recentemente
+ C) Escolhe a página mais antiga
+ D) Escolhe a página com menos acessos
+
+
+Questão #10 Thrashing ocorre quando:
+
+ A) Há pouca utilização de CPU
+ B) O sistema usa apenas memória física
+ C) Há demasiadas page faults e pouco progresso útil
+ D) Não existe memória virtual

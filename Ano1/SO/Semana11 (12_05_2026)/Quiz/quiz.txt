@@ -1,0 +1,80 @@
+Questionário Inicial
+
+Questão #1 Qual é o sistema de ficheiros usado por omissão na maioria das distribuições Linux?
+
+ a) FAT32
+ b) NTFS
+ c) Ext4
+ d) ZFS
+
+
+Questão #2 Qual é a principal vantagem do journaling?
+
+ a) Reduzir o tamanho dos ficheiros
+ b) Melhorar a resolução do monitor
+ c) Prevenir corrupção de dados após falhas
+ d) Aumentar a RAM disponível
+
+
+Questão #3 O que é fragmentação num sistema de ficheiros?
+
+ a) Divisão da RAM em blocos
+ b) Armazenamento não contíguo dos dados no disco
+ c) Compressão automática de ficheiros
+ d) Encriptação do sistema operativo
+
+
+Questão #4 Qual destes sistemas de ficheiros NÃO suporta journaling?
+
+ a) Ext3
+ b) Ext4
+ c) XFS
+ d) FAT32
+
+
+Questão #5 No Linux/UNIX, qual estrutura contém informação sobre permissões, timestamps e blocos de dados?
+
+ a) FAT
+ b) MFT
+ c) i-node
+ d) Cluster
+
+
+Questão #6 Qual é a principal vantagem da alocação contígua?
+
+ a) Facilidade de expansão do ficheiro
+ b) Melhor desempenho em acesso sequencial
+ c) Eliminação da fragmentação
+ d) Compatibilidade com Windows
+
+
+Questão #7 O que significa a sigla FAT?
+
+ a) File Allocation Table
+ b) Fast Access Transfer
+ c) File Access Tree
+ d) Fragment Allocation Tool
+
+
+Questão #8 Qual sistema de ficheiros é conhecido pelos snapshots e rollbacks?
+
+ a) FAT16
+ b) BtrFS
+ c) Ext2
+ d) Swap
+
+
+Questão #9 Qual é a função da partição Swap em Linux?
+
+ a) Guardar logs do sistema
+ b) Servir como memória virtual
+ c) Fazer backups automáticos
+ d) Armazenar utilizadores
+
+
+Questão #10 Qual sistema de ficheiros da Microsoft utiliza a MFT (Master File Table)?
+
+ a) FAT16
+ b) FAT32
+ c) exFAT
+ d) NTFS

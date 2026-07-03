@@ -1,0 +1,80 @@
+Questionário Inicial
+
+Questão #1 Porque é que os processos cooperantes precisam de IPC?
+
+ A) Porque executam sempre no mesmo CPU
+ B) Porque precisam de trocar dados, sincronizar ações e coordenar atividades
+ C) Porque substituem sempre as threads
+ D) Porque não podem aceder a ficheiros
+
+
+Questão #2 Qual é a principal vantagem da memória partilhada face à passagem de mensagens?
+
+ A) Não requer sincronização
+ B) É sempre distribuída por várias máquinas
+ C) É mais rápida porque evita cópias de dados
+ D) Usa sempre TCP
+
+
+Questão #3 Qual destas é uma desvantagem típica da memória partilhada?
+
+ A) Overhead de rede
+ B) Requer semáforos, mutexes ou outro mecanismo de sincronização
+ C) Não permite comunicação local
+ D) Só funciona em sistemas Windows
+
+
+Questão #4 Na passagem de mensagens, o que significa comunicação indireta?
+
+ A) Os processos comunicam apenas por TCP
+ B) A comunicação é feita através de mailboxes ou portos
+ C) Os processos têm de ser pai e filho
+ D) A mensagem não tem destinatário
+
+
+Questão #5 O que caracteriza um rendezvous em message passing?
+
+ A) Envio não bloqueante e recepção não bloqueante
+ B) Envio bloqueante e recepção bloqueante
+ C) Comunicação apenas via UDP
+ D) Existência de buffer ilimitado
+
+
+Questão #6 Qual das afirmações sobre pipes ordinários está correta?
+
+ A) São bidirecionais e persistem no filesystem
+ B) São tipicamente usados entre processos pai e filho
+ C) Usam endereços IP e portos
+ D) São mais indicados para comunicação distribuída pela Internet
+
+
+Questão #7 Qual é a diferença principal entre SOCK_STREAM e SOCK_DGRAM?
+
+ A) SOCK_STREAM usa UDP e SOCK_DGRAM usa TCP
+ B) SOCK_STREAM é orientado à ligação e SOCK_DGRAM não
+ C) SOCK_DGRAM é sempre mais seguro
+ D) SOCK_STREAM só pode ser usado localmente
+
+
+Questão #8 Qual destas opções identifica corretamente uma socket AF_UNIX?
+
+ A) 192.168.1.10:8080
+ B) 0.0.0.0:1234
+ C) /tmp/run.sock
+ D) https://localhost
+
+
+Questão #9 Qual é a melhor escolha para IPC local quando se quer simplicidade e boa performance?
+
+ A) REST sobre Internet
+ B) Unix domain sockets
+ C) RDMA
+ D) FTP
+
+
+Questão #10 Qual é uma vantagem do gRPC em relação ao REST?
+
+ A) Usa texto em vez de binário
+ B) Dispensa qualquer protocolo de transporte
+ C) Permite streaming bidirecional e payload mais compacto
+ D) É mais simples de depurar em todos os casos

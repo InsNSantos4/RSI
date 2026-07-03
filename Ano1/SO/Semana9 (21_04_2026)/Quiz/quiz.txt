@@ -1,0 +1,79 @@
+Questionário Inicial
+
+Questão #1 O que caracteriza uma race condition?
+
+ A. Um processo fica bloqueado para sempre à espera de I/O
+ B. O resultado depende da ordem de execução de processos ou threads concorrentes
+ C. Dois processos usam memória virtual diferente
+ D. Um semáforo tem valor negativo
+
+
+Questão #2 Qual é o principal objetivo da secção crítica?
+
+ A. Permitir que todos os processos entrem ao mesmo tempo
+ B. Garantir que apenas um processo de cada vez acede ao recurso partilhado
+ C. Aumentar o tamanho do buffer
+ D. Eliminar a necessidade de escalonamento
+
+
+Questão #3 Qual dos seguintes é um requisito clássico para uma solução do problema da secção crítica?
+
+ A. Paginação
+ B. Escalonamento preemptivo
+ C. Espera limitada
+ D. Multiprogramação
+
+
+Questão #4 Qual é a principal desvantagem de um mutex lock simples implementado com busy waiting?
+
+ A. Pode corromper o disco
+ B. Desperdiça CPU enquanto espera
+ C. Aumenta automaticamente o paralelismo
+ D. Impede qualquer sincronização entre threads
+
+
+Questão #5 Num problema produtor-consumidor com semáforos, qual é o papel do semáforo empty?
+
+ A. Contar quantos consumidores existem
+ B. Proteger o sistema operativo
+ C. Indicar quantas posições livres existem no buffer
+ D. Indicar quantos itens já foram consumidos no total
+
+
+Questão #6 No problema leitores-escritores, qual é a regra correta?
+
+ A. Só pode existir um leitor de cada vez
+ B. Vários escritores podem escrever ao mesmo tempo
+ C. Vários leitores podem ler em simultâneo, mas um escritor deve ter acesso exclusivo
+ D. Leitores e escritores podem sempre aceder ao mesmo tempo
+
+
+Questão #7 Qual das seguintes situações descreve melhor um deadlock?
+
+ A. Um processo termina mais cedo do que o esperado
+ B. Dois ou mais processos ficam à espera indefinidamente por recursos detidos uns pelos outros
+ C. Um processo tem prioridade mais alta
+ D. Um consumidor lê de um buffer vazio apenas uma vez
+
+
+Questão #8 Qual é a diferença essencial entre deadlock e starvation?
+
+ A. Em deadlock alguns processos progridem, em starvation ninguém progride
+ B. Em starvation ninguém progride, em deadlock só os escritores progridem
+ C. Em deadlock ninguém progride; em starvation alguns processos progridem e outros podem ficar indefinidamente à espera
+ D. Não existe diferença prática
+
+
+Questão #9 O que significa uma garantia wait-free?
+
+ A. Pelo menos um processo progride
+ B. Todos os processos progridem
+ C. Nenhum processo precisa de memória
+ D. O algoritmo usa sempre mutex
+
+Questão #10 Qual das seguintes primitivas é apresentada na aula como exemplo de operação atómica?
+
+ A. Compare-And-Swap (CAS)
+ B. Round Robin
+ C. Page Fault
+ D. Context Switch

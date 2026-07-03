@@ -1,0 +1,85 @@
+Questionário Inicial
+
+Questão #1 O que é a principal característica do Python como linguagem de programação?
+
+ A) Compilada
+ B) Tipagem forte
+ C) Interpretada
+ D) Requer gerenciamento manual de memória
+
+Questão #2 Qual das seguintes opções é uma característica do Python?
+
+ A) Requer compilação antes de ser executado
+ B) Possui tipagem estática
+ C) Usa indentação obrigatória para blocos de código
+ D) Exige o uso de ponto e vírgula ao final de cada linha
+
+
+Questão #3 O que faz a função len() em Python?
+
+ A) Retorna o comprimento de uma string
+ B) Retorna a soma de todos os itens em uma lista
+ C) Retorna o número de variáveis no programa
+ D) Converte uma string para uma lista
+
+
+Questão #4 Qual dos seguintes NÃO é um tipo de dado válido em Python?
+
+ A) int
+ B) str
+ C) boolean
+ D) list
+
+Questão #5 O que o seguinte código Python vai imprimir?
+ 
+texto = "Hello, World!"
+print(texto[7:12])
+
+ A) "Hello"
+ B) "World"
+ C) "o, W"
+ D) "Hello, World!"
+
+
+Questão #6 O que faz a função range() em Python?
+
+ A) Retorna uma sequência de números de ponto flutuante
+ B) Retorna uma sequência de inteiros
+ C) Gera números aleatórios
+ D) Encontra o número máximo em uma lista
+
+
+Questão #7 Qual operador é utilizado para verificar se um valor existe em uma lista?
+
+ A) ==
+ B) and
+ C) in
+ D) is
+
+
+Questão #8 Como você cria uma função em Python que retorna a soma de dois números?
+
+ A) def soma(a, b): return a + b
+ B) soma(a, b) = a + b
+ C) function soma(a, b) = a + b
+ D) return soma(a, b)
+
+
+Questão #9 Qual é a saída do seguinte código Python?
+ 
+numeros = [1, 2, 3]
+numeros.append(4)
+print(numeros)
+
+ A) [1, 2, 3]
+ B) [4, 1, 2, 3]
+ C) [1, 2, 3, 4]
+ D) [1, 2]
+
+
+Questão #10 Qual das seguintes opções é uma boa prática ao escrever código em Python?
+
+ A) Usar múltiplos níveis de loops aninhados para legibilidade
+ B) Evitar comentários para manter o código limpo
+ C) Seguir o guia de estilo PEP 8
+ D) Hardcodificar senhas no script

@@ -1,0 +1,89 @@
+Questionário Inicial
+
+Questão #1 Estrutura monolitica: onde reside a maior parte da funcionalidade do SO? 
+Estrutura monolitica: onde reside a maior parte da funcionalidade do SO?
+A) No hardware
+B) No nucleo monolitico (kernel)
+C) Nas bibliotecas de aplicacao
+D) Nos processos de utilizador
+
+
+Questão #2 Estrutura monolitica: qual e uma desvantagem tipica?
+
+Estrutura monolitica: qual e uma desvantagem tipica?
+A) Cada camada so comunica com a de cima e a de baixo
+B) Alterar codigo obriga a reconstruir todo o kernel
+C) O sistema e sempre menos eficiente por definicao
+D) O sistema de ficheiros corre em user space
+
+
+Questão #3 Estrutura em camadas: qual afirmacao e verdadeira?
+
+Estrutura em camadas: qual afirmacao e verdadeira?
+A) Cada camada comunica apenas com camadas adjacentes
+B) Todas as camadas executam em user space
+C) O desempenho melhora por invocar mais metodos
+D) Nao ha modularidade
+
+
+Questão #4 Estrutura em camadas: porque pode ter desempenho pior?
+
+Estrutura em camadas: porque pode ter desempenho pior?
+A) Porque nao existe interface entre camadas
+B) Pela necessidade de invocar sucessivos metodos e passar parametros entre camadas contiguas
+C) Porque o kernel fica demasiado pequeno
+D) Porque tudo corre no hardware diretamente
+
+
+Questão #5 Microkernel: o que fica tipicamente no micro-nucleo?
+
+Microkernel: o que fica tipicamente no micro-nucleo?
+A) Sistema de ficheiros e drivers
+B) Gestao de processos, E/S e sistema de ficheiros
+C) Gestao de baixo nivel da memoria e mecanismos de comunicacao e sincronizacao entre processos
+D) Interface grafica e drivers de gráfica
+
+
+Questão #6 Microkernel: onde executam os restantes componentes (ex. E/S e sistema de ficheiros)?
+
+Microkernel: onde executam os restantes componentes (ex. E/S e sistema de ficheiros)?
+A) No espaco do utilizador, com menores privilegios
+B) Sempre no kernel, com privilegios maximos
+C) No hardware, sem intermediarios
+D) Em camadas, mas so no modo kernel
+
+
+Questão #7 Arquitetura hibrida: qual combinacao descreve melhor?
+
+Arquitetura hibrida: qual combinacao descreve melhor?
+A) Mistura de camadas e SO distribuido
+B) Mistura de microkernel e kernel monolitico
+C) Mistura de VM e containers
+D) Mistura de rede e distribuído
+
+
+Questão #8 SO de rede vs SO distribuido: qual diferenca esta correta?
+
+SO de rede vs SO distribuido: qual diferenca esta correta?
+A) SO de rede cria a ilusao de um unico sistema; SO distribuido apenas partilha ficheiros
+B) SO de rede permite aceder a recursos noutros computadores; SO distribuido gere recursos distribuidos como um unico SO
+C) Sao sinonimos
+D) SO distribuido e sempre uma maquina virtual
+
+
+Questão #9 Maquina virtual: qual definicao esta mais alinhada?
+
+Maquina virtual: qual definicao esta mais alinhada?
+A) Software que cria uma camada virtual de hardware onde corre outro SO, interagindo com o hardware via SO nativo
+B) Tipo de kernel que executa drivers em user space
+C) Sistema de ficheiros partilhado na rede
+D) Processo do Windows para login
+
+
+Questão #10 Maquinas virtuais: qual par de afirmacoes e correto?
+
+Maquinas virtuais: qual par de afirmacoes e correto?
+A) Promovem portabilidade e tendem a ser menos eficientes por nao comunicarem diretamente com o hardware
+B) Promovem portabilidade e sao sempre mais eficientes
+C) Nao promovem portabilidade e sao sempre menos eficientes
+D) So funcionam sem sistema operativo nativo
