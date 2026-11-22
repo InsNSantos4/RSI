@@ -1,0 +1,42 @@
+from Guiao_5 import Pessoa
+from datetime import datetime
+
+
+import tkinter as tk
+from tkinter import messagebox
+
+import json
+
+class Frame_Atributo():
+
+    def __init__(self, parent, atributo : str, valor ):
+
+        self.frame = tk.Frame(parent)
+
+        self.label_atributo = tk.Label(self.frame, text= atributo)
+        self.label_valor = tk.Label(self.frame, text= valor)
+
+        self.entry = tk.Entry(self.frame)
+
+        self.edit_mode = False                      #Flag
+
+        self.label_atributo.pack(side=tk.LEFT)
+        self.label_valor.pack(side=tk.LEFT)
+
+    def toggle(self):               # Flag swap
+        if self.edit_mode:
+
+            self.entry.pack_forget()
+            self.label_valor.config(text=self.entry.get())
+            self.label_valor.pack()
+        else:
+
+            self.label_valor.pack_forget()
+            self.entry.pack()
+
+        self.edit_mode = not self.edit_mode     #Deixa de ser o que quer que esteja, trocamos a flag
+
+    def get_valor(self):                    #Conseguir os valores para usar depois
+        if self.edit_mode:
+            return self.entry.get()
+"~/Documents/Programaçao_Aplicada/GUI copy.py" [noeol] 144L, 4317B                                1,1           Top

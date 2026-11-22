@@ -1,0 +1,55 @@
+
+from datetime import date
+from dataclasses import dataclass
+
+
+
+class Pessoa:
+    def __init__(self,nome : str,apelido : str,data_nascimento : date,morada, altura : float):
+        self.primeiro_nome = nome
+        self.apelido = apelido
+        self.data_nascimento = data_nascimento
+        self.morada = morada
+        self.altura = altura
+
+    def __str__(self):
+        return f"Primeiro Nome:{self.primeiro_nome} | Apelido: {self.apelido} | Data de Nascimento: {self.data_nascimento} | Morada: {self.morada} | Altura: {self.altura} |"
+
+    def to_dict(self):
+        return {
+            "primeiro_nome": self.primeiro_nome,
+            "apelido": self.apelido,
+            "data_nascimento": self.data_nascimento.strftime("%Y-%m-%d"),
+            "morada": self.morada,
+            "altura": self.altura
+    }
+
+
+
+@dataclass
+class Person:
+    primeiro_nome : str
+    apelido : str   
+    data_nascimento : date
+    morada : str
+    altura : float
+
+print(__name__)
+#quando chamar o ficheiro "__main__" chega aqui e executa, se nao for chamado nao executa
+if __name__ == "__main__":
+
+    pessoa_1 = Pessoa(
+        "Mozart",
+        "Amadeus",
+        date(1756,1,27),
+        "Hagenauer Haus",
+        1.6
+        )
+
+    print(pessoa_1)
+
+
+
+
+
+
