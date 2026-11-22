@@ -1,0 +1,23 @@
+Sep 29 22:04:32.373 HYPERVISOR: Release 0.2.23-amd64/Linux (tag 2023010200)
+Sep 29 22:04:32.373 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 54475.
+Sep 29 22:04:32.377 HYPERVISOR: exec_cmd: hypervisor version 
+Sep 29 22:04:32.378 HYPERVISOR: exec_cmd: hypervisor working_dir /media/sf_VirtualBoxVM_Ubuntu22.04/FRC_FundamentosdeRedesdeComunicacao/Semana2/projectGNS3Ubuntu22_guia1/project-files/dynamips 
+Sep 29 22:04:32.379 GENERAL: working_dir=/media/sf_VirtualBoxVM_Ubuntu22.04/FRC_FundamentosdeRedesdeComunicacao/Semana2/projectGNS3Ubuntu22_guia1/project-files/dynamips
+Sep 29 22:04:32.379 HYPERVISOR: exec_cmd: hypervisor working_dir /media/sf_VirtualBoxVM_Ubuntu22.04/FRC_FundamentosdeRedesdeComunicacao/Semana2/projectGNS3Ubuntu22_guia1/project-files/dynamips/2ccba5a7-531a-4853-978c-a851cb5dc8a5 
+Sep 29 22:04:32.381 GENERAL: working_dir=/media/sf_VirtualBoxVM_Ubuntu22.04/FRC_FundamentosdeRedesdeComunicacao/Semana2/projectGNS3Ubuntu22_guia1/project-files/dynamips/2ccba5a7-531a-4853-978c-a851cb5dc8a5
+Sep 29 22:04:32.382 HYPERVISOR: exec_cmd: vm create R1 1 c3600 
+Sep 29 22:04:32.384 VM: VM R1 created.
+Sep 29 22:04:32.385 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5000 
+Sep 29 22:04:32.386 HYPERVISOR: exec_cmd: c3600 get_mac_addr R1 
+Sep 29 22:04:32.387 HYPERVISOR: exec_cmd: c3600 set_chassis R1 3620 
+Sep 29 22:04:32.390 HYPERVISOR: exec_cmd: vm set_ios R1 /media/sf_VirtualBoxVM_Ubuntu22.04/FRC_FundamentosdeRedesdeComunicacao/ConteudosdeSuporte/c3620-a3jk8s-mz.122-26c.image 
+Sep 29 22:04:32.391 HYPERVISOR: exec_cmd: vm get_status R1 
+Sep 29 22:04:32.391 HYPERVISOR: exec_cmd: vm set_idle_pc R1 0x603a8bac 
+Sep 29 22:04:32.392 HYPERVISOR: exec_cmd: vm set_ram R1 192 
+Sep 29 22:04:32.393 HYPERVISOR: exec_cmd: vm set_nvram R1 256 
+Sep 29 22:04:32.394 HYPERVISOR: exec_cmd: vm get_status R1 
+Sep 29 22:04:32.395 HYPERVISOR: exec_cmd: vm slot_add_binding R1 0 0 NM-1FE-TX 
+Sep 29 22:04:32.395 HYPERVISOR: exec_cmd: vm get_status R1 
+Sep 29 22:04:32.396 HYPERVISOR: exec_cmd: vm slot_add_binding R1 1 0 NM-1FE-TX 
+Sep 29 22:06:13.601 HYPERVISOR: exec_cmd: nio create_udp udp-bcda7a08-4eed-4697-b16c-e0c2565394ec 10008 127.0.0.1 10009 
+Sep 29 22:06:20.132 HYPERVISOR: exec_cmd: nio create_udp udp-8d067fe3-eefb-4c97-8d88-cc9d77208cae 10011 127.0.0.1 10012 
