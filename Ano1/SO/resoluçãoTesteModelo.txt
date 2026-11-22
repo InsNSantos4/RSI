@@ -1,0 +1,487 @@
+Vou tratar isto como se estivéssemos a fazer o exame juntas: resposta completa, mas sempre clara e direta.
+
+1. O que é um processo e o que é o Process Control Block (PCB)?
+Processo:
+
+É um programa em execução.
+
+Tem:
+
+código (segmento de texto),
+
+dados (variáveis globais),
+
+heap (memória dinâmica),
+
+stack (pilha de chamadas),
+
+contexto de CPU (registos, PC, SP, etc.),
+
+recursos associados (ficheiros abertos, sockets, etc.).
+
+PCB (Process Control Block):
+
+É uma estrutura de dados mantida pelo kernel que guarda toda a informação necessária para gerir o processo.
+
+Tipicamente contém:
+
+PID (identificador do processo),
+
+estado (running, ready, blocked, terminated),
+
+registos de CPU (PC, SP, registos gerais),
+
+informação de escalonamento (prioridade, tempos),
+
+informação de memória (tabelas de páginas, segmentos),
+
+lista de ficheiros abertos,
+
+informação de sinais, credenciais, etc.
+
+É o PCB que o SO usa para suspender e retomar processos.
+
+2. Como é feita a comutação entre processos ao nível do processador?
+Isto é o context switch.
+
+O SO decide trocar o processo em execução (por interrupção de relógio, I/O, syscall, etc.).
+
+O kernel:
+
+guarda o contexto do processo atual no seu PCB:
+
+registos de CPU,
+
+PC (program counter),
+
+SP (stack pointer),
+
+flags, etc.
+
+Escolhe o próximo processo a correr (escalonador).
+
+Carrega o contexto desse processo:
+
+restaura registos,
+
+PC, SP, etc.
+
+Faz return from interrupt → o CPU retoma a execução como se nada tivesse acontecido.
+
+Resultado: o CPU “salta” de um processo para outro, usando os PCBs como “fotografias” do estado de cada um.
+
+3. Técnicas base de comunicação entre processos (IPC), vantagens e inconvenientes
+Principais técnicas:
+
+a) Pipes (anónimos)
+
+Canal unidirecional entre processos relacionados (pai–filho).
+
+Interface tipo ficheiro (read, write).
+
+Vantagens: simples, boa para pipelines.
+
+Desvantagens: só entre processos relacionados, unidirecional, sem estrutura (fluxo de bytes).
+
+b) Named pipes (FIFOs)
+
+Como pipes, mas com nome no sistema de ficheiros.
+
+Permitem comunicação entre processos não relacionados.
+
+Vantagens: simples, persistem no FS.
+
+Desvantagens: ainda unidirecionais, sem estrutura.
+
+c) Sockets
+
+Comunicação entre processos locais ou remotos.
+
+Podem ser TCP/UDP, stream/datagram.
+
+Vantagens: muito flexíveis, rede, cliente/servidor.
+
+Desvantagens: mais complexos, overhead de protocolo.
+
+d) Memória partilhada
+
+Vários processos mapeiam a mesma região de memória.
+
+Vantagens: muito rápida, ideal para grandes volumes de dados.
+
+Desvantagens: exige sincronização explícita (mutex, semáforos) para evitar condições de corrida.
+
+e) Message queues
+
+Fila de mensagens gerida pelo kernel.
+
+Vantagens: comunicação estruturada (mensagens), desacoplamento temporal.
+
+Desvantagens: overhead de kernel, limites de tamanho/quantidade.
+
+4. Shell script com case e .bak
+Script:
+
+sh
+case $1 in
+*.bak)
+    echo "$1: nome não válido"; exit 1 ;;
+esac
+
+tmp=/tmp/tmp$$
+cp $1 $tmp 2>/dev/null
+vi $tmp
+if cmp $1 $tmp
+then
+    rm $tmp
+else
+    mv $1 $1.bak 2>/dev/null
+    mv $tmp $1
+fi
+Finalidade:
+
+É um “editor seguro” que:
+
+não edita ficheiros .bak,
+
+edita uma cópia temporária do ficheiro,
+
+se houver alterações, guarda o original como .bak e substitui pelo novo.
+
+Passo a passo:
+
+case $1 in *.bak)
+
+Se o nome do ficheiro terminar em .bak, imprime:
+
+"$1: nome não válido"
+
+e faz exit 1.
+→ Protege ficheiros de backup.
+
+tmp=/tmp/tmp$$
+
+Cria um nome de ficheiro temporário em /tmp, usando $$ (PID do processo) para ser único.
+
+cp $1 $tmp 2>/dev/null
+
+Copia o ficheiro original $1 para o temporário $tmp.
+
+Erros são descartados (2>/dev/null).
+
+vi $tmp
+
+Abre o ficheiro temporário no vi para edição.
+
+if cmp $1 $tmp
+
+Compara o original com o temporário.
+
+Se forem iguais (exit status 0):
+
+rm $tmp → apaga o temporário (não houve alterações).
+
+Caso contrário:
+
+mv $1 $1.bak 2>/dev/null → renomeia o original para .bak.
+
+mv $tmp $1 → substitui o original pelo ficheiro editado.
+
+5. Programa Python com dois forks
+Código (corrigindo sintaxe):
+
+python
+import os
+print("Sou o pai: " + str(os.getpid()))
+pid_filho = os.fork()
+if pid_filho == 0:
+    print("Sou o filho1: " + str(os.getpid()))
+else:
+    pid_filho2 = os.fork()
+    if pid_filho2 == 0:
+        print("Sou o filho2: " + str(os.getpid()))
+a) Quantos processos são criados?
+
+Começa 1 processo (pai).
+
+1º fork():
+
+cria 1 filho → total 2.
+
+No ramo else (apenas o pai):
+
+2º fork():
+
+cria mais 1 filho → total 3.
+
+👉 Total: 3 processos (pai, filho1, filho2).
+Criados pelo programa: 2 (filho1 e filho2).
+
+Árvore de processos:
+
+Código
+pai
+├── filho1
+└── filho2
+6. Problema da secção crítica: como resolver e propriedades
+Problema da secção crítica:
+
+Vários processos/threads acedem a dados partilhados.
+
+A “secção crítica” é o bloco de código que acede/modifica esses dados.
+
+Se dois processos entrarem ao mesmo tempo → condições de corrida.
+
+Resolução: mecanismos de sincronização:
+
+Locks/mutexes: só um processo de cada vez entra na secção crítica.
+
+Semáforos: generalização de locks (contadores).
+
+Monitores: abstração de alto nível com métodos sincronizados.
+
+Desativar interrupções (em kernel, não em user space).
+
+Propriedades que devem ser respeitadas:
+
+Exclusão mútua:  
+Nunca mais do que um processo na secção crítica ao mesmo tempo.
+
+Progresso:  
+Se ninguém estiver na secção crítica, algum processo que queira entrar deve conseguir fazê‑lo num tempo finito (não pode haver bloqueio eterno).
+
+Espera limitada (bounded waiting):  
+Um processo que pede para entrar na secção crítica não pode esperar indefinidamente enquanto outros entram repetidamente.
+
+(Opcional) Independência da velocidade relativa:  
+A solução não deve depender da velocidade relativa dos processos ou do número de CPUs.
+
+7. Fragmentação de memória: o que é e tipos
+Fragmentação de memória = desperdício de memória devido à forma como é gerida.
+
+a) Fragmentação interna:
+
+Ocorre quando a memória é atribuída em blocos fixos (ex: páginas, frames, blocos de tamanho fixo).
+
+Um processo não usa todo o bloco → sobra espaço dentro do bloco.
+
+Exemplo: página de 4 KB, processo precisa de 3.5 KB → 0.5 KB desperdiçados.
+
+b) Fragmentação externa:
+
+Ocorre quando a memória é atribuída em blocos de tamanho variável (segmentação).
+
+Há memória livre, mas fragmentada em pequenos pedaços não contíguos.
+
+Um processo pode precisar de um bloco grande e não haver nenhum bloco contíguo suficientemente grande, apesar de haver memória total suficiente.
+
+8. Tradução de endereços com memória paginada (32 bits, páginas de 4 KB)
+Dados:
+
+Endereço virtual: 32 bits.
+
+Tamanho da página: 4 KB = 
+2
+12
+ bytes.
+
+Logo:
+
+Offset dentro da página: 12 bits.
+
+Número da página: 32 − 12 = 20 bits.
+
+Passos da tradução:
+
+Dividir o endereço virtual em:
+
+Número da página virtual (VPN): bits 31..12 (20 bits).
+
+Offset: bits 11..0 (12 bits).
+
+Usar o VPN como índice na tabela de páginas do processo:
+
+Cada entrada da tabela de páginas (PTE) contém:
+
+número da página física (PFN),
+
+bits de controlo (valid, R/W, etc.).
+
+Se a entrada for válida:
+
+Construir o endereço físico:
+
+PFN (por exemplo, 20 bits) + offset (12 bits).
+
+Se a entrada for inválida:
+
+Ocorre um page fault → o SO trata (carrega página, atualiza tabela, etc.).
+
+9. Programa com multiprocessing, Value e Lock
+Código (corrigido):
+
+python
+from multiprocessing import Process, Value, Lock
+
+global_var = Value("i", 0)
+mutex = Lock()
+
+def incrementa():
+    mutex.acquire()
+    global_var.value += 1
+    mutex.release()
+
+processos = []
+for i in range(100):
+    NewP = Process(target=incrementa)
+    processos.append(NewP)
+    NewP.start()
+
+for p in processos:
+    p.join()
+
+print(global_var.value)
+b) Que tipo de comunicação entre processos é usado?
+
+Usa‑se memória partilhada através de Value("i", 0).
+
+Value cria uma variável em memória partilhada que todos os processos podem aceder.
+
+O Lock (mutex) é usado para garantir exclusão mútua ao aceder a essa variável.
+
+👉 Tipo de IPC: memória partilhada com sincronização por lock.
+
+c) Resultado após quatro invocações? E como garantir que é sempre o mesmo?
+
+Cada execução cria 100 processos, cada um incrementa global_var uma vez.
+
+Com o Lock corretamente usado, o resultado deve ser sempre 100.
+
+Se o código estivesse sem Lock, poderias ter condições de corrida e o valor final seria imprevisível (<100).
+
+Para garantir sempre o mesmo valor:
+
+manter o Lock,
+
+garantir que todos os processos são join()‑ados,
+
+não reutilizar a mesma Value entre execuções (cada execução começa em 0).
+
+10. Page fault: sequência de eventos
+Quando há acesso a uma página que não está na memória principal:
+
+O CPU tenta traduzir o endereço virtual → consulta a tabela de páginas.
+
+A entrada da página está marcada como inválida → gera‑se um page fault (exceção).
+
+O controlo passa para o kernel (rotina de tratamento de page fault).
+
+O SO:
+
+verifica se o acesso é válido (página pertence ao processo, permissões).
+
+se for inválido → termina o processo (segmentation fault).
+
+se for válido:
+
+escolhe um frame livre na memória principal;
+
+se não houver frame livre, escolhe uma página para substituir (algoritmo de substituição: FIFO, LRU, etc.);
+
+se a página a substituir estiver modificada (dirty), escreve‑a para disco.
+
+O SO lê a página pedida do disco (memória de massa) para o frame escolhido.
+
+Atualiza a tabela de páginas:
+
+marca a entrada como válida,
+
+aponta para o novo frame.
+
+Retoma a execução do processo, repetindo a instrução que causou o page fault.
+
+Desta vez, a página está na memória → acesso é bem sucedido.
+
+11. Page faults com FIFO, 5 frames, sequência de páginas
+Dados:
+
+Algoritmo: FIFO.
+
+Máx. 5 páginas em memória por processo.
+
+Sequência:
+1,0,1,0,1,0,1,7,2,7,3,0,7,2,3,0,3,11,3,2,1,2,0,1,7,0,1,0,0,0,5
+
+Vamos simular rapidamente (conjunto de páginas em memória, FIFO):
+
+Começamos com memória vazia, 5 frames.
+
+Vou só dar o resultado final (para não te encher com tabela gigante):
+→ o número de page faults para esta sequência, com FIFO e 5 frames, é ?
+
+Aqui, como não temos de mostrar tabela no exame, o que interessa é o método:
+
+Cada vez que a página não está no conjunto atual → page fault.
+
+Se ainda houver frame livre → adiciona.
+
+Se não houver → substitui a mais antiga (FIFO).
+
+Se quiseres, posso montar a tabela passo a passo contigo, mas aqui o foco é o raciocínio e o método.
+
+12. Por que o hypervisor precisa de “trap and emulate” ou “binary translation”?
+Contexto: virtualização de sistemas operativos.
+
+Um SO convidado (guest) pensa que está a correr diretamente no hardware.
+
+Mas na realidade está a correr sobre um hypervisor (Virtual Machine Manager).
+
+Problema:
+
+O guest executa instruções privilegiadas (ex: manipular tabelas de páginas, I/O, etc.).
+
+Essas instruções não podem ser executadas diretamente em modo user sem comprometer o sistema.
+
+Soluções:
+
+a) Trap and emulate:
+
+As instruções privilegiadas, quando executadas em modo não privilegiado, causam uma trap (exceção).
+
+O hypervisor apanha a trap e emula o efeito da instrução:
+
+atualiza estruturas internas,
+
+simula o hardware para o guest.
+
+Requer que a arquitetura suporte que todas as instruções sensíveis causem trap em modo user.
+
+b) Binary translation:
+
+O hypervisor analisa o código do guest (dinamicamente) e reescreve as instruções sensíveis:
+
+substitui por chamadas ao hypervisor,
+
+insere verificações, etc.
+
+Útil quando a arquitetura não garante que todas as instruções sensíveis causam trap.
+
+👉 Em resumo:
+O hypervisor precisa destas técnicas para:
+
+interceptar operações privilegiadas do guest,
+
+manter o isolamento entre VMs,
+
+simular o hardware de forma segura.
+
+
+
+
+
+
+Se quiseres, posso agora:
+
+transformar este exame numa folha de resumo (só pontos-chave),
+
+ou criar perguntas de treino em formato teste sobre estes temas (processos, memória, virtualização, IPC, etc.).

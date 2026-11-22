@@ -1,0 +1,3 @@
+[11:30:12] ARRIVAL: client=1 class=economy prio=3 TTL=12s
+[11:30:12] ARRIVAL: client=2 class=economy prio=3 TTL=14s
+[11:30:12] ARRIVAL: client=3 class=first prio=1 TTL=5s
