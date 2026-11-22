@@ -1,0 +1,155 @@
+Teste de Avaliação IV: Criptografia e Infraestruturas de Segurança
+Parte I: Escolha Múltipla (18 Perguntas)
+O que caracteriza a cifra "One-Time Pad" como teoricamente perfeita?
+A) O uso de chaves de 4096 bits.
+B) A sequência de números da chave ser realmente aleatória e nunca reutilizada
+.
+C) Ser um algoritmo de cifra por blocos.
+D) Utilizar a função hash MD5.
+Resposta: B. Explicação: Se a chave for aleatória, do mesmo tamanho da mensagem e nunca repetida, a cifra é indecifrável sem a chave
+.
+O que mede o "Fator de Trabalho" (work factor) na criptografia?
+A) O número de pessoas necessárias para gerir uma PKI.
+B) O tempo e esforço necessários para quebrar um algoritmo ou testar as chaves
+.
+C) A quantidade de RAM que o Snort consome.
+D) O tamanho do cabeçalho do pacote TCP.
+Resposta: B. Explicação: É uma medida subjetiva da resistência de um sistema a ataques de força bruta
+.
+Qual é a principal diferença entre cifras mono-alfabéticas e poli-alfabéticas?
+A) As mono-alfabéticas usam chaves maiores.
+B) As poli-alfabéticas usam múltiplos alfabetos de substituição, escondendo melhor os padrões
+.
+C) As mono-alfabéticas são invulneráveis a análise estatística.
+D) As poli-alfabéticas só existem em hardware.
+Resposta: B. Explicação: Enquanto a mono-alfabética mantém a frequência das letras, a poli-alfabética (como Vigenère) baralha esses padrões
+.
+Quantas chaves "fracas" foram identificadas no algoritmo DES original?
+A) 128.
+B) 4
+.
+C) 56.
+D) Nenhuma.
+Resposta: B. Explicação: O DES possui 4 chaves fracas, 12 semi-fracas e 48 quasi-fracas que são fáceis de identificar
+.
+No Triple-DES (EDE), o que significa a sigla EDE?
+A) Extra Data Encryption.
+B) Encrypt-Decrypt-Encrypt
+.
+C) Efficient Digital Entry.
+D) End-to-End Encryption.
+Resposta: B. Explicação: O processo envolve cifrar com K1, decifrar com K2 e cifrar novamente com K3
+.
+Qual dos seguintes é um tamanho de hash válido para o SHA-2?
+A) 128 bits.
+B) 256 bits
+.
+C) 160 bits.
+D) 64 bits.
+Resposta: B. Explicação: O SHA-2 suporta vários tamanhos, sendo o SHA-256 e o SHA-512 os mais comuns
+.
+No Linux, que comando OpenSSL permite listar os algoritmos de hash suportados?
+A) openssl list -hashes
+B) openssl dgst -list
+.
+C) openssl md5 -all
+D) openssl show -dgst
+Resposta: B. Explicação: O sub-comando dgst gere as operações de síntese (hash)
+.
+A "Cadeia de Certificação" serve para:
+A) Cifrar o tráfego da rede local.
+B) Estabelecer o caminho de confiança desde o certificado final até à CA Raiz
+.
+C) Gerar passwords aleatórias para o utilizador.
+D) Substituir o protocolo ARP.
+Resposta: B. Explicação: É necessário verificar cada elo da cadeia para garantir que o certificado final é fidedigno
+.
+Qual é o porto TLS por omissão para o protocolo IMAP?
+A) 443.
+B) 993
+.
+C) 465.
+D) 22.
+Resposta: B. Explicação: O IMAP normal usa o porto 143, mas sobre TLS usa o 993
+.
+O que distingue a "Autenticação Forte" da autenticação simples?
+A) O uso de passwords com mais de 20 caracteres.
+B) A combinação de dois ou mais fatores de autenticação (ex: posse e conhecimento)
+.
+C) O uso exclusivo de biometria.
+D) A encriptação da base de dados shadow.
+Resposta: B. Explicação: Também conhecida como 2FA ou MFA, exige provas de categorias diferentes
+.
+Como se chama o software malicioso que lê especificamente os dados introduzidos através do teclado?
+A) Spyware.
+B) Keylogger
+.
+C) Ransomware.
+D) Adware.
+Resposta: B. Explicação: Keyloggers focam-se na captura de teclas para roubar passwords e dados sensíveis
+.
+O protocolo NTLM é considerado inseguro atualmente por ser vulnerável a ataques de:
+A) Man-in-the-middle apenas.
+B) "Pass-the-hash"
+.
+C) ARP Poisoning.
+D) Reflexão ICMP.
+Resposta: B. Explicação: O atacante pode usar o hash da password diretamente para se autenticar, sem precisar de saber a senha em claro
+.
+Tecnologias como SAML e OAuth 2.0 são fundamentais para:
+A) Configuração de firewalls.
+B) Single Sign-On (SSO) e Identidade Federada
+.
+C) Criptografia de discos rígidos.
+D) Deteção de intrusões em tempo real.
+Resposta: B. Explicação: Permitem a troca de dados de autenticação e autorização entre diferentes domínios
+.
+Em que nível da pilha TCP/IP se situa a "Cifra entre extremos" (end-to-end)?
+A) Rede.
+B) Aplicação
+.
+C) Transporte.
+D) Ligação.
+Resposta: B. Explicação: Protocolos como o PGP (email) operam ao nível da aplicação para garantir segurança em todo o caminho
+.
+Uma "ARP Query" é enviada em que formato para a rede?
+A) Unicast (apenas para o destino).
+B) Broadcast (para todas as máquinas)
+.
+C) Multicast (apenas para servidores).
+D) Cifrada com RSA.
+Resposta: B. Explicação: Como a máquina não sabe quem tem o IP, pergunta a todos: "Quem tem o endereço IP X?"
+.
+O ataque "Smurf" utiliza que protocolo para amplificação?
+A) TCP.
+B) ICMP (via broadcast)
+.
+C) SSH.
+D) HTTPS.
+Resposta: B. Explicação: O atacante envia pings para o endereço de broadcast falsificando o IP da vítima, fazendo com que todos respondam à vítima ao mesmo tempo
+.
+Nas regras do Snort, o campo "sid" serve para:
+A) Identificar a versão do Snort.
+B) Identificar univocamente a regra (Snort ID) .
+C) Definir a prioridade do alarme.
+D) Indicar o endereço IP de destino.
+Resposta: B. Explicação: Cada regra deve ter um ID único para gestão e logs .
+Qual é o principal objetivo de um SIEM?
+A) Bloquear pacotes de vírus na rede.
+B) Agregação e análise centralizada de alertas e eventos de segurança (logs)
+.
+C) Substituir a CA Raiz da organização.
+D) Fazer o backup dos ficheiros shadow.
+Resposta: B. Explicação: O SIEM correlaciona dados de IDS, firewalls e servidores para detetar ameaças complexas
+.
+Parte II: Questões de Escrita (Resposta Aberta)
+Compare o funcionamento dos sensores NIDS "em linha" (in-line) e "passivos", destacando a principal vantagem de cada um.
+Resposta detalhada: Um sensor em linha é inserido diretamente no caminho do tráfego. A sua vantagem é a capacidade de prevenção ativa (IPS), pois pode bloquear pacotes maliciosos antes que cheguem ao destino
+. Um sensor passivo monitoriza uma cópia do tráfego (via porta monitor de um switch). A sua vantagem é não introduzir latência nem pontos de falha na rede, além de ser invisível para os atacantes
+.
+Descreva as quatro fases do protocolo SSL/TLS Handshake.
+Resposta detalhada: 1) Fase 1: Negociação de capacidades, onde se definem a versão do protocolo, a suite de cifra e trocam-se números aleatórios. 2) Fase 2: Autenticação do servidor e troca de chaves, onde o servidor envia o seu certificado e opcionalmente solicita o do cliente. 3) Fase 3: Autenticação do cliente e troca de chaves (se solicitado), onde o cliente envia material para gerar a chave mestra cifrado com a chave pública do servidor. 4) Fase 4: Finalização, onde ambos confirmam que a negociação terminou com sucesso e passam a usar cifra simétrica
+.
+Explique o que são e para que servem as equipas CERT e CSIRT no contexto da segurança informática nacional.
+Resposta detalhada: São equipas de resposta a incidentes de segurança. O CERT (Computer Emergency Response Team) foca-se na coordenação e resposta a emergências, enquanto o CSIRT (Computer Security Incident Response Team) tem uma missão mais alargada de gestão de incidentes, análise de vulnerabilidades e sensibilização. Em Portugal, o CERT.PT coordena a resposta a incidentes a nível nacional, incluindo entidades do estado e infraestruturas críticas
+.

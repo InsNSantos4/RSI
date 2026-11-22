@@ -1,0 +1,154 @@
+Teste de Avaliação: Segurança em Redes e Sistemas Informáticos
+Baseado nos Powerpoints SRSI 05, 06, 07, 08 e 09.
+Parte I: Escolha Múltipla (18 Perguntas)
+
+Segundo os princípios de Shannon, o que define a "Difusão"?
+A) A relação complexa entre o texto em claro e a chave.
+B) Uma pequena alteração no texto em claro provocar grandes alterações no criptograma.
+C) A ocultação do algoritmo de cifra para garantir segurança.
+D) O uso de chaves assimétricas para distribuir chaves simétricas.
+Resposta: B. Explicação: A difusão garante que cada bit do texto original influencie diversos bits do criptograma
+
+.
+Qual é o tamanho da chave efetiva do algoritmo DES original?
+A) 128 bits.
+B) 64 bits.
+C) 56 bits.
+D) 256 bits.
+Resposta: C. Explicação: Embora use blocos de 64 bits, a chave do DES tem apenas 56 bits, o que o torna vulnerável a ataques de pesquisa exaustiva hoje em dia
+
+.
+No algoritmo AES, quais são os tamanhos de chave suportados?
+A) Apenas 128 bits.
+B) 64, 128 e 192 bits.
+C) 128, 192 e 256 bits.
+D) 56, 112 e 168 bits.
+Resposta: C. Explicação: O AES (Rijndael) é flexível e permite chaves de 128, 192 ou 256 bits para blocos fixos de 128 bits
+
+.
+O que significa a propriedade de "Resistência à Colisão" numa função hash?
+A) É impossível inverter a função para obter o texto original.
+B) É difícil encontrar dois textos diferentes que produzam a mesma síntese (digest).
+C) A função é resistente a ataques de força bruta contra a chave.
+D) Pequenas alterações na entrada não alteram a saída.
+Resposta: B. Explicação: Uma colisão ocorre quando dois inputs diferentes geram o mesmo hash; a robustez da função depende de quão difícil é encontrar esse par
+
+.
+Em sistemas Linux, onde são tipicamente guardadas as hashes das passwords dos utilizadores?
+A) /etc/passwd
+B) /etc/shadow
+C) /var/log/auth
+D) /home/.passwords
+Resposta: B. Explicação: O ficheiro /etc/shadow guarda as passwords transformadas (com hash e sal) para maior segurança
+
+.
+Qual dos seguintes é um exemplo de biometria comportamental?
+A) Impressões digitais.
+B) Padrões vasculares da íris.
+C) Reconhecimento de padrões de voz.
+D) Mapeamento da retina.
+Resposta: C. Explicação: Características fisiológicas são estáticas (corpo), enquanto comportamentais baseiam-se em ações (voz, forma de teclar, andar)
+
+.
+O que caracteriza um sistema de "Single Sign-On" (SSO)?
+A) O utilizador tem de se autenticar em cada aplicação individualmente.
+B) O sistema utiliza apenas um fator de autenticação (algo que sei).
+C) O utilizador autentica-se uma vez e acede a vários recursos da organização.
+D) É um modelo onde a identidade digital é gerada localmente em cada serviço.
+Resposta: C. Explicação: O SSO (como o idp.ua.pt) permite que uma única autenticação dê acesso a múltiplas aplicações como elearning ou paco
+
+.
+Qual é a porta por omissão utilizada pelo protocolo HTTPS?
+A) 80
+B) 22
+C) 443
+D) 993
+Resposta: C. Explicação: Enquanto o HTTP usa a porta 80, o HTTPS (HTTP sobre SSL/TLS) utiliza a porta 443
+
+.
+O "Record Protocol" no SSL/TLS é responsável por:
+A) Negociar os algoritmos de cifra (Cipher Suite).
+B) Autenticar o servidor perante o cliente.
+C) Fornecer confidencialidade e controlo de integridade aos dados transportados.
+D) Distribuir o certificado de chave pública da CA.
+Resposta: C. Explicação: Este protocolo gere o transporte seguro, aplicando cifra simétrica e MAC (Message Authentication Code)
+.
+Como é que os "SYN cookies" ajudam a mitigar ataques de SYN Flooding?
+A) Bloqueiam todos os pacotes SYN de endereços IP desconhecidos.
+B) O servidor não reserva recursos imediatamente, enviando o número de sequência cifrado no SYN+ACK.
+C) Aumentam o time-out das ligações incompletas.
+D) Exigem um certificado digital do cliente antes de abrir a ligação TCP.
+Resposta: B. Explicação: Com SYN cookies, o servidor mantém-se "sem estado" até receber o ACK final do cliente, evitando o esgotamento de recursos
+.
+O que identifica o formato de um identificador CVE?
+A) CVE-Ano-Índice
+B) CVE-Prioridade-Serviço
+C) CVE-Protocolo-Versão
+D) CVE-Empresa-Número
+Resposta: A. Explicação: O padrão Common Vulnerabilities and Exposures utiliza o formato CVE-Ano-Índice (ex: CVE-2016-6515)
+.
+Qual é a principal desvantagem da deteção de intrusões baseada em conhecimento (misuse detection)?
+A) Gera muitos falsos positivos.
+B) Requer um longo período de treino do sistema.
+C) Apenas consegue detetar ataques cujas assinaturas já são conhecidas.
+D) Não consegue analisar tráfego cifrado.
+Resposta: C. Explicação: Este método baseia-se em assinaturas; se o ataque for novo (zero-day), o IDS não o reconhecerá
+.
+O que monitoriza um HIDS (Host-based IDS)?
+A) Todo o tráfego de rede de um segmento.
+B) Apenas as portas de um switch.
+C) As características e atividades de um único sistema (servidor ou workstation).
+D) As tabelas de encaminhamento de um router.
+Resposta: C. Explicação: Exemplos incluem OSSEC ou Tripwire, focados no que acontece dentro da máquina hospedeira
+.
+Um sensor de NIDS em "Modo Passivo" caracteriza-se por:
+A) Estar inserido diretamente no caminho do tráfego (in-line).
+B) Monitorizar uma cópia do tráfego sem interferir no fluxo original.
+C) Bloquear automaticamente pacotes maliciosos.
+D) Não necessitar de uma interface de gestão.
+Resposta: B. Explicação: O modo passivo permite observar o tráfego sem introduzir latência, mas não pode prevenir ataques em tempo real tão eficazmente como o modo in-line
+.
+Para que serve o "Sal" (Salt) no armazenamento de passwords?
+A) Para cifrar a password com uma chave pública.
+B) Para impedir que passwords iguais gerem hashes iguais, dificultando ataques de Rainbow Tables.
+C) Para comprimir a password antes do armazenamento.
+D) Para verificar a integridade do ficheiro shadow.
+Resposta: B. Explicação: O sal é um elemento de aleatoriedade concatenado com a password para que entradas iguais resultem em saídas hash diferentes
+.
+O que é garantido através de uma Assinatura Digital?
+A) Confidencialidade e Disponibilidade.
+B) Apenas Confidencialidade.
+C) Integridade, Autenticação do assinante e Não Repúdio.
+D) Apenas o anonimato do emissor.
+Resposta: C. Explicação: A assinatura prova quem assinou, que o documento não foi alterado e impede o autor de negar a autoria
+.
+O que é uma "Identidade Federada"?
+A) Uma identidade que só funciona dentro de uma rede local.
+B) Um sistema onde cada serviço tem a sua própria base de dados de utilizadores.
+C) Permite usar credenciais de uma organização para aceder a recursos de outras (ex: usar e-mail da UA na O'Reilly).
+D) Um modelo onde o governo gere todas as identidades digitais.
+Resposta: C. Explicação: Baseia-se no conceito de identidade portável entre organizações distintas
+.
+No Snort, que opção de comando permite visualizar informação da camada de ligação (Layer 2)?
+A) -v
+B) -vd
+C) -vde
+D) -l
+Resposta: C. Explicação: O comando sudo snort -vde adiciona a informação da camada 2 (como endereços MAC) à captura visualizada
+.
+Parte II: Questões de Escrita (Resposta Aberta)
+Explique o conceito de Criptografia Híbrida no contexto do protocolo SSL/TLS e porque é utilizada.
+Resposta detalhada: O SSL/TLS utiliza criptografia híbrida para combinar o melhor de dois mundos. Primeiro, usa criptografia assimétrica (chaves públicas/privadas, como RSA) para autenticar o servidor e trocar de forma segura uma "chave mestra" ou material para gerá-la
+. Depois de estabelecida a confiança, o sistema passa a usar criptografia simétrica (como AES) com chaves de sessão derivadas dessa chave mestra para cifrar os dados reais
+. Razão: A criptografia assimétrica é computacionalmente pesada e lenta para grandes volumes de dados, enquanto a simétrica é extremamente rápida e eficiente para a comunicação contínua
+.
+Descreva o funcionamento de um protocolo de autenticação por Desafio-Resposta (Challenge-Response) com senha memorizada.
+Resposta detalhada: Neste modelo, a senha nunca é enviada diretamente pela rede em claro. O processo funciona assim: 1) O autenticador (servidor) gera um valor aleatório único chamado desafio (nonce) e envia-o ao utilizador. 2) O utilizador calcula uma resposta aplicando uma função unidirecional (hash) que combina a sua senha com o desafio recebido. 3) O autenticador, que também conhece a senha (ou a sua hash), faz o mesmo cálculo localmente. 4) Se os resultados coincidirem, a identidade é provada
+. Exemplos comuns incluem os protocolos CHAP e MS-CHAP
+.
+Compare os métodos de deteção de intrusões "baseado em conhecimento" (Misuse) e "baseado em comportamento" (Anomaly), indicando vantagens e desvantagens de cada um.
+Resposta detalhada:
+Baseado em Conhecimento: Funciona através de assinaturas de ataques conhecidos (como um antivírus). Vantagens: Muito preciso para ataques conhecidos e gera poucos falsos positivos. Desvantagens: É incapaz de detetar ataques novos (zero-day) e tem muitos falsos negativos
+.
+Baseado em Comportamento: Cria um modelo do que é "normal" no sistema e gera alarmes para desvios estatísticos. Vantagens: Potencialmente deteta ataques nunca antes vistos. Desvantagens: Gera muitos falsos positivos (qualquer atividade legítima mas rara é sinalizada como intrusão) e requer uma fase complexa de treino/aprendizagem
+.

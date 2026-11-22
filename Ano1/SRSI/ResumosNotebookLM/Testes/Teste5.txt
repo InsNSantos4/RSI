@@ -1,0 +1,158 @@
+Teste de Avaliação V: Protocolos Práticos e Ataques de Rede
+Parte I: Escolha Múltipla (18 Perguntas)
+Na ferramenta XCA, qual o modelo (template) que deve ser usado para criar um certificado de utilizador de email?
+A) [default] CA.
+B) [default] TLS_client.
+C) [default] S/MIME
+.
+D) [default] HTTPS.
+Resposta: C. Explicação: O modelo S/MIME inclui as extensões necessárias para assinatura e cifra de correio eletrónico
+.
+O ficheiro ~/.ssh/known_hosts no cliente SSH serve para:
+A) Guardar as passwords dos utilizadores.
+B) Armazenar as chaves públicas (fingerprints) de servidores já visitados para evitar ataques MitM
+.
+C) Listar os comandos permitidos no servidor.
+D) Configurar a autenticação de dois fatores.
+Resposta: B. Explicação: Garante que, em ligações futuras, o servidor é o mesmo que foi validado da primeira vez
+.
+Ao configurar o HTTPS no Apache, o que deve ser colocado no campo Common Name do certificado?
+A) O nome completo do administrador.
+B) O endereço IP privado do servidor.
+C) O nome DNS do servidor Web (ex: www.srsiX.pt)
+.
+D) A password da base de dados.
+Resposta: C. Explicação: Se o nome no certificado não coincidir com o URL acedido, o browser gerará um erro de segurança
+.
+Qual é o comando Apache para ativar o suporte ao protocolo SSL/TLS?
+A) sudo a2ensite ssl
+B) sudo a2enmod ssl
+.
+C) sudo systemctl start https
+D) sudo openssl enable ssl
+Resposta: B. Explicação: O comando ativa o módulo SSL no servidor Apache
+.
+O código de estado HTTP 301 é utilizado para:
+A) Indicar que a página não foi encontrada.
+B) Fazer um redirecionamento permanente (útil para forçar HTTP para HTTPS)
+.
+C) Autenticar o utilizador via Smartcard.
+D) Reportar um erro de buffer overflow.
+Resposta: B. Explicação: É a forma recomendada de garantir que os utilizadores usem sempre a versão segura do site
+.
+No Firefox, onde se configuram as versões mínima e máxima do TLS suportadas?
+A) Menu Preferências -> Segurança.
+B) URL about:config, procurando por security.tls.version
+.
+C) No ficheiro .bashrc.
+D) Através do comando snort -v.
+Resposta: B. Explicação: Valores de 1 a 4 correspondem a TLS 1.0 até 1.3
+.
+Para decifrar tráfego HTTPS no Wireshark, que variável de ambiente deve ser exportada no Linux?
+A) HTTPS_DECRYPT.
+B) SSLKEYLOGFILE
+.
+C) WIRESHARK_KEYS.
+D) TLS_MASTER_SECRET.
+Resposta: B. Explicação: Esta variável diz ao browser para guardar as chaves de sessão num ficheiro que o Wireshark pode ler
+.
+No ataque de ARP Poisoning, o comando arpspoof -t <vítima> <gateway> informa a vítima que:
+A) O gateway está desligado.
+B) O endereço MAC do gateway é o endereço MAC do atacante
+.
+C) A sua password de rede expirou.
+D) O Snort foi ativado na rede.
+Resposta: B. Explicação: Isto desvia o tráfego da vítima para a máquina do atacante
+.
+O que caracteriza o ataque de "Shoulder Surfing"?
+A) Roubo de cookies via Wi-Fi.
+B) Observar fisicamente o utilizador a introduzir a password
+.
+C) Envio de e-mails de phishing.
+D) Ataque de dicionário contra o ficheiro shadow.
+Resposta: B. Explicação: É um método simples de engenharia social física
+.
+A geometria da mão e os padrões vasculares são exemplos de biometria:
+A) Comportamental.
+B) Fisiológica
+.
+C) Híbrida.
+D) De posse.
+Resposta: B. Explicação: Baseiam-se em características físicas estáticas do corpo humano
+.
+Uma "Identidade Portável" permite:
+A) Mudar de telemóvel sem perder a conta.
+B) Usar credenciais de uma organização (ex: UA) para aceder a recursos de parceiros externos
+.
+C) Ter a mesma password em todos os sites.
+D) Imprimir o certificado em papel.
+Resposta: B. Explicação: É o conceito base da Identidade Federada
+.
+Protocolos como PPTP e L2TP são usados em que tipo de VPN?
+A) VPN de nível 3 (Rede).
+B) VPN de nível 2 (Ligação)
+.
+C) VPN SSL.
+D) VPN de Aplicação.
+Resposta: B. Explicação: Operam ao nível da camada de ligação, encapsulando tramas Ethernet
+.
+Onde são guardados os logs de alertas do Snort por omissão no Ubuntu?
+A) /etc/snort/alerts
+B) /var/log/snort/
+.
+C) /home/user/snort.log
+D) /var/mail/snort
+Resposta: B. Explicação: É o diretório padrão para ficheiros de log e binários de captura
+.
+Um IDS baseado em comportamento (anomalias) gera alarmes quando:
+A) Deteta uma assinatura de vírus conhecida.
+B) Ocorre um desvio estatístico do que é considerado "normal" no sistema
+.
+C) A subscrição do antivírus expira.
+D) O utilizador faz logout.
+Resposta: B. Explicação: Requer um período de treino para aprender o comportamento padrão
+.
+A autenticação SSH por par de chaves baseia-se em:
+A) Cifra simétrica partilhada.
+B) Cifra assimétrica (Chave Pública no servidor, Privada no cliente)
+.
+C) Envio da password em texto claro.
+D) SMS de confirmação obrigatório.
+Resposta: B. Explicação: O servidor desafia o cliente a provar a posse da chave privada correspondente à pública autorizada
+.
+Qual é o formato de um identificador de vulnerabilidade comum?
+A) VULN-2024-001.
+B) CVE-Ano-Número
+.
+C) ISO-9001-Seg.
+D) IDS-Snort-Rule.
+Resposta: B. Explicação: O padrão CVE permite identificar univocamente falhas de segurança conhecidas
+.
+No contexto de PKI, o certificado da CA Raiz é:
+A) Assinado pela Google.
+B) Auto-assinado
+.
+C) Gerado aleatoriamente pelo browser.
+D) Inválido para servidores HTTPS.
+Resposta: B. Explicação: Por ser a âncora de confiança, ela própria atesta a sua identidade
+.
+O que acontece se o Snort for iniciado com a opção -vde?
+A) Ele apaga os logs antigos.
+B) Ele mostra informação das camadas 2, 3 e 4 (Link, Rede e Transporte)
+.
+C) Ele entra em modo IPS e bloqueia o tráfego.
+D) Ele verifica se a regra tem erros de sintaxe.
+Resposta: B. Explicação: v (visualizar), d (dados/transporte), e (ethernet/link)
+.
+Parte II: Questões de Escrita (Resposta Aberta)
+Discuta os benefícios e riscos da Biometria em comparação com as passwords tradicionais.
+Resposta detalhada: Benefícios: Maior conveniência (nada para memorizar), dificuldade de partilha entre utilizadores e forte ligação entre a identidade física e digital
+. Riscos: Se os dados biométricos forem roubados, são imutáveis (não se pode mudar a íris ou impressão digital como se muda uma password)
+. Além disso, existem preocupações com a privacidade e a possibilidade de falsificação (ex: moldes de dedos ou fotografias de alta resolução)
+.
+Explique o conceito de "Man-in-the-Middle" (MitM) no contexto de um ataque de ARP Poisoning.
+Resposta detalhada: No ARP Poisoning, o atacante envia mensagens ARP falsas para a rede local. Ele engana a vítima fazendo-a crer que o endereço MAC do atacante pertence ao gateway, e engana o gateway fazendo-o crer que o MAC do atacante pertence à vítima
+. Como resultado, todo o tráfego entre a vítima e o exterior passa pela máquina do atacante, que pode ler, modificar ou bloquear os dados antes de os reencaminhar, concretizando o MitM
+.
+Descreva a estrutura de uma regra do Snort, explicando os seus componentes principais.
+Resposta detalhada: Uma regra divide-se em: 1) Cabeçalho: Define a ação (ex: alert), o protocolo (tcp, udp, icmp), os endereços IP (origem/destino) e os portos. 2) Opções: Delimitadas por parênteses, contêm a mensagem de alerta (msg), o ID da regra (sid), a revisão (rev) e os critérios de deteção, como o conteúdo do pacote (content) ou referências externas (reference:cve) .

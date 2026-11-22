@@ -1,0 +1,157 @@
+Teste de Avaliação II: Segurança de Redes e Sistemas
+Parte I: Escolha Múltipla (18 Perguntas)
+Na função lógica XOR (Ou-exclusivo), qual é o resultado da operação entre os bits 1 e 1?
+A) 1
+B) 0
+C) 10 (binário)
+D) Erro de sintaxe
+Resposta: B. Explicação: A regra do XOR dita que se dois bits são iguais, o resultado é 0; se são diferentes, o resultado é 1
+.
+Qual é a principal motivação para o uso de cifras contínuas (Stream Ciphers)?
+A) Facilitar o preenchimento de blocos (padding).
+B) Ter cifras próximas da segurança teórica de uma one-time pad e facilidade de computação
+.
+C) Garantir que o texto original nunca seja baralhado.
+D) Permitir a troca de chaves públicas sem autenticação.
+Resposta: B. Explicação: Elas misturam um fluxo de chave (keystream) com o texto usando XOR, sendo muito eficientes em computadores
+.
+Para que serve o algoritmo PKCS#7 Padding nas cifras por blocos?
+A) Para cifrar o cabeçalho do pacote.
+B) Para completar o último bloco de dados caso este não atinja o tamanho fixo exigido pelo algoritmo
+.
+C) Para gerar chaves aleatórias de 128 bits.
+D) Para remover o sal (salt) das passwords.
+Resposta: B. Explicação: Cifras por blocos exigem dados em tamanhos fixos; o padding preenche o espaço restante com bytes indicando quantos bytes faltavam
+.
+Sobre o algoritmo de hash MD5, é correto afirmar que:
+A) É o padrão mais seguro atualmente.
+B) Já não é considerado seguro pois é fácil descobrir colisões
+.
+C) Utiliza chaves de 256 bits.
+D) É impossível de ser processado em Linux.
+Resposta: B. Explicação: Devido à facilidade de gerar colisões (dois inputs diferentes com o mesmo hash), o MD5 foi descontinuado para fins de segurança
+.
+Um Código de Autenticação de Mensagens (MAC) utiliza que tipo de criptografia?
+A) Assimétrica (Chave Pública).
+B) Apenas funções hash sem chave.
+C) Simétrica (Chave Secreta)
+.
+D) Cifra de César.
+Resposta: C. Explicação: Ao contrário da assinatura digital, o MAC baseia-se num segredo partilhado entre os interlocutores para garantir integridade e origem
+.
+A biometria é considerada qual fator de autenticação?
+A) Algo que eu sei.
+B) Algo que eu tenho.
+C) Algo que eu sou
+.
+D) Algo que eu faço (fator comportamental apenas).
+Resposta: C. Explicação: Este fator baseia-se em características físicas (íris, impressões digitais) ou comportamentais únicas da pessoa
+.
+O que caracteriza o ataque de "Credential Stuffing"?
+A) Tentar todas as combinações possíveis de caracteres (força bruta).
+B) Injeção automática de pares username/password já conhecidos (exfiltrados de outros serviços) para descobrir contas acessíveis
+.
+C) Roubar a password espreitando por cima do ombro (shoulder surfing).
+D) Enviar e-mails falsos pedindo a password.
+Resposta: B. Explicação: Aproveita a má prática de utilizadores que usam a mesma password em múltiplos sites
+.
+Qual é uma vantagem clara da biometria em relação às passwords?
+A) É fácil de mudar caso seja roubada.
+B) O utilizador não precisa de memorizar nada
+.
+C) Não revela informação pessoal sensível.
+D) É impossível de falsificar.
+Resposta: B. Explicação: Elimina a carga cognitiva de gerir senhas complexas, embora tenha o problema de ser imutável (não se pode mudar a íris)
+.
+No protocolo de autenticação CHAP, a password do utilizador é enviada pela rede?
+A) Sim, em texto claro.
+B) Sim, mas apenas cifrada com RSA.
+C) Não, nunca é transmitida em claro
+.
+D) Sim, mas apenas no início da ligação.
+Resposta: C. Explicação: O CHAP usa um desafio-resposta onde apenas o resultado de uma função hash (envolvendo a password e um desafio) é enviado
+.
+Em sistemas de Single Sign-On (SSO), o que é o Identity Provider (IdP)?
+A) É o browser do utilizador.
+B) É o serviço que gere as identidades digitais e autentica o utilizador uma única vez para várias aplicações
+.
+C) É um vírus que rouba identidades.
+D) É o router da organização.
+Resposta: B. Explicação: Exemplos incluem o idp.ua.pt, que centraliza a autenticação para serviços como o elearning e o paco
+.
+O protocolo TLS "Record Protocol" é responsável por fornecer:
+A) Apenas a autenticação do servidor.
+B) A negociação da Cipher Suite.
+C) Confidencialidade e integridade da comunicação através de cifra simétrica e MAC
+.
+D) A atribuição de endereços IP dinâmicos.
+Resposta: C. Explicação: Enquanto o Handshake negoceia as chaves, o Record Protocol faz o transporte seguro dos dados reais
+.
+As VPNs de nível 3 utilizam tipicamente qual protocolo?
+A) L2TP.
+B) HTTP.
+C) IPSec
+.
+D) Telnet.
+Resposta: C. Explicação: O IPSec opera na camada de rede (Layer 3), permitindo tunelar todo o tráfego IP de forma segura
+.
+Qual é o objetivo principal do ataque de ARP Poisoning?
+A) Bloquear o acesso à Internet da vítima.
+B) Implementar um ataque Man-in-the-Middle (MitM) ao envenenar a tabela ARP com endereços MAC falsos
+.
+C) Descobrir a password de root do servidor.
+D) Alterar o endereço IP público do router.
+Resposta: B. Explicação: Faz com que o tráfego da vítima passe pela máquina do atacante antes de ir para o destino real
+.
+O ataque "Ping of Death" explorava que característica do protocolo ICMP/IP?
+A) A falta de passwords no ping.
+B) Mensagens excessivamente grandes e fragmentação que causavam crash por buffer overflow ao serem reconstruídas
+.
+C) O uso de portas UDP altas.
+D) A velocidade da fibra ótica.
+Resposta: B. Explicação: Sistemas antigos não sabiam lidar com pacotes ICMP maiores do que o máximo permitido (65535 bytes)
+.
+No dicionário CVE, o que distingue uma "Vulnerabilidade" de uma "Exposição"?
+A) Não há diferença, são sinónimos.
+B) Uma vulnerabilidade é um erro que permite violar diretamente uma política de segurança; uma exposição é um problema que auxilia um atacante mas não compromete diretamente
+.
+C) Exposição é apenas para redes Wi-Fi.
+D) Vulnerabilidade é um erro de hardware; exposição é de software.
+Resposta: B. Explicação: A exposição (ex: listar nomes de utilizadores) fornece munição ao atacante para tentar explorar uma vulnerabilidade real depois
+.
+Como se classifica um alarme de IDS gerado quando, na realidade, não ocorreu nenhuma intrusão?
+A) Verdadeiro Positivo.
+B) Falso Negativo.
+C) Falso Positivo
+.
+D) Verdadeiro Negativo.
+Resposta: C. Explicação: É um "alarme falso" que consome tempo dos administradores de sistemas
+.
+Qual é a principal desvantagem da deteção de intrusões baseada em comportamento (anomalias)?
+A) Não deteta ataques novos.
+B) Gera muitos falsos positivos
+.
+C) Requer o conhecimento de todas as assinaturas de vírus.
+D) Só funciona em ambiente Windows.
+Resposta: B. Explicação: Como qualquer atividade legítima mas rara é vista como anomalia, o sistema gera muitos alertas desnecessários
+.
+No Snort, que modo de operação permite apenas visualizar o tráfego a fluir na rede em tempo real?
+A) Sniffer
+.
+B) Packet Logger.
+C) IPS.
+D) Firewall.
+Resposta: A. Explicação: Em modo sniffer (comando snort -v), o Snort limita-se a ler os pacotes e imprimi-los na consola
+.
+Parte II: Questões de Escrita (Resposta Aberta)
+Explique o funcionamento e a importância dos "SYN cookies" na mitigação de ataques de SYN Flooding.
+Resposta detalhada: Num ataque de SYN Flooding, o atacante envia múltiplos pedidos SYN mas nunca responde ao SYN+ACK, forçando o servidor a manter estados de "ligação meio-aberta" e esgotar a sua memória. Com SYN cookies, o servidor deixa de reservar recursos imediatamente. Em vez disso, ele cifra informação da ligação no número de sequência inicial (ISN) enviado no SYN+ACK (o "cookie"). O servidor só reserva memória quando recebe o ACK final do cliente legítimo, validando o cookie devolvido. Isto torna o servidor imune ao esgotamento de recursos por pedidos incompletos
+.
+Descreva a hierarquia de confiança numa Infraestrutura de Chaves Públicas (PKI), diferenciando a CA Raiz da CA Intermédia.
+Resposta detalhada: Uma PKI organiza-se de forma hierárquica. No topo está a CA Raiz, que é a "âncora de confiança". O seu certificado é auto-assinado e é nela que depositamos confiança absoluta (geralmente já vem embebida nos browsers/Sistemas Operativos)
+. Debaixo da raiz, existem as CAs Intermédias (ou subordinadas). Estas têm o seu certificado assinado pela CA Raiz (ou por outra intermédia). A sua função é particionar a emissão de certificados por propósitos ou departamentos e reduzir o risco: se uma CA intermédia for comprometida, revoga-se apenas esse ramo, protegendo a chave privada da CA Raiz, que deve ser mantida offline
+.
+De acordo com os guiões práticos, como é possível analisar o conteúdo em claro de tráfego HTTPS no Wireshark?
+Resposta detalhada: Como o tráfego HTTPS é cifrado por TLS, o Wireshark normalmente apenas mostra "Application Data" ilegível
+. Para decifrá-lo, é necessário exportar as chaves de sessão do browser. No Linux, configura-se a variável de ambiente SSLKEYLOGFILE apontando para um ficheiro de texto (ex: export SSLKEYLOGFILE=~/chaves.txt). O Firefox guardará nesse ficheiro o material criptográfico de cada sessão. Depois, nas preferências do Wireshark (Protocolo TLS), indica-se o caminho para este ficheiro. A partir daí, o Wireshark usa as chaves para decifrar os pacotes em tempo real, permitindo ver o código HTML/HTTP original através da opção "Follow TLS Stream"
+.

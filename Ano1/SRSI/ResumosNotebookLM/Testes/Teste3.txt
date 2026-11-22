@@ -1,0 +1,151 @@
+Teste de Avaliação III: Segurança de Redes e Sistemas
+Parte I: Escolha Múltipla (18 Perguntas)
+
+
+Qual é a principal função do serviço de "Não Repúdio" na criptografia?
+A) Impedir que terceiros leiam a mensagem.
+B) Garantir que a mensagem não foi alterada.
+C) Garantir que quem produziu a informação não possa negar a sua autoria.
+D) Provar que o servidor é legítimo.
+Resposta: C. Explicação: O não repúdio assegura que o emissor não consiga alegar que não enviou a mensagem, algo vital em transações legais e bancárias.
+
+No algoritmo AES, o tamanho do bloco de dados é sempre de:
+A) 56 bits.
+B) 64 bits.
+C) 128 bits.
+D) 256 bits.
+Resposta: C. Explicação: Ao contrário do DES (64 bits), o AES utiliza blocos fixos de 128 bits, independentemente de a chave ser de 128, 192 ou 256 bits.
+
+Segundo o algoritmo PKCS#7 Padding, se um bloco de dados estiver perfeitamente preenchido (sem bytes em falta), o que acontece?
+A) Não é adicionado nenhum padding.
+B) É adicionado um bloco completo de padding.
+C) A cifra falha e gera um erro.
+D) O último byte do dado original é removido.
+Resposta: B. Explicação: Para que a decifra saiba sempre quantos bytes remover, se o bloco estiver cheio, o algoritmo acrescenta um bloco extra completo de padding.
+
+O modo de cifra CBC (Cipher Block Chaining) requer obrigatoriamente:
+A) Uma chave pública.
+B) Um Vetor de Inicialização (IV).
+C) Uma ligação à Internet.
+D) O uso de funções MD5.
+Resposta: B. Explicação: O IV é necessário para somar (XOR) com o primeiro bloco de texto claro, garantindo que textos iguais gerem criptogramas diferentes.
+
+Qual é a diferença fundamental entre um ataque de "Força Bruta" e um de "Dicionário"?
+A) A força bruta é mais rápida.
+B) O dicionário testa todas as combinações de bits, a força bruta não.
+C) A força bruta tenta todas as combinações possíveis; o dicionário limita-se a palavras e frases conhecidas.
+D) O dicionário só funciona em sistemas Linux.
+Resposta: C. Explicação: A força bruta é exaustiva, enquanto o dicionário é mais "inteligente" e focado em termos prováveis, sendo mais rápido mas menos abrangente.
+
+O ataque de "Spraying" caracteriza-se por:
+A) Tentar todas as chaves AES possíveis.
+B) Testar uma única password comum contra uma longa lista de contas de utilizador.
+C) Capturar pacotes no Wireshark.
+D) Envenenar a tabela ARP do router.
+Resposta: B. Explicação: Ao testar apenas uma ou duas passwords comuns em muitas contas, o atacante evita bloqueios de conta por excesso de tentativas falhadas numa única conta.
+
+Qual é o principal problema da autenticação biométrica em termos de gestão?
+A) É difícil de memorizar.
+B) O utilizador não pode mudar as suas credenciais (ex: mudar a íris) caso estas sejam comprometidas.
+C) Requer sempre o uso de um smartcard.
+D) Só funciona para autenticação local.
+Resposta: B. Explicação: Ao contrário de uma password, que pode ser alterada se for roubada, os dados biométricos são imutáveis e permanentes.
+
+No protocolo CHAP, qual é a vantagem sobre o protocolo PAP?
+A) É mais fácil de configurar.
+B) A password nunca é transmitida em claro na rede.
+C) Utiliza chaves de 4096 bits.
+D) Permite login automático sem intervenção do utilizador.
+Resposta: B. Explicação: O PAP envia username/password em texto claro, enquanto o CHAP usa um desafio-resposta que protege o segredo.
+
+O protocolo PEAP é frequentemente utilizado em que contexto?
+A) Acesso à rede eduroam (Wi-Fi).
+B) Transferência de ficheiros via FTP.
+C) Configuração de CAs locais.
+D) Envio de e-mails assinados.
+Resposta: A. Explicação: O PEAP (Protected EAP) é a base para a autenticação segura em redes sem fios empresariais e académicas.
+
+Qual é o objetivo principal do "Handshake Protocol" no SSL/TLS?
+A) Comprimir os dados da aplicação.
+B) Negociar as cipher suites e autenticar os interlocutores.
+C) Bloquear ataques de vírus.
+D) Atribuir endereços IP às máquinas virtuais.
+Resposta: B. Explicação: Este protocolo estabelece as "regras do jogo" antes de a transferência de dados cifrados começar.
+
+As VPNs de nível 2 (Layer 2) operam tipicamente com qual protocolo?
+A) IPSec.
+B) L2TP.
+C) HTTP.
+D) SSH.
+Resposta: B. Explicação: Protocolos como PPTP e L2TP operam na camada de ligação, permitindo estender um segmento de rede local.
+
+O ataque "Ping of Death" baseava-se em:
+A) Enviar pings com passwords erradas.
+B) Fragmentação IP de mensagens ICMP excessivamente grandes para causar buffer overflow.
+C) Desligar o adaptador de rede da vítima remotamente.
+D) Usar o comando sudo apt-get.
+Resposta: B. Explicação: Sistemas antigos crashavam ao tentar reconstruir um pacote maior do que o limite permitido de 65.535 bytes.
+
+Como funcionam os "SYN cookies" para mitigar o SYN Flooding?
+A) O servidor desliga o serviço HTTP.
+B) O número de sequência inicial (ISN) é enviado cifrado no SYN+ACK como um "cookie".
+C) O servidor bloqueia o IP do atacante permanentemente.
+D) É necessário um cartão de cidadão para fazer o ping.
+Resposta: B. Explicação: O servidor não guarda estado da ligação até que o cliente prove a sua legitimidade devolvendo o cookie, evitando o esgotamento de memória.
+
+Um "Falso Negativo" num sistema de detecção de intrusões ocorre quando:
+A) Não houve intrusão mas o alarme tocou.
+B) Houve uma intrusão mas o sistema não gerou alarme.
+C) O sistema bloqueou um utilizador legítimo.
+D) O Snort está em modo Sniffer.
+Resposta: B. Explicação: É a falha mais perigosa, pois o ataque ocorre sem que os administradores saibam.
+
+No Snort, que opção de linha de comando ativa o modo "Packet Logger"?
+A) -v
+B) -l
+C) -c
+D) -T
+Resposta: B. Explicação: A opção -l seguida do caminho da pasta permite que o Snort guarde o tráfego em ficheiros de log para análise posterior.
+
+Qual é a característica distintiva de uma CA Raiz?
+A) O seu certificado é assinado pelo governo.
+B) O seu certificado é auto assinado (root of trust).
+C) Só emite certificados para browsers Firefox.
+D) Não tem chave privada.
+Resposta: B. Explicação: Sendo o topo da hierarquia, não existe entidade acima para assinar o seu certificado; a confiança nela é o ponto de partida (âncora).
+
+No ataque de ARP Poisoning, o atacante engana a vítima ao:
+A) Cifrar os seus ficheiros e pedir um resgate.
+B) Associar o seu próprio endereço MAC ao endereço IP do gateway ou de outro host.
+C) Mudar a password de root da máquina Ubuntu.
+D) Apagar os logs do Snort.
+Resposta: B. Explicação: Isto faz com que a vítima envie o tráfego para o atacante, pensando que o está a enviar para o router (MitM).
+
+A Assinatura Digital é gerada utilizando qual chave?
+A) Chave pública do destinatário.
+B) Chave privada do assinante.
+C) Chave simétrica partilhada.
+D) Vetor de Inicialização (IV).
+Resposta: B. Explicação: Só o dono da chave privada pode assinar; qualquer pessoa com a correspondente chave pública pode validar a assinatura.
+
+
+
+
+Parte II: Questões de Escrita (Resposta Aberta)
+
+
+Descreva o processo de geração e verificação de uma Assinatura Digital.
+
+Resposta detalhada: O processo tem dois passos principais: 1) Assinatura: O emissor aplica uma função hash ao documento para obter uma síntese (digest). De seguida, cifra essa síntese com a sua chave privada. O resultado é a assinatura digital, que é enviada junto com o documento.
+ 2) Verificação: O receptor usa a chave pública do emissor para decifrar a assinatura e recuperar a síntese original. Simultaneamente, calcula o hash do documento recebido. Se o hash calculado for igual à síntese decifrada, a assinatura é válida, garantindo integridade e autenticidade.
+
+
+Explique o conceito de "Transitividade da Confiança" no contexto de uma PKI.
+Resposta detalhada: A transitividade da confiança significa que, se o utilizador confia numa CA Raiz, ele passa a confiar automaticamente em todas as CAs Intermédias que foram assinadas por essa raiz e, consequentemente, em todos os certificados finais (servidores ou pessoas) emitidos por essas CAs.
+ A validação de um certificado implica, portanto, construir e verificar toda a cadeia de certificação até chegar à CA Raiz em que o utilizador depositou confiança inicial.
+
+
+
+No contexto do Snort e da monitorização de redes, o que é o "Modo Promíscuo" e porque é necessário para um NIDS?
+Resposta detalhada: O modo promíscuo é uma configuração do adaptador de rede que permite à placa capturar e processar todos os pacotes que circulam no segmento de rede, mesmo aqueles que não têm como destino o endereço MAC da própria máquina.
+ Para um NIDS (Network IDS) como o Snort, isto é fundamental porque o sistema precisa de analisar todo o tráfego do segmento para detectar intrusões dirigidas a qualquer host, agindo como um sensor que "ouve" toda a vizinhança.
