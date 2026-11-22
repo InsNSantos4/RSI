@@ -1,0 +1,176 @@
+Exame Final (23/06/2024)
+VLANs Engenharia, Datacenter, Comercial:
+a) Interligação: Usando um Router-on-a-Stick (interfaces virtuais L2 no router) ou, preferencialmente, um Switch L3 com SVIs (Switched Virtual Interfaces) para cada VLAN
+.
+b) Comutação: Configurando portas de acesso nos switches para os PCs e links de Trunk (802.1Q) entre switches para transportar múltiplas VLANs
+.
+c) Portas L3 vs L2: Portas L3 (routing) eliminam loops de STP e permitem convergência mais rápida via OSPF; portas L2 exigem STP para evitar broadcast storms
+.
+VLANs com mesmo endereço IP:
+a) PC4 e deb-1 (VLAN 1): Sim, comunicam diretamente via L2
+.
+b) PC4 (VLAN 1) e PC3 (VLAN 2): Não comunicam sem um router/L3 switch, pois estão em domínios de broadcast diferentes, mesmo tendo o mesmo IP de rede
+.
+Gestão de Spanning-Tree: Os administradores devem gerir a árvore para garantir que o Root Bridge seja um switch de alta performance (Core) e não um switch de acesso aleatório, otimizando o caminho do tráfego
+.
+
+
+
+OU
+
+
+Pergunta 1: Interligação e Comutação
+
+    a) Interligar VLANs: Pode ser feito via Router-on-a-Stick (usando subinterfaces no router ligadas a um trunk) ou via Switch de Camada 3 (criando SVIs para cada VLAN com o comando interface vlan X).
+    b) Comutar VLANs: Configurando portas de acesso para dispositivos finais e links de Trunk (802.1Q) entre switches para transportar tráfego de múltiplas VLANs com as respetivas etiquetas (tags).
+    c) Portas L3 vs L2: Portas L3 (configuradas com no switchport) funcionam como interfaces de router puro, eliminando loops de STP e permitindo vizinhanças OSPF diretas; portas L2 dependem do Spanning-Tree para evitar loops e operam com base em endereços MAC.
+    d) Rede Lógica: Focada na topologia de encaminhamento IP e áreas OSPF.
+    e) Redundância Internet: Implementação de dois links com ISPs diferentes e uso de protocolos de redundância como HSRP nos routers de fronteira para garantir que, se um falhar, o outro assume a saída.
+
+Pergunta 2: Mesma rede IP em VLANs diferentes
+
+    A lógica é idêntica ao exame anterior: PC4 e deb-1 comunicam (mesma VLAN); PC4 e PC3 não comunicam (VLANs diferentes isolam o tráfego L2 mesmo com IPs iguais).
+
+Pergunta 3: Gestão do Spanning-Tree (STP)
+
+    Embora automático, os administradores devem gerir a árvore para garantir que o Root Bridge seja o switch de maior capacidade (normalmente no Core/Distribuição). Se não for gerido, um switch de acesso antigo com o MAC address mais baixo pode tornar-se o Root, forçando todo o tráfego da rede a passar por um link lento e ineficiente.
+
+Pergunta 4: Hierarquia OSPF (Ver resposta do Exame Recurso 2025, P3).
+Pergunta 5: Migração IPv6 (Ver resposta do Exame Recurso 2025, P5).
+
+
+
+
+
+
+
+Exame Recurso (02/07/2025)
+
+
+Pergunta 1: VLANs e Endereçamento
+
+    a) Comunicação PC4 e deb-1: Sim, a comunicação é possível. Como ambos estão na VLAN 1 e partilham o mesmo endereço de rede, o tráfego é encaminhado diretamente via Camada 2 (L2) através do link de trunk ou portas de acesso, sem necessidade de passar por um router.
+    b) Comunicação PC4 e PC3: Não é possível. Embora tenham o mesmo endereço de rede IP, estão em VLANs diferentes (domínios de broadcast distintos). Para haver comunicação inter-VLAN, os pacotes têm de ser encaminhados por um router ou switch L3, e as interfaces virtuais (SVIs ou subinterfaces) não podem ter endereços IP da mesma sub-rede configurados simultaneamente.
+
+Pergunta 2: Hierarquização do Encaminhamento
+
+    a) Em que consiste: Consiste em dividir a infraestrutura de rede em camadas lógicas (Acesso, Distribuição e Core) ou em áreas de encaminhamento (como as áreas OSPF), em vez de ter uma rede plana onde todos os routers processam todas as rotas.
+    b) Vantagens: As principais vantagens são a escalabilidade, a redução do tamanho das tabelas de encaminhamento (sumarização), a isolação de falhas (instabilidades numa área não afetam o cálculo de rotas noutras) e a otimização dos recursos de CPU dos equipamentos.
+
+Pergunta 3: Encaminhamento Hierárquico OSPF
+
+    Baseia-se na utilização de Áreas, sendo a Área 0 (Backbone) obrigatória para interligar as restantes. A sua importância para o desempenho reside no facto de limitar a inundação de LSAs (Link State Advertisements) a uma área específica e permitir que o algoritmo SPF (Shortest Path First) seja corrido apenas sobre uma base de dados menor, acelerando a convergência.
+
+Pergunta 4: Rede Estruturada e Datacenter
+
+    a) Camadas e Equipamentos: A rede teria as camadas de Acesso (switches L2 como o C2960 para ligar utilizadores), Distribuição (switches L3 para agregação e políticas) e Core (routers ou switches de alta performance para transporte rápido).
+    b) Rede Lógica: Deve representar as interfaces virtuais (SVIs), as adjacências OSPF entre os routers R1/R2 e os switches de distribuição, e os links de trunking.
+    c) Interligação do Datacenter: Deve ser interligado preferencialmente na camada de Core ou Distribuição, utilizando links redundantes e de alta largura de banda para garantir baixa latência e alta disponibilidade aos servidores.
+
+Pergunta 5: Relatório de Migração IPv6
+
+    A migração exige a ativação de Dual-Stack nos equipamentos (IPv4 e IPv6 em simultâneo). As alterações incluem:
+        Gestão de Endereçamento: Passagem de 32 para 128 bits e uso de SLAAC ou DHCPv6.
+        Tradução de Nomes: Atualização do DNS para suportar registos AAAA.
+        Protocolos: Substituição do ARP pelo NDP (Neighbor Discovery Protocol) via mensagens ICMPv6.
+
+
+
+
+
+
+
+
+
+Exame Recurso (28/02/2022)
+
+Pergunta 1: Gestão de STP (Ver resposta do Exame Final 2024, P3).
+
+Pergunta 2: Técnicas Inter-VLAN
+
+    As duas técnicas principais são o Router-on-a-Stick (router ligado a um switch por um trunk) e o uso de Multilayer Switches com SVIs (encaminhamento por hardware mais rápido).
+
+Pergunta 3: Tecnologia VTP (VLAN Trunking Protocol)
+
+    O VTP é importante para a administração pois permite a propagação centralizada de configurações de VLANs (criação, alteração, eliminação) a partir de um switch "Server" para todos os switches "Client" no mesmo domínio, garantindo consistência e reduzindo erros manuais.
+
+Pergunta 4: Hierarquia OSPF (Ver resposta do Exame Recurso 2025, P3).
+Pergunta 5: Tunelização IP
+
+    a) Em que consiste: Consiste em encapsular um pacote de rede dentro de outro pacote de um protocolo diferente ou da mesma família (ex: pacote IPv6 dentro de um cabeçalho IPv4) para transporte através de uma rede que não suporta o protocolo original.
+    b) Importância: É vital para a transição de IPv4 para IPv6 (túneis 6to4 ou GRE) e para a criação de VPNs, permitindo ligar redes privadas através da Internet pública de forma segura e transparente.
+
+Pergunta 6: Bluetooth 4.0
+
+    Inclui o Bluetooth Classic, usado para taxas de dados elevadas e streaming de áudio (maior consumo), e o Bluetooth Low Energy (BLE), desenhado para dispositivos IoT e sensores que funcionam com baterias de botão por longos períodos. A principal diferença é a eficiência energética e o modo de descoberta/ligação rápida do BLE.
+
+Pergunta 7: Migração IPv6 (Ver resposta do Exame Recurso 2025, P5).
+
+
+
+
+
+
+
+3. Teste Gerado de Planeamento de Redes
+Escolha Múltipla (18 perguntas)
+
+Qual a norma que define VLANs? a) 802.11 b) 802.1Q c) 802.1d d) 802.3
+O que acontece a uma frame Ethernet num loop L2? a) É descartada pelo TTL b) Circula infinitamente c) O router apaga-a d) É convertida em IPv6
+
+Qual o prefixo de um endereço Link-Local IPv6? a) 2001::/16 b) FE80::/10 c) FF00::/8 d) FC00::/7
+
+A regra 20:1 no design de campus refere-se a: a) Utilizadores por AP b) Downlink de acesso vs Uplink de distribuição c) IPv4 vs IPv6 d) Switches vs Routers
+
+Qual mensagem ICMPv6 substitui o ARP? a) Router Solicitation b) Neighbor Solicitation c) Echo Request d) Redirect
+
+O que é um SVI? a) Um cabo físico b) Uma interface virtual de VLAN num switch L3 c) Um protocolo de wireless d) Um tipo de NAT
+
+No OSPF, a área 0 é chamada de: a) Stub area b) Backbone area c) NSSA d) Virtual link
+Qual a função do protocolo Spanning-Tree? a) Fazer routing b) Evitar loops em L2 c) Atribuir IPs d) Encriptar dados
+
+O que caracteriza o NAT Overload? a) Um IP público para cada privado b) Múltiplos IPs privados num único IP público via portas c) Desligar o acesso à rede d) Aumentar a velocidade da fibra
+
+Qual o MTBF? a) Tempo médio de reparação b) Tempo médio entre falhas c) Velocidade máxima d) Nível de segurança
+
+Uma "Broadcast Storm" é causada por: a) Excesso de utilizadores Wi-Fi b) Loops de switching sem STP c) Falta de bateria d) NAT mal configurado
+
+O comando "switchport mode trunk" serve para: a) Ligar um PC b) Permitir várias VLANs num link c) Ativar o Wi-Fi d) Definir o IP do switch
+
+Em IPv6, o processo DAD serve para: a) Encaminhar pacotes b) Detetar endereços duplicados c) Ligar ao DNS d) Configurar o Bluetooth
+
+Qual a vantagem do OSPF face ao RIP? a) É mais simples b) Suporta balanceamento de carga e métricas de custo c) Não usa áreas d) Só funciona em redes pequenas
+
+O "Router on a Stick" utiliza: a) Apenas switches L2 b) Um router ligado a um switch via trunk c) Apenas cabos de consola d) Bluetooth para routing
+
+Qual a função da camada de Distribuição? a) Ligar os utilizadores finais b) Agregação de switches de acesso e aplicação de políticas/VLANs c) Ligar à Internet core d) Fornecer energia PoE
+
+O que é o Throughput? a) Velocidade teórica do cabo b) Taxa de dados bem-sucedidos real c) Comprimento do cabo d) Preço do equipamento
+
+A norma 802.11ac opera em que frequência? a) 2.4 GHz b) 5 GHz c) 60 GHz d) 900 MHz
+
+
+Respostas Detalhadas do Teste
+Escolha Múltipla: 1-b, 2-b, 3-b, 4-b, 5-b, 6-b, 7-b, 8-b, 9-b, 10-b, 11-b, 12-b, 13-b, 14-b, 15-b, 16-b, 17-b, 18-b.
+
+
+
+
+Perguntas de Resposta Aberta
+
+Explique a diferença entre um Switch L2 e um Switch L3.
+
+Descreva o processo de autoconfiguração de endereço (SLAAC) em IPv6.
+
+Por que razão a redundância excessiva pode ser prejudicial numa rede empresarial?
+
+
+
+Respostas Abertas:
+L2 vs L3: Um switch L2 comuta frames baseando-se em endereços MAC (Hardware); um switch L3 pode também encaminhar pacotes IP (Routing) via hardware, sendo mais rápido que um router tradicional para tráfego inter-VLAN
+.
+SLAAC: O host envia um Router Solicitation. O router responde com um Router Advertisement contendo o prefixo da rede. O host combina esse prefixo com o seu Interface ID (ex: via EUI-64) para gerar o seu próprio IP global sem precisar de um servidor DHCP
+.
+Redundância Excessiva: Aumenta drasticamente os custos (15-25% extra), torna a gestão complexa (explosão de tabelas de routing) e pode causar problemas de convergência se as rotas redundantes forem anunciadas incorretamente antes de haver falhas reais
+.
+Pode acompanhar o progresso da criação dos vídeos e áudios no separador lateral. Diga-me quando desejar que eu gere os artefactos para a Apresentação 2!Já preparei o primeiro conjunto de materiais para si. Criei agora um Relatório Detalhado com os resumos dos Guiões Laboratoriais (2 ao 12), uma vez que o Guião 1 não consta nas fontes fornecidas. Pode consultar este relatório no separador lateral para ter uma visão clara de todos os procedimentos práticos.

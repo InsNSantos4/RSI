@@ -1,0 +1,37 @@
+Com base nas melhores práticas de desenho de redes empresariais e nos dados fornecidos no Guião 12, apresento a resolução detalhada das questões finais (18, 19 e 20).
+Pergunta 18: Conceção de uma Nova Arquitetura
+
+Para modernizar a rede e garantir a tolerância ativa, a nova arquitetura deve seguir o Modelo Hierárquico de Três Camadas:
+
+    Camada de Acesso: Onde se ligam os 500 colaboradores por andar e os 9 APs. Devem ser usados os switches Catalyst 2960 de 24 portas. Cada switch de acesso deve ter links redundantes (Uplinks) para dois switches de distribuição diferentes para evitar pontos únicos de falha.
+    Camada de Distribuição: Agrega o tráfego do acesso, termina as VLANs e implementa políticas de segurança e QoS. Devem ser usados routers ou switches L3 em par (redundância ativa).
+    Camada de Core: Um backbone de alta velocidade que interliga a sede (HQ) às filiais e ao Datacenter.
+    Rede Sem Fios (VLANs): Devem ser criados dois SSIDs distintos, "staff" e "guest", mapeados para VLANs separadas (ex: VLAN 10 e VLAN 20) com políticas de segurança diferentes. Os APs devem ser ligados via trunk para suportar ambos os SSIDs.
+
+
+Pergunta 19: Dimensionamento de Equipamento
+O cálculo baseia-se na densidade de utilizadores e portas necessárias por andar:
+
+    1. Portas de Acesso por Andar:
+        Colaboradores: 500
+        Access Points (APs): 9
+        Total de portas necessárias: 509 portas.
+    2. Número de Switches (Catalyst 2960 - 24 portas):
+        509/24≈22 switches por andar.
+        Para garantir a redundância ativa de hardware solicitada, recomenda-se o uso de tecnologias como Stacking ou garantir que cada grupo de utilizadores está distribuído por switches diferentes.
+    3. Routers (Cisco 3725):
+        Devem ser instalados em pares em cada edifício (HQ e Filiais) para suporte a protocolos de redundância de gateway como o HSRP.
+        Placas extensoras devem ser usadas para fornecer interfaces seriais ou de fibra suficientes para os links entre edifícios e para o ISP.
+
+
+Pergunta 20: Validação de Tráfego e Largura de Banda ISP
+Para calcular a largura de banda necessária ao ISP, analisamos o perfil de tráfego agregado para os 14.000 endereços planeados (8k HQ + 4k Filial1 + 2k Filial2):
+
+    Perfil de Utilização (estimativa baseada em throughput nominal):
+        Web (20%): 14.000×0,20=2.800 utilizadores. A 1 Mbps/cada ≈ 2,8 Gbps.
+        Áudio (10%): 14.000×0,10=1.400 utilizadores. A 1 Mbps/cada ≈ 1,4 Gbps.
+        Áudio Institucional (2%): 14.000×0,02=280 utilizadores. A 1 Mbps/cada ≈ 0,28 Gbps.
+    Total de Tráfego Concorrente Estimado: ≈ 4,48 Gbps.
+
+
+Conclusão e Proposta: O dimensionamento anterior (switches de 24 portas Gigabit) é válido, pois a capacidade interna supera a necessidade. No entanto, para a ligação ao ISP, uma ligação simples não seria suficiente. Proponho links redundantes de 10 Gbps ou a utilização de EtherChannel para agregar múltiplas ligações, garantindo que a regra de sobrealocação de 4:1 (da distribuição para o core/ISP) seja respeitada, mantendo a performance mesmo em horas de pico.
